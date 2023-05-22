@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_top_bar" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/color_f3_f7_fa" />
+
+    <TextView
+        android:id="@+id/tvAddMember"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:drawableLeft="@drawable/icon_add_friend"
+        android:drawablePadding="17dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:text="@string/chat_add_group_member"
+        android:textColor="@color/color_00_00_00"
+        android:textSize="15dp" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_0_5"
+        android:background="@color/color_f3_f7_fa" />
+
+    <TextView
+        android:id="@+id/tvRemoveMember"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:drawableLeft="@drawable/icon_remove_from_blacklist"
+        android:drawablePadding="17dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:text="@string/chat_delete_group_member"
+        android:textColor="@color/color_00_00_00"
+        android:textSize="15dp" />
+
+
+</LinearLayout>

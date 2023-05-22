@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="25dp">
+
+    <ImageView
+        android:id="@+id/ivTopBg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/icon_red_package_result_top_bg" />
+
+    <ImageView
+        android:id="@+id/ivAvatar"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="-32dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="3dp"
+            android:layout_height="0.5dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/color_00_00_00" />
+
+        <TextView
+            android:id="@+id/tvXXXRedPackage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="14dp" />
+
+        <View
+            android:layout_width="3dp"
+            android:layout_height="0.5dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/color_00_00_00" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvRedPackageTotalValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/color_00_00_00"
+        android:textSize="36dp" />
+
+
+    <TextView
+        android:id="@+id/tvSendRedPackageNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/color_8c_8c_8c"
+        android:textSize="15dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/llReceiveRedPackageNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:paddingLeft="44dp"
+        android:paddingRight="44dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvReceiveRedPackageNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="0"
+                android:textColor="@color/color_00_00_00"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/chat_receive_red_package_num"
+                android:textColor="@color/color_8c_8c_8c"
+                android:textSize="11dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvMaxNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="0"
+                android:textColor="@color/color_00_00_00"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/chat_get_max_red_package"
+                android:textColor="@color/color_8c_8c_8c"
+                android:textSize="11dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

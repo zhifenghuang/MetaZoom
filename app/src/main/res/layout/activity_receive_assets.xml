@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_gradient_7a5bd0_b163e1_180"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/app_layout_top_bar" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="28dp"
+        android:background="@drawable/shape_ffffff_19"
+        android:orientation="vertical"
+        android:paddingTop="30dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/app_btc_icon" />
+
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="BTC Receive"
+            android:textColor="@color/text_color_7"
+            android:textSize="@dimen/dimen_20"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivQRCode"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/tvAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:gravity="center_horizontal"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="0x882A5fceca99d8A33419370cBDCC3e02E2c2cc49"
+            android:textColor="@color/text_color_7"
+            android:textSize="@dimen/dimen_16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/line" />
+
+        <FrameLayout
+            android:id="@+id/flCopy"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:drawableLeft="@drawable/app_copy"
+                android:drawablePadding="8dp"
+                android:gravity="center"
+                android:text="@string/app_copy"
+                android:textColor="@color/text_color_7"
+                android:textSize="@dimen/dimen_16"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

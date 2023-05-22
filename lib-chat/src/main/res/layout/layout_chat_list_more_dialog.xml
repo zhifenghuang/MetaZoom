@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="46dp">
+
+
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:background="@drawable/bg_chat_list_more"
+        android:orientation="vertical"
+        android:paddingTop="31dp"
+        android:paddingBottom="6dp">
+
+        <TextView
+            android:id="@+id/tvStartGroupChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="13dp"
+            android:paddingTop="17dp"
+            android:paddingRight="13dp"
+            android:paddingBottom="17dp"
+
+            android:text="@string/chat_start_group_chat"
+            android:textColor="@color/color_ff_ff_ff"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tvAddFriend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="13dp"
+            android:paddingTop="17dp"
+            android:paddingRight="13dp"
+            android:paddingBottom="17dp"
+            android:text="@string/chat_add_friend"
+            android:textColor="@color/color_ff_ff_ff"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tvScan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="13dp"
+            android:paddingTop="17dp"
+            android:paddingRight="13dp"
+            android:paddingBottom="17dp"
+            android:text="@string/chat_scan"
+            android:textColor="@color/color_ff_ff_ff"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tvFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="13dp"
+            android:paddingTop="17dp"
+            android:paddingRight="13dp"
+            android:paddingBottom="17dp"
+            android:visibility="gone"
+            android:text="@string/chat_help_feedback"
+            android:textColor="@color/color_ff_ff_ff"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tvMyCollection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="13dp"
+            android:paddingTop="17dp"
+            android:paddingRight="13dp"
+            android:paddingBottom="17dp"
+            android:text="@string/chat_my_collection"
+            android:textColor="@color/color_ff_ff_ff"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right">
+
+    </View>
+
+</LinearLayout>

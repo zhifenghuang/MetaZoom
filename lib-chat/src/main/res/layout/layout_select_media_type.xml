@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_ff_ff_ff"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/btnPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:text="@string/chat_select_photo"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_f3_f7_f9" />
+
+        <TextView
+            android:id="@+id/btnVideo"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:text="@string/chat_select_video"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_f3_f7_f9" />
+
+        <TextView
+            android:id="@+id/btnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="@string/chat_cancel"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+</LinearLayout>

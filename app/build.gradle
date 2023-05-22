@@ -1,0 +1,79 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.meta.zoom'
+    compileSdk 33
+
+    signingConfigs {
+        snapsomething_key {
+            keyAlias 'snapsomething'
+            keyPassword '123456'
+            storeFile file('../snapsomething_key')
+            storePassword '123456'
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.meta.zoom"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.snapsomething_key
+        }
+        debug {
+            signingConfig signingConfigs.snapsomething_key
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    packagingOptions {
+        exclude 'lib/x86_64/darwin/libscrypt.dylib'
+        exclude 'lib/x86_64/freebsd/libscrypt.so'
+        exclude 'lib/x86_64/linux/libscrypt.so'
+        exclude 'META-INF/resources/data/define_word_checker_en.txt'
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.10.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation project(':commonlib')
+    implementation project(':lib-chat')
+
+    api 'org.bitcoinj:bitcoinj-core:0.15.2'
+    api 'org.web3j:core:4.2.0-android'
+
+    api 'com.github.briandilley.jsonrpc4j:jsonrpc4j:1.5.3'
+    api 'wf.bitcoin:JavaBitcoindRpcClient:1.0.0'
+    api 'com.google.guava:guava:28.2-android'
+    api 'com.alibaba:fastjson:1.2.75'
+    api 'com.blankj:utilcodex:1.31.0'
+
+   // api 'com.github.houbb:word-checker:0.0.1'
+}

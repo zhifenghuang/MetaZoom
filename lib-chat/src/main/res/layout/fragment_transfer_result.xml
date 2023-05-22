@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff"
+    android:orientation="vertical"
+    android:paddingBottom="25dp">
+
+    <include layout="@layout/layout_top_bar" />
+
+    <ImageView
+        android:id="@+id/ivAvatar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="23dp" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="7dp"
+        android:textColor="@color/color_00_00_00"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="20dp"
+        android:text="@string/chat_transfer_success"
+        android:textColor="@color/color_00_00_00"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/tvValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="38dp"
+        android:text="@string/chat_xxx_alsc"
+        android:textColor="@color/color_3a_54_ff"
+        android:textSize="36dp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+
+    <TextView
+        android:id="@+id/tvOk"
+        android:layout_width="180dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_chat_add_label"
+        android:gravity="center"
+        android:text="@string/chat_sure_get_money_2"
+        android:textColor="@color/color_ff_ff_ff"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvTip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:text="@string/chat_had_save_in_peer_wallet"
+        android:textColor="@color/color_8c_8c_8c"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/tvStarTime"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:text="@string/chat_transfer_time"
+        android:textColor="@color/color_7c_84_98"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/tvEndTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="8dp"
+        android:text="@string/chat_receive_money_time"
+        android:textColor="@color/color_8c_8c_8c"
+        android:textSize="12dp" />
+
+
+</LinearLayout>

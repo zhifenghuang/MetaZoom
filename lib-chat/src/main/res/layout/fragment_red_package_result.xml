@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f3_f7_fa">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/llTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvRedPackageRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="14dp"
+            android:text="@string/chat_red_package_record"
+            android:textColor="@color/color_ff_ff_ff"
+            android:textSize="14dp" />
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:onClick="onBackClick"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:src="@drawable/icon_close" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_ff_ff_ff"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/llGroupUser"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp">
+        
+        <ImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="21dp"
+            android:text="@string/chat_group_name"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tvRole"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:drawableRight="@drawable/icon_right_arrow"
+            android:drawablePadding="10dp"
+            android:gravity="right"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textColor="@color/color_8c_8c_8c"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="14dp"
+        android:background="@color/color_f3_f7_fa" />
+
+
+</LinearLayout>

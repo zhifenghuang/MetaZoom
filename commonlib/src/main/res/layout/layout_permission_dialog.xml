@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="40dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/common_dialog_background"
+        android:orientation="vertical"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:text="权限申请" />
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="16dp"
+            android:text="相机"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="20dp"
+            android:alpha="0.2"
+            android:background="@color/color_52_5a_65" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_52_5a_65"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/btn1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:textColor="@color/color_48_70_9c"
+                android:background="#ffffff"
+                android:text="取消"
+                android:layout_marginRight="0.5dp"
+                android:visibility="gone"
+                android:layout_weight="1"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/btn2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:textColor="@color/color_48_70_9c"
+                android:layout_weight="1"
+                android:text="下一步"
+                android:background="#ffffff"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

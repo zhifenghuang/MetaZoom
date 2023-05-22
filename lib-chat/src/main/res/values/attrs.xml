@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ImageViewRatio">
+        <attr name="ratio" format="float" />
+        <attr name="round_rect_radius" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="FocusImageView">
+        <attr name="focus_focusing_id" format="integer" />
+        <attr name="focus_success_id" format="integer" />
+        <attr name="focus_fail_id" format="integer" />
+    </declare-styleable>
+
+
+
+    <declare-styleable name="RoundRectImageView">
+        <attr name="round_radius" format="integer" />
+        <attr name="only_top_round" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="PagerDotView">
+        <attr name="selectedPageDotColor" format="integer" />
+        <attr name="otherPageDotColor" format="integer" />
+        <attr name="totalPage" format="integer" />
+        <attr name="direction" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="ScaleLayout">
+        <attr name="width_height_scale" format="float"/>
+    </declare-styleable>
+
+
+
+    <declare-styleable name="pickerview">
+        <attr name="wheelview_gravity">
+            <enum name="center" value="17"/>
+            <enum name="left" value="3"/>
+            <enum name="right" value="5"/>
+        </attr>
+        <attr name="wheelview_textSize" format="dimension"/>
+        <attr name="wheelview_textColorOut" format="color"/>
+        <attr name="wheelview_textColorCenter" format="color"/>
+        <attr name="wheelview_dividerColor" format="color"/>
+        <attr name="wheelview_lineSpacingMultiplier" format="float"/>
+    </declare-styleable>
+
+
+    <!--进度框属性-->
+
+    <!--msg字体颜色-->
+    <attr name="commonProgressDialogMsgTextColor" format="color|reference" />
+    <!--msg字体大小-->
+    <attr name="commonProgressDialogTextSize" format="dimension" />
+    <!--ProgressBar动画-->
+    <attr name="commonProgressDialogProgressDrawable" format="reference" />
+    <!--ProgressDialog中ProgressBar的大小,宽高相同-->
+    <attr name="commonProgressDialogProgressWidth" format="dimension" />
+    <!--ProgressDialog中ProgressBar外框的大小,宽高相同-->
+    <attr name="commonProgressDialogProgressContainerWidth" format="dimension" />
+    <!--ProgressDialog中文本的底部间距-->
+    <attr name="commonProgressDialogBottomSpace" format="dimension" />
+
+    <attr name="rightPadding" format="dimension" />
+
+
+    <declare-styleable name="SlidingMenu">
+        <attr name="rightPadding" />
+    </declare-styleable>
+
+</resources>

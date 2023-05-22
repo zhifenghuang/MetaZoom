@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_top_bar" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_14"
+        android:background="@color/color_f8_f8_f8" />
+
+
+    <LinearLayout
+        android:id="@+id/llAvatar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/chat_avatar"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="11dp"
+            android:src="@drawable/icon_right_arrow" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_10"
+        android:background="@color/color_f8_f8_f8" />
+
+
+    <LinearLayout
+        android:id="@+id/llNick"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/chat_nick"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tvNick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/icon_right_arrow"
+            android:drawablePadding="11dp"
+            android:gravity="center_vertical|right"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_0_5"
+        android:background="@color/color_f8_f8_f8" />
+
+
+    <LinearLayout
+        android:id="@+id/llID"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/chat_id_number"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tvID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_0_5"
+        android:background="@color/color_f8_f8_f8" />
+
+    <LinearLayout
+        android:id="@+id/llGender"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/chat_gender"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tvGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/icon_right_arrow"
+            android:drawablePadding="11dp"
+            android:gravity="center_vertical|right"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_0_5"
+        android:background="@color/color_f8_f8_f8" />
+
+    <LinearLayout
+        android:id="@+id/llQrCode"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/chat_qr_code"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/chat_qrcode" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="11dp"
+            android:src="@drawable/icon_right_arrow" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_0_5"
+        android:background="@color/color_f8_f8_f8" />
+
+
+    <LinearLayout
+        android:id="@+id/llPhone"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/chat_phone"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tvPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/linePhone"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="14dp"
+        android:background="@color/color_f3_f7_fa"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/llEmail"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/chat_email"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/lineEmail"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="14dp"
+        android:background="@color/color_f3_f7_fa"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/llArea"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/chat_area"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tvArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/icon_right_arrow"
+            android:drawablePadding="11dp"
+            android:gravity="center_vertical|right"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_f8_f8_f8" />
+
+</LinearLayout>

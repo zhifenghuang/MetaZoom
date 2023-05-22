@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_top_bar" />
+
+    <ImageView
+        android:id="@+id/ivAvatar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="13dp" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="7dp"
+        android:textColor="@color/color_00_00_00"
+        android:textSize="16dp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="49.5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/chat_transfer_from"
+                android:textColor="@color/color_8c_8c_8c"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|right"
+                android:text="@string/chat_wallet"
+                android:textColor="@color/color_00_00_00"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_0_5"
+            android:background="@color/color_f3_f7_fa" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="18dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chat_transfer_coin_type"
+                android:textColor="@color/color_8c_8c_8c"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/chat_alsc"
+                android:textColor="@color/color_00_00_00"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chat_can_use_money"
+                android:textColor="@color/color_8c_8c_8c"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/tvRestMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.00 UTG"
+                android:textColor="@color/color_3a_54_ff"
+                android:textSize="12dp" />
+
+            <ImageView
+                android:id="@+id/ivRefreshMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="9dp"
+                android:src="@drawable/icon_refresh_money" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_0_5"
+            android:background="@color/color_f3_f7_fa" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="49.5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/chat_transfer_value"
+                android:textColor="@color/color_8c_8c_8c"
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/etValue"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:gravity="center_vertical|right"
+                android:hint="@string/chat_please_input_transfer_value"
+                android:inputType="numberDecimal"
+                android:paddingLeft="10dp"
+                android:textColor="@color/color_00_00_00"
+                android:textColorHint="@color/color_8c_8c_8c"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_0_5"
+            android:alpha="0.5"
+            android:background="@color/color_f3_f7_fa" />
+
+        <TextView
+            android:id="@+id/tvFee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingTop="8dp"
+            android:text="@string/chat_transfer_fee"
+            android:textColor="@color/color_b3_b3_b3"
+            android:textSize="10dp" />
+
+        <TextView
+            android:id="@+id/tvOk"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_chat_add_label"
+            android:gravity="center"
+            android:text="@string/chat_sure_transfer"
+            android:textColor="@color/color_ff_ff_ff"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

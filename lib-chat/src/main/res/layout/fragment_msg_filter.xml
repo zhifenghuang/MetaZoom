@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f3_f7_fa"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_top_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/color_ff_ff_ff"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/etFilter"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="@string/chat_input_filter_letter"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:singleLine="true"
+            android:textColor="@color/color_00_00_00"
+            android:textColorHint="@color/color_8c_8c_8c"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:id="@+id/ivAddMsgFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:src="@drawable/icon_add_msg_filter" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</LinearLayout>

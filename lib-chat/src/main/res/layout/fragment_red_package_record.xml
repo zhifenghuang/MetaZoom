@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f3_f7_f9">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <RelativeLayout
+        android:id="@+id/llTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_f9_33_40"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:id="@+id/ivMore"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:src="@drawable/icon_more_white"
+            android:paddingLeft="13dp" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:textColor="@color/color_ff_ff_ff"
+            android:textSize="16dp" />
+
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:paddingRight="13dp"
+            android:onClick="onBackClick"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_close"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

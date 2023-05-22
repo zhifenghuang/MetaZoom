@@ -1,0 +1,36 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion 33
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.aar'])
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
+    api 'com.upyun:upyun-android-sdk:2.1.2'
+    api 'org.java-websocket:Java-WebSocket:1.4.0'
+    api 'com.github.xiaoyanger0825:NiceVieoPlayer:v2.2'
+    api project(':lib-filepick')
+    api project(':commonlib')
+}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_top_bar" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_f3_f7_fa"
+        android:paddingTop="10dp" />
+
+    <LinearLayout
+        android:id="@+id/llEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_f3_f7_fa"
+        android:orientation="vertical"
+        android:paddingTop="190dp"
+        android:paddingBottom="130dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/chat_no_new_member_red_package"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="30dp"
+            android:text="@string/chat_no_new_member_red_package_tip"
+            android:textColor="@color/color_8c_8c_8c"
+            android:textSize="12dp" />
+
+
+    </LinearLayout>
+</LinearLayout>

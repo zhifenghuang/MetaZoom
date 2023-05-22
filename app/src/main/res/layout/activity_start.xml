@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/app_start_bg"
+    android:paddingLeft="28dp"
+    android:paddingRight="28dp"
+    android:paddingTop="130dp"
+    android:paddingBottom="100dp"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/app_tick"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:text="@string/app_simply_business_meta_zoom"
+        android:textColor="@color/text_color_3"
+        android:textStyle="bold"
+        android:textSize="45dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/tvCreateAccount"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:paddingLeft="29dp"
+        android:paddingRight="28dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/shape_523c91_19"
+        android:drawableRight="@drawable/app_next"
+        android:text="@string/app_create_account"
+        android:textColor="@color/text_color_3"
+        android:textSize="@dimen/dimen_18"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:alpha="0.68"
+        android:background="@color/line2" />
+
+    <TextView
+        android:id="@+id/tvHaveAccount"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:paddingLeft="29dp"
+        android:paddingRight="28dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/shape_2bffffff_19"
+        android:drawableRight="@drawable/app_next"
+        android:text="@string/app_have_account"
+        android:textColor="@color/text_color_3"
+        android:textSize="@dimen/dimen_18"
+        android:textStyle="bold" />
+
+
+
+
+
+</LinearLayout>

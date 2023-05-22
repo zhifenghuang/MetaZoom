@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_top_bar" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/color_f3_f7_fa" />
+
+
+    <EditText
+        android:id="@+id/etNotice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:gravity="top"
+        android:hint="@string/chat_group_notice"
+        android:maxLength="150"
+        android:paddingLeft="13dp"
+        android:paddingTop="15dp"
+        android:paddingRight="13dp"
+        android:paddingBottom="15dp"
+        android:textColor="@color/color_00_00_00"
+        android:textColorHint="@color/color_8c_8c_8c"
+        android:textSize="15dp" />
+
+
+    <TextView
+        android:id="@+id/tvLetterNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="right"
+        android:paddingTop="10dp"
+        android:paddingRight="15dp"
+        android:text="0/150"
+        android:textColor="@color/color_30_ff_ff_ff"
+        android:textSize="11dp"
+        android:visibility="gone" />
+
+
+</LinearLayout>

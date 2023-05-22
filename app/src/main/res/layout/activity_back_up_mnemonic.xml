@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/app_layout_top_bar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="29dp"
+                android:paddingTop="14dp"
+                android:text="@string/app_your_mnemonic_phrase"
+                android:textColor="@color/text_color_2"
+                android:textSize="@dimen/dimen_18" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="264dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginRight="28dp"
+                android:background="@drawable/shape_stroke_d2c2ff_15">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/line" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/line" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="65dp"
+                    android:background="@color/line" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="131dp"
+                    android:background="@color/line" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="197dp"
+                    android:background="@color/line" />
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/tvChange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="28dp"
+                android:drawableLeft="@drawable/app_change"
+                android:drawablePadding="16dp"
+                android:gravity="center"
+                android:paddingTop="17dp"
+                android:text="@string/app_change"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/dimen_16"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/tvBackedUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="19dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="18dp"
+                android:background="@drawable/app_common_btn_bg"
+                android:gravity="center_horizontal"
+                android:paddingTop="19dp"
+                android:text="@string/app_backed_up"
+                android:textColor="@color/text_color_3"
+                android:textSize="@dimen/dimen_18"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal"
+                android:paddingLeft="28dp"
+                android:paddingRight="28dp">
+
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="5dp"
+                    android:alpha="0.6"
+                    android:background="@drawable/shape_6b6b6b_circle" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="@string/app_back_up_tips_1"
+                    android:textColor="@color/text_color_5"
+                    android:textSize="@dimen/dimen_13" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="horizontal"
+                android:paddingLeft="28dp"
+                android:paddingRight="28dp">
+
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="5dp"
+                    android:alpha="0.6"
+                    android:background="@drawable/shape_6b6b6b_circle" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="@string/app_back_up_tips_2"
+                    android:textColor="@color/text_color_5"
+                    android:textSize="@dimen/dimen_13" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+</LinearLayout>

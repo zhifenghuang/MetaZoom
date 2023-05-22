@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_top_bar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/color_f8_f8_f8"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:cursorVisible="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="14dp"
+            android:paddingRight="10dp"
+            android:singleLine="true"
+            android:textColor="@color/color_00_00_00"
+            android:textColorHint="@color/color_b2_b2_b2"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:id="@+id/ivClear"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="4dp"
+            android:padding="10dp"
+            android:src="@drawable/icon_delete" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_f8_f8_f8"></View>
+
+
+</LinearLayout>

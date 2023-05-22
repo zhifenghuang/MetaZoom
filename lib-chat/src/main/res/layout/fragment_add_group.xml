@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/layout_top_bar"/>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_f3_f7_fa">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="14dp"
+                android:textColor="@color/color_00_00_00"
+                android:text="@string/chat_group_name"
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/etGroupName"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:paddingLeft="14dp"
+                android:singleLine="true"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:maxLength="20"
+                android:background="@color/color_ff_ff_ff"
+                android:textColor="@color/color_00_00_00"
+                android:hint="@string/chat_label_example"
+                android:textColorHint="@color/color_8c_8c_8c"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="14dp"
+                android:paddingTop="30dp"
+                android:textColor="@color/color_00_00_00"
+                android:text="@string/chat_label_member"
+                android:textSize="15dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_ff_ff_ff"
+                android:paddingBottom="14dp"
+                android:layout_marginTop="14dp" />
+
+
+
+        </LinearLayout>
+
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</LinearLayout>

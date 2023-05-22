@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_ff_ff_ff">
+
+
+    <TextView
+        android:id="@+id/tvLetter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@color/color_f3_f7_fa"
+        android:paddingLeft="13dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="2dp"
+        android:singleLine="true"
+        android:textColor="@color/color_00_00_00"
+        android:textSize="12dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_below="@id/tvLetter"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="20dp">
+
+        <ImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:paddingLeft="21dp"
+            android:singleLine="true"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:id="@+id/ivCheckFriend"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:paddingRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:scaleType="centerInside" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/ll"
+        android:layout_marginLeft="14dp"
+        android:background="@color/color_f3_f7_fa" />
+
+
+</RelativeLayout>

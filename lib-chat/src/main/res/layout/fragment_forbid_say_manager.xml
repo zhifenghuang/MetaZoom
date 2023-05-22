@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f3_f7_fa"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_top_bar" />
+
+
+    <TextView
+        android:id="@+id/tvAddForbid"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/color_ff_ff_ff"
+        android:drawableRight="@drawable/icon_right_arrow"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/chat_add_forbid_say"
+        android:textColor="@color/color_00_00_00"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/tvRemoveForbid"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="0.5dp"
+        android:background="@color/color_ff_ff_ff"
+        android:drawableRight="@drawable/icon_right_arrow"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/chat_remove_forbid_say"
+        android:textColor="@color/color_00_00_00"
+        android:textSize="15dp" />
+
+</LinearLayout>

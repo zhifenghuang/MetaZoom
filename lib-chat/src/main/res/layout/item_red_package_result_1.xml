@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="13dp"
+    android:paddingRight="13dp">
+
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="14dp"
+        android:singleLine="true"
+        android:text="ALSC BOSS"
+        android:textColor="@color/color_00_00_00"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvName"
+        android:text="22:00"
+        android:textColor="@color/color_8c_8c_8c"
+        android:textSize="11dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="12.68"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvMax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/chat_max_value"
+            android:drawablePadding="2dp"
+            android:text="@string/chat_get_max_red_package"
+            android:textColor="@color/color_ff_c5_00"
+            android:textSize="11dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/tvTime"
+        android:layout_marginTop="16dp"
+        android:background="@color/color_e2_eb_f0" />
+
+
+</RelativeLayout>

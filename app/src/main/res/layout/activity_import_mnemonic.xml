@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/app_layout_top_bar" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="29dp"
+        android:paddingTop="10dp"
+        android:text="@string/app_mnemonic"
+        android:textColor="@color/text_color_1"
+        android:textSize="@dimen/dimen_18" />
+
+    <EditText
+        android:id="@+id/etMnemonic"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="28dp"
+        android:background="@drawable/shape_stroke_d2c2ff_12"
+        android:gravity="top"
+        android:hint="@string/app_enter_mnemonic_phrases"
+        android:padding="17dp"
+        android:textColor="@color/text_color_1"
+        android:textColorHint="@color/text_color_2"
+        android:textSize="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="29dp"
+        android:paddingTop="24dp"
+        android:text="@string/app_wallet_name"
+        android:textColor="@color/text_color_1"
+        android:textSize="@dimen/dimen_18" />
+
+    <EditText
+        android:id="@+id/etWalletName"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="28dp"
+        android:background="@drawable/shape_stroke_d2c2ff_15"
+        android:hint="@string/app_1_12_characters"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:singleLine="true"
+        android:textColor="@color/text_color_1"
+        android:textColorHint="@color/text_color_2"
+        android:textSize="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="29dp"
+        android:paddingTop="16dp"
+        android:text="@string/app_password"
+        android:textColor="@color/text_color_1"
+        android:textSize="@dimen/dimen_18" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="28dp"
+        android:background="@drawable/shape_stroke_d2c2ff_12"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:paddingLeft="24dp"
+            android:paddingRight="13dp">
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/app_set_wallet_password"
+                android:inputType="textPassword"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:textColor="@color/text_color_1"
+                android:textColorHint="@color/text_color_2"
+                android:textSize="16dp" />
+
+            <ImageView
+                android:id="@+id/ivPasswordEye"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/app_eye_open" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha="0.68"
+            android:background="@color/line" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:paddingLeft="24dp"
+            android:paddingRight="13dp">
+
+            <EditText
+                android:id="@+id/etConfirmPassword"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/app_re_enter_password"
+                android:inputType="textPassword"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:textColor="@color/text_color_1"
+                android:textColorHint="@color/text_color_2"
+                android:textSize="16dp" />
+
+            <ImageView
+                android:id="@+id/ivConfirmPasswordEye"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/app_eye_open" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginRight="28dp"
+        android:background="@drawable/shape_stroke_d2c2ff_12"
+        android:orientation="horizontal"
+        android:paddingLeft="24dp"
+        android:paddingRight="30dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:paddingRight="10dp"
+            android:singleLine="true"
+            android:text="@string/app_advanced_mode"
+            android:textColor="@color/text_color_1"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivArrow"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_gravity="center_vertical"
+            android:rotation="90"
+            android:scaleType="centerInside"
+            android:src="@drawable/app_right_arrow_grey" />
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+
+    <TextView
+        android:id="@+id/tvOk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="19dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="40dp"
+        android:alpha="0.25"
+        android:background="@drawable/app_common_btn_bg"
+        android:gravity="center_horizontal"
+        android:paddingTop="19dp"
+        android:text="@string/app_confirm"
+        android:textColor="@color/text_color_3"
+        android:textSize="@dimen/dimen_18"
+        android:textStyle="bold" />
+
+
+</LinearLayout>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_top_bar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/color_f3_f7_fa" />
+
+    <LinearLayout
+        android:id="@+id/llCoinType"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/chat_coin_type"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/chat_alsc"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/color_f3_f7_fa" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/chat_one_quantity"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <EditText
+            android:id="@+id/etQuantity"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical|right"
+            android:hint="0.00"
+            android:inputType="numberDecimal"
+            android:maxLength="8"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textColor="@color/color_00_00_00"
+            android:textColorHint="@color/color_8c_8c_8c"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="3dp"
+            android:text="@string/chat_alsc"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/color_f3_f7_fa" />
+
+    <LinearLayout
+        android:id="@+id/llNum"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/chat_red_package_num"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <EditText
+            android:id="@+id/etNum"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical|right"
+            android:hint="@string/chat_please_input_num"
+            android:inputType="number"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textColor="@color/color_00_00_00"
+            android:textColorHint="@color/color_8c_8c_8c"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="3dp"
+            android:text="@string/chat_xxx_num"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_f3_f7_fa"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="80dp"
+            android:text="0.00"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="30dp" />
+
+
+        <TextView
+            android:id="@+id/tvAddNewMemberRedPackage"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="14dp"
+            android:background="@drawable/bg_chat_add_label"
+            android:gravity="center"
+            android:text="@string/chat_add_new_member_red_package"
+            android:textColor="@color/color_ff_ff_ff"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

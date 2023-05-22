@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f3_f7_fa"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_top_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_ff_ff_ff"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/llRandomRp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/chat_random_red_package"
+                android:textColor="@color/color_3a_54_ff"
+                android:textSize="12dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_3a_54_ff"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/llCommonRp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/chat_common_red_package"
+                android:textColor="@color/color_00_00_00"
+                android:textSize="12dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_3a_54_ff"
+                android:visibility="invisible" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/color_ff_ff_ff"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/chat_quantity"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <EditText
+            android:id="@+id/etQuantity"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical|right"
+            android:hint="@string/chat_please_input_quantity"
+            android:inputType="numberDecimal"
+            android:maxLength="8"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textColor="@color/color_00_00_00"
+            android:textColorHint="@color/color_8c_8c_8c"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="3dp"
+            android:text="@string/chat_alsc"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:paddingLeft="14dp"
+        android:paddingTop="13dp"
+        android:paddingRight="14dp"
+        android:text="@string/chat_red_package_quantity_tip"
+        android:textColor="@color/color_9f_a2_a9"
+        android:textSize="11dp" />
+
+
+    <LinearLayout
+        android:id="@+id/llNum"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/color_ff_ff_ff"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/chat_red_package_num"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <EditText
+            android:id="@+id/etNum"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical|right"
+            android:hint="@string/chat_please_input_num"
+            android:inputType="number"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textColor="@color/color_00_00_00"
+            android:textColorHint="@color/color_8c_8c_8c"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="3dp"
+            android:text="@string/chat_xxx_num"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/etRemark"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/color_ff_ff_ff"
+        android:gravity="center_vertical"
+        android:hint="@string/chat_red_package_remark"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:singleLine="true"
+        android:text="@string/chat_red_package_default_remark"
+        android:textColor="@color/color_00_00_00"
+        android:textColorHint="@color/color_8c_8c_8c"
+        android:textSize="15dp" />
+
+
+    <TextView
+        android:id="@+id/tvSend"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="13dp"
+        android:background="@drawable/bg_chat_add_label"
+        android:gravity="center"
+        android:text="@string/chat_send_red_package_2"
+        android:textColor="@color/color_ff_ff_ff"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+
+</LinearLayout>

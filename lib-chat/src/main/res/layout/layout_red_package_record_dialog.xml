@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_ff_ff_ff"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvReceiveRecord"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:text="@string/chat_my_receive_red_package"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_e2_eb_f0" />
+
+        <TextView
+            android:id="@+id/tvSendRecord"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:text="@string/chat_my_send_red_package"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvCancel"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/color_ff_ff_ff"
+        android:gravity="center"
+        android:text="@string/chat_cancel"
+        android:textColor="@color/color_00_00_00"
+        android:textSize="15dp" />
+
+
+</LinearLayout>

@@ -1,0 +1,136 @@
+<resources>
+
+    <dimen name="mcam_toolbar_elevation">4dp</dimen>
+    <dimen name="mcam_content_inset_less">12dp</dimen>
+    <dimen name="mcam_content_inset">16dp</dimen>
+    <dimen name="mcam_regular_content_fontsize">18sp</dimen>
+    <dimen name="mcam_regular_title_fontsize">16sp</dimen>
+    <dimen name="mcam_action_icon_size">56dp</dimen>
+    <dimen name="mcam_action_icon_size_smaller">48dp</dimen>
+    <dimen name="mcam_action_icon_size_smaller2">40dp</dimen>
+    <dimen name="mcam_action_tv">18sp</dimen>
+
+
+    <!--padding-->
+    <dimen name="padding_svprogresshuddefault">15dp</dimen>
+    <!--窗口最小宽度-->
+    <dimen name="size_minwidth_svprogresshuddefault">120dp</dimen>
+    <!--图片宽高-->
+    <dimen name="size_image_bigloading">80dp</dimen>
+    <!--图片宽高-->
+    <dimen name="size_image_smallloading">60dp</dimen>
+    <!--圆角-->
+    <dimen name="radius_svprogresshuddefault">25px</dimen>
+    <!--提示的文字大小-->
+    <dimen name="textSize_svprogresshuddefault_msg">15sp</dimen>
+    <dimen name="margintop_svprogresshuddefault_msg">10dp</dimen>
+
+    <dimen name="three_grid_unit">24dp</dimen>
+    <dimen name="one_and_a_half_grid_unit">12dp</dimen>
+
+
+    <dimen name="ksw_md_thumb_ripple_size">42dp</dimen>
+    <dimen name="ksw_md_thumb_solid_inset">11dp</dimen>
+    <dimen name="ksw_md_thumb_shadow_inset">11dp</dimen>
+    <dimen name="ksw_md_thumb_shadow_inset_top">11dp</dimen>
+    <dimen name="ksw_md_thumb_shadow_inset_bottom">10dp</dimen>
+
+    <dimen name="ksw_md_thumb_solid_size">20dp</dimen>
+    <dimen name="ksw_md_thumb_shadow_size">21dp</dimen>
+    <dimen name="ksw_md_thumb_shadow_offset">2dp</dimen>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <integer name="animation_default_duration">300</integer>
+
+    <!-- 字体大小 -->
+    <dimen name="font_larger">20sp</dimen>
+    <dimen name="font_large">18sp</dimen>
+    <dimen name="font_normal">15sp</dimen>
+    <dimen name="font_small">12sp</dimen>
+    <dimen name="font_tiny">10sp</dimen>
+
+    <!-- 控件之间的距离 -->
+    <dimen name="spacing_large">20dp</dimen>
+    <dimen name="spacing_normal">15dp</dimen>
+    <dimen name="spacing_small">10dp</dimen>
+    <dimen name="spacing_tiny">4dp</dimen>
+    <dimen name="divider_height">0.5dp</dimen>
+    <dimen name="spacing_layout_padding">10dp</dimen>
+    <dimen name="spacing_layout_margin">10dp</dimen>
+
+    <!-- 描述性文字item项的高 -->
+    <dimen name="text_item_height">43dp</dimen>
+    <dimen name="input_method_spacing">2px</dimen>
+
+
+    <dimen name="dimen_0_5">0.5dp</dimen>
+    <dimen name="dimen_1">1dp</dimen>
+    <dimen name="dimen_2">2dp</dimen>
+    <dimen name="dimen_3">3dp</dimen>
+    <dimen name="dimen_4">4dp</dimen>
+    <dimen name="dimen_5">5dp</dimen>
+    <dimen name="dimen_6">6dp</dimen>
+    <dimen name="dimen_7">7dp</dimen>
+    <dimen name="dimen_8">8dp</dimen>
+    <dimen name="dimen_9">9dp</dimen>
+    <dimen name="dimen_10">10dp</dimen>
+    <dimen name="dimen_11">11dp</dimen>
+    <dimen name="dimen_12">12dp</dimen>
+    <dimen name="dimen_13">13dp</dimen>
+    <dimen name="dimen_14">14dp</dimen>
+    <dimen name="dimen_15">15dp</dimen>
+    <dimen name="dimen_16">16dp</dimen>
+    <dimen name="dimen_17">17dp</dimen>
+    <dimen name="dimen_18">18dp</dimen>
+    <dimen name="dimen_19">19dp</dimen>
+    <dimen name="dimen_20">20dp</dimen>
+    <dimen name="dimen_21">21dp</dimen>
+    <dimen name="dimen_22">22dp</dimen>
+    <dimen name="dimen_23">23dp</dimen>
+    <dimen name="dimen_24">24dp</dimen>
+    <dimen name="dimen_25">25dp</dimen>
+    <dimen name="dimen_26">26dp</dimen>
+    <dimen name="dimen_28">28dp</dimen>
+    <dimen name="dimen_30">30dp</dimen>
+    <dimen name="dimen_32">32dp</dimen>
+    <dimen name="dimen_33">33dp</dimen>
+    <dimen name="dimen_34">34dp</dimen>
+    <dimen name="dimen_35">35dp</dimen>
+    <dimen name="dimen_36">36dp</dimen>
+    <dimen name="dimen_38">38dp</dimen>
+    <dimen name="dimen_40">40dp</dimen>
+    <dimen name="dimen_42">42dp</dimen>
+    <dimen name="dimen_48">48dp</dimen>
+    <dimen name="dimen_50">50dp</dimen>
+    <dimen name="dimen_54">54dp</dimen>
+    <dimen name="dimen_55">55dp</dimen>
+    <dimen name="dimen_60">60dp</dimen>
+    <dimen name="dimen_70">70dp</dimen>
+    <dimen name="dimen_80">80dp</dimen>
+    <dimen name="dimen_90">90dp</dimen>
+    <dimen name="dimen_100">100dp</dimen>
+    <dimen name="dimen_110">110dp</dimen>
+    <dimen name="dimen_120">120dp</dimen>
+    <dimen name="dimen_125">125dp</dimen>
+    <dimen name="dimen_150">150dp</dimen>
+    <dimen name="dimen_160">160dp</dimen>
+    <dimen name="dimen_170">170dp</dimen>
+    <dimen name="dimen_180">180dp</dimen>
+    <dimen name="dimen_194">194dp</dimen>
+    <dimen name="dimen_195">195dp</dimen>
+    <dimen name="dimen_200">200dp</dimen>
+    <dimen name="dimen_210">210dp</dimen>
+    <dimen name="dimen_220">220dp</dimen>
+    <dimen name="dimen_225">225dp</dimen>
+    <dimen name="dimen_250">250dp</dimen>
+    <dimen name="dimen_300">300dp</dimen>
+    <dimen name="dimen_350">350dp</dimen>
+
+    <dimen name="small_icon_radius">25px</dimen>
+    <dimen name="linkage_width">12dp</dimen>
+    <!--24px|8px|8px-->
+    <dimen name="linkage_magin">4dp</dimen>
+    <dimen name="linkage_magin_top">@dimen/linkage_magin</dimen>
+    <dimen name="person_height">61dp</dimen>
+</resources>

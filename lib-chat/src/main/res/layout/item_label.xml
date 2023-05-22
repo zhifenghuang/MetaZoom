@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_ff_ff_ff"
+    android:orientation="vertical"
+    android:paddingLeft="14dp"
+    android:paddingRight="14dp">
+
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:drawableRight="@drawable/icon_right_arrow"
+        android:gravity="center_vertical"
+        android:text="同事(26)"
+        android:textColor="@color/color_00_00_00"
+        android:textSize="15dp" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_f3_f7_fa" />
+
+
+</LinearLayout>

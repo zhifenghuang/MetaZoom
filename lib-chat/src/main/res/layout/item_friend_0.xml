@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="13dp"
+    android:paddingRight="13dp"
+    android:paddingBottom="30dp">
+
+    <TextView
+        android:id="@+id/tvNewFreind"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_new_friend"
+        android:gravity="center"
+        android:text="@string/chat_new_friend"
+        android:textColor="@color/color_ff_ff_ff"
+        android:textSize="13dp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="9dp"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/tvMyGroup"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_my_group"
+        android:gravity="center"
+        android:text="@string/chat_my_chat_groups"
+        android:textColor="@color/color_ff_ff_ff"
+        android:textSize="13dp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="9dp"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/tvStarFriend"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_star_friend"
+        android:gravity="center"
+        android:text="@string/chat_star_friends"
+        android:textColor="@color/color_ff_ff_ff"
+        android:textSize="13dp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="9dp"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/tvLabel"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_label"
+        android:gravity="center"
+        android:text="@string/chat_label"
+        android:textColor="@color/color_ff_ff_ff"
+        android:textSize="13dp"
+        android:textStyle="bold" />
+
+
+</LinearLayout>

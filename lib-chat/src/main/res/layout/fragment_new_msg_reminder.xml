@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_top_bar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/color_f3_f7_fa" />
+
+    <LinearLayout
+        android:id="@+id/llReceiveNewMsgSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/chat_receive_new_msg_notification"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:id="@+id/ivReceiveNewMsgSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/icon_switch_on" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="14dp"
+        android:background="@color/color_f3_f7_fa" />
+
+
+    <LinearLayout
+        android:id="@+id/llNotInteruptMode"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="vertical"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp">
+
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="6dp"
+            android:text="@string/chat_new_msg_sysytem_notification"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="@string/chat_new_msg_sysytem_notification_tip"
+            android:textColor="@color/color_8c_8c_8c"
+            android:textSize="9dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_f3_f7_fa" />
+
+</LinearLayout>

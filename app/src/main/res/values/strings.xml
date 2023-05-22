@@ -1,0 +1,120 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">MetaZoom</string>
+
+    <string name="app_simply_business_meta_zoom">Simply\nBusiness\nMetaZoom</string>
+    <string name="app_create_account">Create Account</string>
+    <string name="app_have_account">I have an account</string>
+
+    <string name="app_login">Login</string>
+    <string name="app_user_name">Username</string>
+    <string name="app_password">Password</string>
+    <string name="app_back">Back</string>
+    <string name="app_sign_in">Sign In</string>
+    <string name="app_forget_password">Did you forgot your password?</string>
+    <string name="app_tap_for_reset">Tap here for reset</string>
+
+    <string name="app_sign_up">Sign Up</string>
+    <string name="app_email">Email</string>
+    <string name="app_phone_number">Phone number</string>
+    <string name="app_create">Create</string>
+
+    <string name="app_dedicated_defi">Dedicated DeFi\nMulti-chain wallet</string>
+    <string name="app_support_chain">Support more than 30 public chains including BTC,\nETH, BSC,HECO,TRX, etc.</string>
+    <string name="app_new_wallet">New Wallet</string>
+    <string name="app_create_new_wallet">Create a brand new wallet</string>
+    <string name="app_import_wallet">Import Wallet</string>
+    <string name="app_import_wallet_way">Import from existed mnemonic or private key</string>
+
+    <string name="app_create_xxx_wallet">Create %1$s Wallet</string>
+    <string name="app_wallet_name">Wallet name</string>
+    <string name="app_1_12_characters">1~12 characters</string>
+    <string name="app_set_wallet_password">Set wallet password</string>
+    <string name="app_re_enter_password">Re-enter confirm password</string>
+    <string name="app_password_not_equal_confirm_password">Password is different from confirm password</string>
+    <string name="app_confirm">Confirm</string>
+    <string name="app_no_less_than_6_characters">No less than 6 characters</string>
+    <string name="app_create_wallet_failure"> Fail to create wallet </string>
+    <string name="app_import_wallet_failure"> Fail to import wallet </string>
+    <string name="app_xxx_is_illegal_mnemonic">%1$s is an illegal mnemonic, please check</string>
+    <string name="app_mnemonic_size_wrong">The number of mnemonics must be equal to 12</string>
+    <string name="app_wallet_is_exist">Wallet already exists</string>
+    <string name="app_private_key_is_illegal">This is not a valid private key. You must enter a hexadecimal string of length 64.</string>
+    <string name="app_invalid_password_provided">Invalid password provided</string>
+    <string name="app_invalid_keystore_provided">Invalid keystore provided</string>
+
+    <string name="app_back_up">Backup</string>
+    <string name="app_backed_up">Backed Up</string>
+    <string name="app_your_mnemonic_phrase">Your mnemonic phrase</string>
+    <string name="app_change">Change</string>
+    <string name="app_back_up_tips_1">The mnemonic phrase is equivalent to the key to the wallet, please copy it and keep it in a safe place, once it is lost, it cannot be retrieved!</string>
+    <string name="app_back_up_tips_2">We will not save your mnemonic phrase on the server, please keep your mnemonic phrase properly.</string>
+
+    <string name="app_no_screenshots">No Screenshots</string>
+    <string name="app_no_screenshots_tips_1">Do not save or share screenshots,avoid other people or cameras around.</string>
+    <string name="app_no_screenshots_tips_2">Please copy the mnemonic phrase correctly on the paper and keep it in a safe place.</string>
+    <string name="app_i_know">I Know</string>
+    <string name="app_verification">Verification</string>
+    <string name="app_verify_your_mnemonic_phrase">Verify your mnemonic phrase</string>
+    <string name="app_wrong_order">The order is wrong, please try again!</string>
+
+    <string name="app_xxx_receive">%1$s Receive</string>
+    <string name="app_scan_qr_code">Scan the QR code</string>
+    <string name="app_copy">COPY</string>
+    <string name="app_all">All</string>
+    <string name="app_receive">Receive</string>
+    <string name="app_send">Send</string>
+    <string name="app_received">Received</string>
+    <string name="app_transfer">Transfer</string>
+
+    <string name="app_choose_currency">Choose currency</string>
+    <string name="app_balance_xxx">Balance: %1$s</string>
+    <string name="app_amount">Amount</string>
+    <string name="app_miner_fee">Miner fee</string>
+    <string name="app_recipient">Recipient</string>
+    <string name="app_input_address">Please input address</string>
+
+
+    <string name="app_choose_import_method">Choose import method</string>
+    <string name="app_mnemonic_desc">The mnemonic is composed of words and separated by spaces</string>
+    <string name="app_private_key_desc">Plaintext private key</string>
+    <string name="app_keystore_desc">Encrypted private key JSON file</string>
+    <string name="app_import_xxx_wallet">Import %1$s Wallet</string>
+    <string name="app_keystore">Keystore</string>
+    <string name="app_keystore_file_content">Keystore file content</string>
+    <string name="app_wallet_password">Wallet password</string>
+    <string name="app_mnemonic">Mnemonic</string>
+    <string name="app_enter_mnemonic_phrases">Enter mnemonic phrases separated by spaces</string>
+    <string name="app_advanced_mode">Advanced mode</string>
+    <string name="app_private_key">Private Key</string>
+    <string name="app_enter_private_key">Enter the plaintext private key</string>
+
+
+    <string name="app_wallet">Wallet</string>
+    <string name="app_main_balance">Main balance</string>
+    <string name="app_assets">Assets</string>
+    <string name="app_add">Add</string>
+
+    <string name="app_meta_zoom">MetaZoom</string>
+
+
+    <string name="create_wallet_agreement">服务及隐私条款</string>
+    <string name="create_wallet_name_repeat_tips">钱包名称重复</string>
+    <string name="create_wallet_name_input_tips">请输入钱包名称</string>
+    <string name="create_wallet_pwd_input_tips">密码不能为空</string>
+    <string name="create_wallet_pwd_confirm_input_tips">密码不一致，请重新输入</string>
+
+    <string name="load_wallet_by_mnemonic_hint">助记词，按空格分隔</string>
+    <string name="load_wallet_by_mnemonic_input_tip">请检查您的助记词</string>
+    <string name="load_wallet_by_mnemonic_standard">m/44\'/60\'/0\'/0/0</string>
+    <string name="load_wallet_by_mnemonic_standard_ledger">m/44\'/60\'/0\'/0</string>
+    <string name="load_wallet_by_mnemonic_standard_custom">m/44\'/60\'/1\'/0/0</string>
+    <string name="load_wallet_by_mnemonic_standard_jaxx_option">m/44\'/60\'/0\'/0/0 Jaxx,Metamask(ETH)</string>
+    <string name="load_wallet_by_mnemonic_standard_ledger_option">m/44\'/60\'/0\'/0 Ledger (ETH)</string>
+    <string name="load_wallet_by_mnemonic_standard_custom_option">m/44\'/60\'/1\'/0/0 自定义路径</string>
+    <string name="load_wallet_by_mnemonic_help">什么是助记词？</string>
+    <string name="load_wallet_already_exist">钱包已存在</string>
+
+    <string name="load_wallet_by_private_key_input_tip">无效的私钥</string>
+    <string name="load_wallet_by_private_key_hint">明文私钥</string>
+    <string name="load_wallet_by_private_key_help">什么是私钥？</string>
+</resources>

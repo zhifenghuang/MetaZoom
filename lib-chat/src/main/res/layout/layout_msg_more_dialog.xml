@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="100dp"
+        android:paddingRight="100dp">
+
+        <View
+            android:id="@+id/paddingView"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:id="@+id/llRoot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_chat_more_dialog_4"
+            android:orientation="vertical"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp">
+
+            <TextView
+                android:id="@+id/tvCopy"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:text="@string/chat_copy"
+                android:textColor="@color/color_00_00_00"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/tvSendToFriend"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:text="@string/chat_send_to_friend"
+                android:textColor="@color/color_00_00_00"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/tvSave"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:text="@string/chat_save"
+                android:textColor="@color/color_00_00_00"
+                android:textSize="15dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvMutiChoose"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:text="@string/chat_muti_choose"
+                android:textColor="@color/color_00_00_00"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/tvTranslate"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:text="@string/chat_translate"
+                android:visibility="gone"
+                android:textColor="@color/color_00_00_00"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/tvDelete"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:text="@string/chat_delete"
+                android:textColor="@color/color_00_00_00"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/tvCollect"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:text="@string/chat_collect"
+                android:textColor="@color/color_00_00_00"
+                android:textSize="15dp"
+                android:visibility="gone" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+
+</LinearLayout>

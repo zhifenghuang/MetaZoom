@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/app_layout_top_bar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="80dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="18dp"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="5dp"
+                android:text="@string/app_dedicated_defi"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/dimen_16"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="18dp"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="5dp"
+                android:text="@string/app_support_chain"
+                android:textColor="@color/text_color_5"
+                android:textSize="@dimen/dimen_12" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-16dp"
+                android:src="@drawable/app_chains" />
+
+            <RelativeLayout
+                android:id="@+id/rlNewWallet"
+                android:layout_width="match_parent"
+                android:layout_height="71dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginRight="28dp"
+                android:background="@drawable/shape_stroke_d2c2ff_15"
+                android:paddingLeft="19dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/app_new_wallet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:paddingTop="13dp"
+                    android:text="@string/app_new_wallet"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="@dimen/dimen_16"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="30dp"
+                    android:paddingBottom="15dp"
+                    android:text="@string/app_create_new_wallet"
+                    android:textColor="@color/text_color_5"
+                    android:textSize="@dimen/dimen_11" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rlImportWallet"
+                android:layout_width="match_parent"
+                android:layout_height="71dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginRight="28dp"
+                android:background="@drawable/shape_stroke_d2c2ff_15"
+                android:paddingLeft="19dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/app_new_wallet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:paddingTop="13dp"
+                    android:text="@string/app_import_wallet"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="@dimen/dimen_16"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="30dp"
+                    android:paddingBottom="15dp"
+                    android:text="@string/app_import_wallet_way"
+                    android:textColor="@color/text_color_5"
+                    android:textSize="@dimen/dimen_11" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

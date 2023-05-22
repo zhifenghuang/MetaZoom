@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_top_bar" />
+
+    <LinearLayout
+        android:id="@+id/llMyInfo"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="11dp"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp">
+
+        <ImageView
+            android:id="@+id/ivMyAvatar"
+            android:layout_width="46dp"
+            android:layout_height="46dp" />
+
+        <TextView
+            android:id="@+id/tvMyName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:paddingLeft="19dp"
+            android:singleLine="true"
+            android:textColor="@color/color_fe_fe_fe"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:paddingLeft="13dp">
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_chat_search_bar"
+            android:drawableLeft="@drawable/icon_search"
+            android:drawablePadding="9dp"
+            android:gravity="center_vertical"
+            android:hint="@string/chat_id_phone_email"
+            android:imeOptions="actionSearch"
+            android:paddingLeft="20dp"
+            android:singleLine="true"
+            android:textColor="@color/color_00_00_00"
+            android:textColorHint="@color/color_8c_8c_8c"
+            android:textSize="15dp" />
+
+
+        <TextView
+            android:id="@+id/tvCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="11dp"
+            android:paddingRight="15dp"
+            android:text="@string/chat_cancel"
+            android:textColor="@color/color_3a_54_ff"
+            android:textSize="15dp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llSearchContent"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:visibility="gone">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/icon_search_default_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="13dp"
+            android:singleLine="true"
+            android:text="@string/chat_search"
+            android:textColor="@color/color_8c_8c_8c"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tvText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:singleLine="true"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

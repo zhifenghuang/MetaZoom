@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/app_layout_top_bar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="29dp"
+        android:text="@string/app_choose_currency"
+        android:textColor="@color/text_color_2"
+        android:textSize="@dimen/dimen_18" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="28dp"
+        android:background="@drawable/shape_stroke_d2c2ff_15"
+        android:paddingLeft="9dp"
+        android:paddingRight="30dp">
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/app_btc_icon" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_toRightOf="@id/iv"
+            android:paddingTop="10dp"
+            android:text="BTC"
+            android:textColor="@color/text_color_7"
+            android:textSize="@dimen/dimen_20"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="24dp"
+            android:layout_toRightOf="@id/iv"
+            android:paddingBottom="15dp"
+            android:text="Balance: 527.08"
+            android:textColor="@color/text_color_5"
+            android:textSize="@dimen/dimen_16" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/app_right_arrow_grey" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="108dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="28dp"
+        android:background="@drawable/shape_stroke_d2c2ff_15"
+        android:orientation="vertical"
+        android:paddingTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/app_amount"
+            android:textColor="@color/text_color_5"
+            android:textSize="@dimen/dimen_14" />
+
+        <EditText
+            android:id="@+id/etAmount"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@null"
+            android:gravity="center"
+            android:hint="0.00"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:singleLine="true"
+            android:textColor="@color/text_color_1"
+            android:textColorHint="@color/text_color_2"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="29dp"
+        android:text="@string/app_miner_fee"
+        android:textColor="@color/text_color_2"
+        android:textSize="@dimen/dimen_18" />
+
+    <TextView
+        android:id="@+id/tvFee"
+        android:layout_width="match_parent"
+        android:layout_height="71dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="28dp"
+        android:background="@drawable/shape_stroke_d2c2ff_15"
+        android:drawableRight="@drawable/app_right_arrow_grey"
+        android:gravity="center_vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="30dp"
+        android:text="0.00 BTC"
+        android:textColor="@color/text_color_1"
+        android:textSize="@dimen/dimen_16" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="29dp"
+        android:text="@string/app_recipient"
+        android:textColor="@color/text_color_2"
+        android:textSize="@dimen/dimen_18" />
+
+    <EditText
+        android:id="@+id/tvAddress"
+        android:layout_width="match_parent"
+        android:layout_height="71dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="28dp"
+        android:background="@drawable/shape_stroke_d2c2ff_15"
+        android:gravity="center_vertical"
+        android:hint="@string/app_input_address"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:singleLine="true"
+        android:text="0x8829d8...0cBDCC3e02cc49"
+        android:textColor="@color/text_color_1"
+        android:textColorHint="@color/text_color_2"
+        android:textSize="@dimen/dimen_16" />
+
+
+</LinearLayout>

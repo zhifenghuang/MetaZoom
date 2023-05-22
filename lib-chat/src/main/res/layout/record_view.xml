@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.98"
+        android:background="@color/color_f3_f7_f9"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="wrap_content"
+        android:layout_height="96dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_chat_record"
+        android:minWidth="96dp"
+        android:orientation="vertical"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/ivRecordIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/chat_record_animation" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:text="@string/chat_recording"
+            android:textColor="@color/color_8c_8c_8c"
+            android:textSize="11dp" />
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="6dp"
+            android:text="@string/chat_slide_up_cancel_send"
+            android:textColor="@color/color_8c_8c_8c"
+            android:textSize="11dp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:src="@drawable/chat_record_not_cancel"
+        android:visibility="gone" />
+
+
+</RelativeLayout>

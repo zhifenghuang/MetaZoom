@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_25_2e_3f"
+        android:orientation="vertical"
+        android:paddingTop="16dp"
+        android:paddingBottom="13dp">
+
+        <TextView
+            android:id="@+id/tvAddToLabel"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:drawableLeft="@drawable/chat_add_to_label"
+            android:drawablePadding="20dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="@string/chat_add_to_label"
+            android:textColor="@color/color_ff_ff_ff"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tvRecommendFriend"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:drawableLeft="@drawable/chat_recommend_friend"
+            android:drawablePadding="20dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="@string/chat_recommend_to_friend"
+            android:textColor="@color/color_ff_ff_ff"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tvStarFriend"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:drawableLeft="@drawable/chat_to_star"
+            android:drawablePadding="20dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="@string/chat_set_to_star_friend"
+            android:textColor="@color/color_ff_ff_ff"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tvAddToBlackList"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:drawableLeft="@drawable/chat_blacklist"
+            android:drawablePadding="20dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="@string/chat_add_to_black_list"
+            android:textColor="@color/color_ff_ff_ff"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tvDeleteFriend"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:drawableLeft="@drawable/chat_delete_friend"
+            android:drawablePadding="20dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="@string/chat_delete_contact"
+            android:textColor="@color/color_ff_ff_ff"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+
+</LinearLayout>

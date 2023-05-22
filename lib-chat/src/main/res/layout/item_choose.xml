@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="46dp"
+    android:background="@color/color_ff_ff_ff"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:paddingLeft="14dp"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/paddingView"
+        android:layout_width="10dp"
+        android:layout_height="1dp"
+        android:layout_toRightOf="@id/ivIcon" />
+
+    <TextView
+        android:id="@+id/tvType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/paddingView"
+        android:paddingLeft="10dp"
+        android:text="@string/chat_delete_after_read_type_0"
+        android:textColor="@color/color_00_00_00"
+        android:textSize="15dp" />
+
+    <ImageView
+        android:id="@+id/ivSwitch"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="14dp"
+        android:scaleType="centerInside"
+        android:visibility="invisible"
+        android:src="@drawable/chat_item_selected" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_f8_f8_f8" />
+
+</RelativeLayout>

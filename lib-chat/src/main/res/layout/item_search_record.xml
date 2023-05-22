@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llParent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="25dp"
+    android:paddingTop="13dp">
+
+
+    <ImageView
+        android:id="@+id/ivAvatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
+
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ivAvatar"
+        android:paddingLeft="15dp"
+        android:paddingTop="4dp"
+        android:paddingRight="10dp"
+        android:singleLine="true"
+        android:textColor="@color/color_00_00_00"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvName"
+        android:layout_toRightOf="@id/ivAvatar"
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"
+        android:singleLine="true"
+        android:textColor="@color/color_8c_8c_8c"
+        android:textSize="12dp" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/ivAvatar"
+        android:layout_marginTop="16dp"
+        android:alpha="0.5"
+        android:background="@color/color_7c_84_98" />
+
+
+</RelativeLayout>

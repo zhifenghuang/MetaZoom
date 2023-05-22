@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+
+    <RelativeLayout
+        android:id="@+id/recorder_surface_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"></RelativeLayout>
+
+
+    <View
+        android:id="@+id/focusView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent" />
+
+    <ImageView
+        android:id="@+id/showPic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/recorder_flashlight_parent1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/btnClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:onClick="onBackClick"
+            android:src="@drawable/camera_cross" />
+
+
+        <ImageView
+            android:id="@+id/btnFlashlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/camera_flashoff" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/recorder_flashlight_parent2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:gravity="center_vertical"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/btnAlbum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/camera_album"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/btnTakePhotoOrRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:longClickable="true"
+            android:src="@drawable/camera_main_btm" />
+
+        <ImageView
+            android:id="@+id/btnSwitchCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/camera_rotate" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

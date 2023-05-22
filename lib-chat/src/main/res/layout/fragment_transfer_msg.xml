@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_top_bar" />
+
+    <EditText
+        android:id="@+id/etSearch"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/bg_chat_search_bar"
+        android:drawableLeft="@drawable/icon_search"
+        android:drawablePadding="9dp"
+        android:gravity="center_vertical"
+        android:hint="@string/chat_search_contact"
+        android:imeOptions="actionSearch"
+        android:paddingLeft="20dp"
+        android:singleLine="true"
+        android:textColor="@color/color_00_00_00"
+        android:textColorHint="@color/color_8c_8c_8c"
+        android:textSize="15dp" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_f3_f7_fa"
+        android:paddingTop="10dp" />
+
+</LinearLayout>

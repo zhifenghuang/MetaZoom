@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_background"
+        android:orientation="vertical"
+        android:paddingTop="20dp">
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/chat_delete_msg"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="17dp"
+            android:paddingRight="17dp"
+            android:text="@string/chat_delete_msg_tip_1"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="16dp" />
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:paddingLeft="17dp"
+            android:paddingRight="17dp">
+
+            <ImageView
+                android:id="@+id/ivCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/icon_box_unselected">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/tv3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="12dp"
+                android:paddingRight="17dp"
+                android:text="@string/chat_delete_msg_tip_3"
+                android:textColor="@color/color_00_00_00"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="25dp"
+            android:background="@color/color_e1_eb_ef" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btn1"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/chat_delete"
+                android:textColor="@color/color_ff_3b_2f"
+                android:textSize="16dp" />
+
+
+            <TextView
+                android:id="@+id/btn2"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/chat_cancel"
+                android:textColor="@color/color_00_00_00"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

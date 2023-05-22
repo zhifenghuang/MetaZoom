@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_top_bar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/color_f3_f7_fa" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingTop="15dp"
+        android:paddingRight="14dp"
+        android:paddingBottom="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chat_problem_des"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <EditText
+            android:id="@+id/etMsg"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@android:color/transparent"
+            android:gravity="top"
+            android:hint="@string/chat_please_say_your_problem"
+            android:maxLength="200"
+            android:textColor="@color/color_00_00_00"
+            android:textColorHint="@color/color_8c_8c_8c"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/color_f3_f7_fa"
+        android:gravity="right"
+        android:paddingTop="10dp"
+        android:paddingRight="14dp"
+        android:text="@string/chat_we_will_solve_your_problem_soon"
+        android:textColor="@color/color_00_00_00"
+        android:textSize="11dp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_f3_f7_fa"
+        android:paddingLeft="14dp"
+        android:paddingTop="30dp"
+        android:paddingRight="14dp">
+
+        <TextView
+            android:id="@+id/tvSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/bg_chat_add_label"
+            android:gravity="center"
+            android:text="@string/chat_submit"
+            android:textColor="@color/color_ff_ff_ff"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

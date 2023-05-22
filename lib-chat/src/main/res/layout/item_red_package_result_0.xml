@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="25dp">
+
+    <ImageView
+        android:id="@+id/ivTopBg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/icon_red_package_result_top_bg" />
+
+    <ImageView
+        android:id="@+id/ivAvatar"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="-35dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="3dp"
+            android:layout_height="0.5dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/color_00_00_00" />
+
+        <TextView
+            android:id="@+id/tvXXXRedPackage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/chat_xxx_red_package"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="14dp" />
+
+        <View
+            android:layout_width="3dp"
+            android:layout_height="0.5dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/color_00_00_00" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvRedPackageDes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:textColor="@color/color_00_00_00"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/tvRedPackageValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="12.68"
+        android:textColor="@color/color_00_00_00"
+        android:textSize="36dp" />
+
+
+    <TextView
+        android:id="@+id/tvRedPackageStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="2dp"
+        android:text="5/5个红包已被领取"
+        android:textColor="@color/color_8c_8c_8c"
+        android:textSize="11dp" />
+
+
+</LinearLayout>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="29dp">
+
+        <com.common.lib.view.RatioImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/app_login_top"
+            app:ratio="1.0493" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-58dp"
+            android:background="@drawable/shape_ffffff_30_top"
+            android:paddingLeft="30dp"
+            android:paddingTop="32dp"
+            android:text="@string/app_login"
+            android:textColor="@color/text_color_1"
+            android:textSize="@dimen/dimen_24" />
+
+        <EditText
+            android:id="@+id/etUserName"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/color_ff_ff_ff"
+            android:hint="@string/app_user_name"
+            android:paddingLeft="41dp"
+            android:paddingRight="41dp"
+            android:singleLine="true"
+            android:textColor="@color/text_color_1"
+            android:textColorHint="@color/text_color_2"
+            android:textSize="16dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:alpha="0.68"
+            android:background="@color/line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:paddingLeft="41dp"
+            android:paddingRight="41dp">
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/color_ff_ff_ff"
+                android:hint="@string/app_password"
+                android:inputType="textPassword"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:textColor="@color/text_color_1"
+                android:textColorHint="@color/text_color_2"
+                android:textSize="16dp" />
+
+            <ImageView
+                android:id="@+id/ivEye"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/app_eye_open" />
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:alpha="0.68"
+            android:background="@color/line" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="76dp"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:paddingLeft="41dp"
+            android:paddingRight="18dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="onBackClick"
+                android:paddingLeft="38dp"
+                android:paddingTop="17dp"
+                android:text="@string/app_back"
+                android:textColor="@color/text_color_5"
+                android:textSize="@dimen/dimen_18"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/llSignIn"
+                android:layout_width="191.5dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/app_sign_in_bg"
+                android:paddingLeft="38dp"
+                android:paddingTop="17dp"
+                android:paddingRight="38dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/app_next"
+                    android:text="@string/app_sign_in"
+                    android:textColor="@color/text_color_3"
+                    android:textSize="@dimen/dimen_18"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="28dp"
+            android:alpha="0.68"
+            android:background="@color/line" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="@string/app_forget_password"
+            android:textColor="@color/text_color_1"
+            android:textSize="@dimen/dimen_16" />
+
+        <TextView
+            android:id="@+id/tvReset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/app_tap_for_reset"
+            android:textColor="@color/text_color_6"
+            android:textSize="@dimen/dimen_16" />
+
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

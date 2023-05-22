@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_top_bar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/color_f3_f7_fa" />
+
+    <TextView
+        android:id="@+id/tvDeleteAfterRead"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:drawableRight="@drawable/icon_right_arrow"
+        android:gravity="center_vertical"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:text="@string/chat_delete_after_read"
+        android:textColor="@color/color_00_00_00"
+        android:textSize="15dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="14dp"
+        android:background="@color/color_f3_f7_fa" />
+
+    <LinearLayout
+        android:id="@+id/llP2pPassword"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/chat_add_password_peer_to_peer"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:id="@+id/ivP2pPasswordSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/icon_switch_off" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/color_f3_f7_fa" />
+
+    <TextView
+        android:id="@+id/tvBlackList"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/color_ff_ff_ff"
+        android:drawableRight="@drawable/icon_right_arrow"
+        android:gravity="center_vertical"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:text="@string/chat_blacklist"
+        android:textColor="@color/color_00_00_00"
+        android:textSize="15dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/color_f3_f7_fa" />
+
+    <LinearLayout
+        android:id="@+id/llNeedVerfiySwitch"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/chat_need_verify_when_add_me"
+            android:textColor="@color/color_00_00_00"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:id="@+id/ivNeedVerifySwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/icon_switch_on" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_f3_f7_fa"
+        android:paddingLeft="14dp"
+        android:paddingTop="10dp"
+        android:paddingRight="14dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/chat_need_verify_when_add_me_tip"
+            android:textColor="@color/color_8c_8c_8c"
+            android:textSize="10dp" />
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
