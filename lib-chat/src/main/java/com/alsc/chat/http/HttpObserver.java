@@ -9,8 +9,8 @@ import android.util.Log;
 import com.common.lib.activity.BaseActivity;
 import com.common.lib.bean.*;
 
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 /**
  * 用于在Http请求开始时，自动显示一个ProgressDialog

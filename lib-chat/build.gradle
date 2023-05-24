@@ -33,4 +33,5 @@ dependencies {
     api 'com.github.xiaoyanger0825:NiceVieoPlayer:v2.2'
     api project(':lib-filepick')
     api project(':commonlib')
+    api 'com.yanzhenjie:recyclerview-swipe:1.1.4'
 }

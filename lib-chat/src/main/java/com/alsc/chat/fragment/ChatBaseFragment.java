@@ -13,7 +13,9 @@ import androidx.annotation.Nullable;
 import com.alsc.chat.R;
 import com.alsc.chat.activity.ChatBaseActivity;
 import com.alsc.chat.http.HttpObserver;
+import com.alsc.chat.http.OnHttpErrorListener;
 import com.alsc.chat.http.SubscriberOnNextListener;
+import com.alsc.chat.manager.ChatManager;
 import com.common.lib.activity.db.DatabaseOperate;
 import com.common.lib.bean.*;
 import com.alsc.chat.dialog.InputPasswordDialog;
@@ -40,6 +42,11 @@ import java.util.List;
 public abstract class ChatBaseFragment extends BaseFragment implements View.OnClickListener {
 
     protected boolean mIsToAnotherPage;
+
+    private boolean mIsGetFriend;
+    private boolean mIsGetGroup;
+    protected ArrayList<UserBean> mFriendList;
+    protected ArrayList<GroupBean> mGroupList;
 
 
     @NonNull
@@ -274,6 +281,79 @@ public abstract class ChatBaseFragment extends BaseFragment implements View.OnCl
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(view, 0);
         }
+    }
+
+
+    public void getFriendFromServer() {
+        if (mIsGetFriend) {
+            return;
+        }
+        UserBean userBean = DataManager.getInstance().getUser();
+        if (userBean == null) {
+            return;
+        }
+        mIsGetFriend = true;
+        ChatHttpMethods.getInstance().getFriends(new HttpObserver(new SubscriberOnNextListener<ArrayList<UserBean>>() {
+            @Override
+            public void onNext(ArrayList<UserBean> list, String msg) {
+                DataManager.getInstance().saveFriends(list);
+                mFriendList = list;
+
+                setData(mFriendList, mGroupList);
+                mIsGetFriend = false;
+            }
+        }, getActivity(), false, new OnHttpErrorListener() {
+
+            @Override
+            public void onConnectError(Throwable e) {
+                mIsGetFriend = false;
+            }
+
+            @Override
+            public void onServerError(int errorCode, String errorMsg) {
+                mIsGetFriend = false;
+                if (errorCode == 401) {
+                    ChatManager.getInstance().showLoginOutDialog();
+                }
+            }
+        }));
+    }
+
+    public void getGroupFromServer() {
+        if (mIsGetGroup) {
+            return;
+        }
+        UserBean userBean = DataManager.getInstance().getUser();
+        if (userBean == null) {
+            return;
+        }
+        mIsGetGroup = true;
+        ChatHttpMethods.getInstance().getGroups(1, Integer.MAX_VALUE - 1,
+                new HttpObserver(new SubscriberOnNextListener<ArrayList<GroupBean>>() {
+                    @Override
+                    public void onNext(ArrayList<GroupBean> list, String msg) {
+                        DataManager.getInstance().saveGroups(list);
+                        mGroupList = list;
+                        setData(mFriendList, mGroupList);
+                        mIsGetGroup = false;
+                    }
+                }, getActivity(), false, new OnHttpErrorListener() {
+                    @Override
+                    public void onConnectError(Throwable e) {
+                        mIsGetGroup = false;
+                    }
+
+                    @Override
+                    public void onServerError(int errorCode, String errorMsg) {
+                        mIsGetGroup = false;
+                        if (errorCode == 401) {
+                            ChatManager.getInstance().showLoginOutDialog();
+                        }
+                    }
+                }));
+    }
+
+    public void setData(ArrayList<UserBean> friendList, ArrayList<GroupBean> groupList) {
     }
 
 }

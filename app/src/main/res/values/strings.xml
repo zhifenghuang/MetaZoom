@@ -117,4 +117,8 @@
     <string name="load_wallet_by_private_key_input_tip">无效的私钥</string>
     <string name="load_wallet_by_private_key_hint">明文私钥</string>
     <string name="load_wallet_by_private_key_help">什么是私钥？</string>
+
+    <string name="wallet_chat">消息</string>
+    <string name="wallet_contact">通讯录</string>
+    <string name="wallet_chat_friend">联系人</string>
 </resources>

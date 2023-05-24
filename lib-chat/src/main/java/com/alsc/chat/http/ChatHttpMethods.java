@@ -3,12 +3,15 @@ package com.alsc.chat.http;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.alsc.chat.utils.MD5Utils;
 import com.alsc.chat.utils.Utils;
 import com.alsc.chat.manager.ChatManager;
 import com.alsc.chat.utils.NetUtil;
 import com.common.lib.bean.*;
 import com.common.lib.manager.DataManager;
+import com.common.lib.utils.LogUtil;
 import com.google.gson.GsonBuilder;
 
 import org.apache.http.conn.ConnectTimeoutException;
@@ -23,11 +26,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Predicate;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.functions.Predicate;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -58,7 +60,7 @@ public class ChatHttpMethods {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                Log.i(TAG, message);
+                LogUtil.LogE(message);
             }
         });
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -126,6 +128,13 @@ public class ChatHttpMethods {
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .baseUrl("http://im.metazoom.pro")//"http://utg-im.yunfanke.cn/")
                 .build();
+
+//        mRetrofit = new Retrofit.Builder()
+//                .client(mBuilder.build())
+//                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))
+//                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+//                .baseUrl("http://im.metazoom.pro")//
+//                .build();
     }
 
 
@@ -186,7 +195,10 @@ public class ChatHttpMethods {
 
     public void getFriends(HttpObserver observer) {
         ChatHttpService httpService = mRetrofit.create(ChatHttpService.class);
-        Observable observable = httpService.getFriends(
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("currentPage", 1);
+        map.put("pageSize", Integer.MAX_VALUE - 1);
+        Observable<BasicResponse<ArrayList<UserBean>>> observable = httpService.getFriends(
                 Utils.getLanguageStr(DataManager.getInstance().getLanguage()),
                 RequestBody.create(MediaType.parse("text/plain"), String.valueOf(1)),
                 RequestBody.create(MediaType.parse("text/plain"), String.valueOf(Integer.MAX_VALUE - 1)));

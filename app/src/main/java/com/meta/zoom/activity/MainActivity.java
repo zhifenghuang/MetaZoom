@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.alsc.chat.activity.ChatBaseActivity;
 import com.alsc.chat.manager.ChatManager;
 import com.common.lib.activity.BaseActivity;
 import com.common.lib.bean.UserBean;
@@ -21,7 +22,7 @@ import com.meta.zoom.presenter.MainPresenter;
 
 import java.util.ArrayList;
 
-public class MainActivity extends BaseActivity<MainContract.Presenter> implements MainContract.View {
+public class MainActivity extends ChatBaseActivity implements MainContract.View {
 
     private ArrayList<BaseFragment> mBaseFragment;
     private int mCurrentItem;
@@ -36,6 +37,7 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
         initFragments();
         initViews();
         resetBottomBar(0);
+        switchFragment(mBaseFragment.get(0));
     }
 
     private void initFragments() {

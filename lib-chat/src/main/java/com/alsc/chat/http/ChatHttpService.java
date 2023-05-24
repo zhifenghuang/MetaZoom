@@ -5,13 +5,14 @@ import com.common.lib.bean.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
+import io.reactivex.rxjava3.core.Observable;
+
 
 public interface ChatHttpService {
 
@@ -41,6 +42,10 @@ public interface ChatHttpService {
     @POST("api/v1/contact/list")
     Observable<BasicResponse<ArrayList<UserBean>>> getFriends(@Query("lang") String lang, @Part("currentPage") RequestBody currentPage,
                                                               @Part("pageSize") RequestBody pageSize);
+
+
+//    @POST("api/v1/contact/list")
+//    Observable<BasicResponse<ArrayList<UserBean>>> getFriends(@Body HashMap<String, Object> map);
 
     @Multipart
     @POST("api/v1/contact/list")

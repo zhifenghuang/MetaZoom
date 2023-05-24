@@ -442,4 +442,11 @@
     <string name="chat_clear_success">清除成功</string>
 
     <string name="wallet_other_setting">通用设置</string>
+    <string name="wallet_contact">通讯录</string>
+    <string name="wallet_chat_friend">联系人</string>
+    <string name="wallet_new_friend">新的朋友</string>
+    <string name="wallet_my_group">我的群聊</string>
+    <string name="wallet_star_friend">星标好友</string>
+    <string name="wallet_label_list">标签列表</string>
+    <string name="wallet_delete">删除</string>
 </resources>
