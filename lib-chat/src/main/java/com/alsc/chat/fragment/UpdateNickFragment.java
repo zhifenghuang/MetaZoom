@@ -38,12 +38,12 @@ public class UpdateNickFragment extends ChatBaseFragment {
         mUserInfo = (UserBean) getArguments().getSerializable(Constants.BUNDLE_EXTRA);
         UserBean myInfo = DataManager.getInstance().getUser();
         isMySelf = mUserInfo.getUserId() == myInfo.getUserId();
-        setTopStatusBarStyle(view);
+        setTopStatusBarStyle(R.id.topView);
 
-        final TextView tvLeft = fv(R.id.tvLeft);
-        tvLeft.setVisibility(View.VISIBLE);
-        tvLeft.setOnClickListener(this);
-        setText(tvLeft, getString(R.string.chat_finish));
+        final TextView btnRight = fv(R.id.btnRight);
+        btnRight.setVisibility(View.VISIBLE);
+        btnRight.setOnClickListener(this);
+        setText(btnRight, getString(R.string.chat_finish));
 
         EditText etMemo = view.findViewById(R.id.etName);
         setText(R.id.tvTitle, isMySelf ? R.string.chat_update_nick : R.string.chat_add_memo);
@@ -51,9 +51,11 @@ public class UpdateNickFragment extends ChatBaseFragment {
         etMemo.setHint(getString(isMySelf ? R.string.chat_nick : R.string.chat_friend_memo));
         etMemo.setMaxLines(1);
         etMemo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
-        etMemo.setText(mUserInfo.getMemo());
-        etMemo.setSelection(Math.min(mUserInfo.getMemo().length(), 20));
-        etMemo.requestFocus();
+        if (!isMySelf || !TextUtils.isEmpty(mUserInfo.getNickName3())) {
+            etMemo.setText(mUserInfo.getMemo());
+            etMemo.setSelection(Math.min(mUserInfo.getMemo().length(), 20));
+            etMemo.requestFocus();
+        }
         setViewsOnClickListener(R.id.ivClear);
     }
 
@@ -66,7 +68,7 @@ public class UpdateNickFragment extends ChatBaseFragment {
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.tvLeft) {
+        if (id == R.id.btnRight) {
             String text = getTextById(R.id.etName);
             if (TextUtils.isEmpty(text)) {
                 return;
@@ -92,6 +94,8 @@ public class UpdateNickFragment extends ChatBaseFragment {
                         if (getView() == null) {
                             return;
                         }
+                        mUserInfo.setNickName(text);
+                        DataManager.getInstance().saveUser(mUserInfo);
                         HashMap<String, String> map = new HashMap<>();
                         map.put(Constants.UPDATE_NICK, text);
                         EventBus.getDefault().post(map);

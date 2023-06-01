@@ -8,79 +8,39 @@
     <include layout="@layout/layout_top_bar" />
 
     <LinearLayout
-        android:id="@+id/llSearch"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="13dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="13dp"
+        android:layout_height="58dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginRight="24dp"
         android:background="@drawable/bg_chat_search_bar"
-        android:gravity="center_horizontal"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:drawableLeft="@drawable/icon_search"
-            android:gravity="center"
-            android:drawablePadding="4dp"
-            android:text="@string/chat_id_phone_email"
-            android:textColor="@color/color_8c_8c_8c"
-            android:textSize="13dp" />
-
-    </LinearLayout>
-
-
-
-
-    <TextView
-        android:id="@+id/tvMyId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:textColor="@color/color_00_00_00"
-        android:textSize="15dp" />
-
-    <LinearLayout
-        android:id="@+id/llScan"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="26dp"
-        android:orientation="horizontal"
-        android:paddingLeft="28dp">
+            android:layout_weight="1"
+            android:background="@drawable/bg_chat_search_bar"
+            android:gravity="center_vertical"
+            android:hint="@string/chat_id_phone_email"
+            android:imeOptions="actionSearch"
+            android:paddingLeft="20dp"
+            android:singleLine="true"
+            android:textColor="@color/text_color_1"
+            android:textColorHint="@color/text_color_2"
+            android:textSize="15dp" />
 
         <ImageView
+            android:id="@+id/ivSearch"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/icon_scan" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical"
-            android:paddingLeft="26.5dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chat_scan"
-                android:textColor="@color/color_00_00_00"
-                android:textSize="15dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chat_scan_qrcode"
-                android:textColor="@color/color_8c_8c_8c"
-                android:textSize="12dp" />
-
-        </LinearLayout>
-
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="21dp"
+            android:src="@drawable/icon_search" />
 
     </LinearLayout>
+
 
 
 </LinearLayout>

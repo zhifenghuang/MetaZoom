@@ -128,7 +128,7 @@ public class SelectFriendFragment extends ChatBaseFragment {
                 getAdapter().setNewData(forbidUsers);
             } else {
                 if (mFromType == FROM_GROUP) {
-                    setText(R.id.tvTitle, R.string.chat_start_group_chat);
+                    setText(R.id.tvTitle, R.string.chat_new_group);
                 } else {
                     setText(R.id.tvTitle, R.string.chat_select_friend);
                 }

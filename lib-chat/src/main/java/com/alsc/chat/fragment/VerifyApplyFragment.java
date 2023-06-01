@@ -1,5 +1,8 @@
 package com.alsc.chat.fragment;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -44,14 +47,14 @@ public class VerifyApplyFragment extends ChatBaseFragment {
         mUserInfo = (UserBean) getArguments().getSerializable(Constants.BUNDLE_EXTRA);
         mAddType = getArguments().getInt(Constants.BUNDLE_EXTRA_2, ADD_BY_ID);
         setText(R.id.tvNick, mUserInfo.getNickName());
-        setText(R.id.tvId, getString(R.string.chat_account_2, mUserInfo.getLoginAccount()));
-        setText(R.id.tvLocation, getString(mUserInfo.getGender() == 1 ? R.string.chat_male : R.string.chat_female) + "  " +
-                (TextUtils.isEmpty(mUserInfo.getDistrict()) ? getString(R.string.chat_default_area) : mUserInfo.getDistrict()));
-        Utils.displayAvatar(getActivity(), R.drawable.chat_default_avatar, mUserInfo.getAvatarUrl(), view.findViewById(R.id.ivAvatar));
+        String account = mUserInfo.getLoginAccount();
+        setText(R.id.tvID, "ID: " + account.substring(0, 6) + "..." + account.substring(account.length() - 6));
+        int resId = getResources().getIdentifier("chat_default_avatar_" + mUserInfo.getUserId() % 6,
+                "drawable", getActivity().getPackageName());
+        Utils.loadImage(getActivity(), resId, mUserInfo.getAvatarUrl(), view.findViewById(R.id.ivAvatar));
         UserBean myInfo = DataManager.getInstance().getUser();
         setText(R.id.etVerifyApply, getString(R.string.chat_i_am, myInfo.getNickName()));
-        setText(R.id.etFriendRemark, mUserInfo.getNickName());
-        setViewsOnClickListener(R.id.btnSend);
+        setViewsOnClickListener(R.id.tvID, R.id.btnSend);
     }
 
     @Override
@@ -62,10 +65,14 @@ public class VerifyApplyFragment extends ChatBaseFragment {
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.btnSend) {
+        if (id == R.id.tvID) {
+            ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData mClipData = ClipData.newPlainText("Label", mUserInfo.getLoginAccount());
+            cm.setPrimaryClip(mClipData);
+            showToast(R.string.chat_copy_successful);
+        } else if (id == R.id.btnSend) {
             String applyText = getTextById(R.id.etVerifyApply).trim();
-            String memo = getTextById(R.id.etFriendRemark).trim();
-            ChatHttpMethods.getInstance().addContact(String.valueOf(mUserInfo.getContactId()), memo, applyText, String.valueOf(mAddType),
+            ChatHttpMethods.getInstance().addContact(String.valueOf(mUserInfo.getContactId()), "", applyText, String.valueOf(mAddType),
                     new HttpObserver(new SubscriberOnNextListener() {
                         @Override
                         public void onNext(Object o, String msg) {
@@ -95,7 +102,7 @@ public class VerifyApplyFragment extends ChatBaseFragment {
                             if (getView() == null) {
                                 return;
                             }
-                            finish();
+                            ((BaseActivity) getActivity()).finishAllOtherActivity();
                         }
                     }, getActivity(), (ChatBaseActivity) getActivity()));
         }

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/app_layout_top_bar" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:text="@string/app_token_contract_address"
+        android:textColor="@color/text_color_1"
+        android:textSize="@dimen/dimen_18" />
+
+
+    <EditText
+        android:id="@+id/etAddress"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/shape_stroke_d2c2ff_12"
+        android:hint="@string/app_input_contract_address"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:singleLine="true"
+        android:textColor="@color/text_color_1"
+        android:textColorHint="@color/text_color_2"
+        android:textSize="12dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="29dp"
+        android:paddingTop="20dp"
+        android:text="@string/app_token_symbol"
+        android:textColor="@color/text_color_1"
+        android:textSize="@dimen/dimen_18" />
+
+
+    <EditText
+        android:id="@+id/etSymbol"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/shape_stroke_d2c2ff_12"
+        android:hint="@string/app_input_token_symbol"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:singleLine="true"
+        android:textColor="@color/text_color_1"
+        android:textColorHint="@color/text_color_2"
+        android:textSize="12dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="29dp"
+        android:paddingTop="20dp"
+        android:text="@string/app_token_decimal"
+        android:textColor="@color/text_color_1"
+        android:textSize="@dimen/dimen_18" />
+
+
+    <EditText
+        android:id="@+id/etDecimal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/shape_stroke_d2c2ff_12"
+        android:hint="@string/app_input_token_decimal"
+        android:inputType="number"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:singleLine="true"
+        android:textColor="@color/text_color_1"
+        android:textColorHint="@color/text_color_2"
+        android:textSize="12dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+
+    <TextView
+        android:id="@+id/tvOk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="19dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="40dp"
+        android:alpha="0.25"
+        android:background="@drawable/app_common_btn_bg"
+        android:gravity="center_horizontal"
+        android:paddingTop="19dp"
+        android:text="@string/app_confirm"
+        android:textColor="@color/text_color_3"
+        android:textSize="@dimen/dimen_18"
+        android:textStyle="bold" />
+
+
+</LinearLayout>

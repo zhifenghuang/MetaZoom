@@ -7,6 +7,7 @@ import com.common.lib.activity.db.DatabaseOperate;
 import com.common.lib.bean.WalletBean;
 import com.common.lib.utils.LogUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 import org.bitcoinj.crypto.ChildNumber;
 import org.bitcoinj.crypto.DeterministicKey;
@@ -93,11 +94,11 @@ public class ETHWalletUtils {
         char letter1 = (char) (int) (Math.random() * 26 + 97);
         char letter2 = (char) (int) (Math.random() * 26 + 97);
 
-        String walletName = String.valueOf(letter1) + String.valueOf(letter2) + "-新钱包";
+        String walletName = String.valueOf(letter1) + String.valueOf(letter2) + "-wallet";
         while (DatabaseOperate.getInstance().walletNameChecking(walletName)) {
             letter1 = (char) (int) (Math.random() * 26 + 97);
             letter2 = (char) (int) (Math.random() * 26 + 97);
-            walletName = String.valueOf(letter1) + String.valueOf(letter2) + "-新钱包";
+            walletName = String.valueOf(letter1) + String.valueOf(letter2) + "-wallet";
         }
         return walletName;
     }
@@ -163,11 +164,13 @@ public class ETHWalletUtils {
     private static WalletBean generateWallet(String walletName, String pwd, ECKeyPair ecKeyPair) {
         WalletFile keyStoreFile;
         try {
-            keyStoreFile = Wallet.create(pwd, ecKeyPair, 1024, 1); // WalletUtils.generateNewWalletFile();
+            keyStoreFile = Wallet.createLight(pwd, ecKeyPair);//, 1024, 1); // WalletUtils.generateNewWalletFile();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
+
+        LogUtil.LogE("keyStoreFile = " + new Gson().toJson(keyStoreFile));
 
         BigInteger publicKey = ecKeyPair.getPublicKey();
         String s = publicKey.toString();
@@ -234,7 +237,6 @@ public class ETHWalletUtils {
      * @return
      */
     public static WalletBean loadWalletByPrivateKey(String privateKey, String pwd) {
-        Credentials credentials = null;
         ECKeyPair ecKeyPair = ECKeyPair.create(Numeric.toBigInt(privateKey));
         return generateWallet(generateNewWalletName(), pwd, ecKeyPair);
     }

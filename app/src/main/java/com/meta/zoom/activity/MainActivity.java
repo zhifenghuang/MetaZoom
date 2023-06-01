@@ -1,6 +1,7 @@
 package com.meta.zoom.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,16 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.alsc.chat.activity.ChatBaseActivity;
+import com.alsc.chat.fragment.UpdateNickFragment;
 import com.alsc.chat.manager.ChatManager;
+import com.alsc.chat.utils.Constants;
 import com.common.lib.activity.BaseActivity;
+import com.common.lib.bean.ChainBean;
 import com.common.lib.bean.UserBean;
 import com.common.lib.fragment.BaseFragment;
 import com.common.lib.manager.DataManager;
+import com.common.lib.utils.LogUtil;
 import com.meta.zoom.R;
 import com.meta.zoom.contract.MainContract;
 import com.meta.zoom.fragment.ChatMsgFragment;
+import com.meta.zoom.fragment.DappWebFragment;
+import com.meta.zoom.fragment.SettingFragment;
 import com.meta.zoom.fragment.WalletFragment;
 import com.meta.zoom.presenter.MainPresenter;
+import com.meta.zoom.wallet.WalletManager;
 
 import java.util.ArrayList;
 
@@ -40,12 +48,22 @@ public class MainActivity extends ChatBaseActivity implements MainContract.View 
         switchFragment(mBaseFragment.get(0));
     }
 
+
     private void initFragments() {
         mBaseFragment = new ArrayList<>();
         mBaseFragment.add(new ChatMsgFragment());
+        mBaseFragment.add(new DappWebFragment());
         mBaseFragment.add(new WalletFragment());
-        mBaseFragment.add(new WalletFragment());
-        mBaseFragment.add(new WalletFragment());
+        mBaseFragment.add(new SettingFragment());
+    }
+
+    public void onResume() {
+        super.onResume();
+        if (TextUtils.isEmpty(DataManager.getInstance().getUser().getNickName3())) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(Constants.BUNDLE_EXTRA, DataManager.getInstance().getUser());
+            gotoPager(UpdateNickFragment.class, bundle);
+        }
     }
 
     private void initViews() {

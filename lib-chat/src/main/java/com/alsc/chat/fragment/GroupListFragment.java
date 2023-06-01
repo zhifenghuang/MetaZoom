@@ -34,22 +34,11 @@ public class GroupListFragment extends ChatBaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_group_list;
+        return R.layout.fragment_recycleview;
     }
 
     @Override
     protected void onViewCreated(View view) {
-        mFromType = getArguments().getInt(Constants.BUNDLE_EXTRA, 0);
- //       EventBus.getDefault().register(this);
-        setTopStatusBarStyle(view);
-        if (mFromType != FROM_TRANSFER_MSG) {
-//            setViewVisible(R.id.btnRight);
-//            setText(R.id.btnRight, R.string.chat_create);
-//            setViewsOnClickListener(R.id.btnRight);
-            setText(R.id.tvTitle, R.string.chat_group_chat);
-        }else {
-            setText(R.id.tvTitle, R.string.chat_choose_group);
-        }
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

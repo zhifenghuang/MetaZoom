@@ -299,7 +299,7 @@ public abstract class ChatBaseFragment extends BaseFragment implements View.OnCl
                 DataManager.getInstance().saveFriends(list);
                 mFriendList = list;
 
-                setData(mFriendList, mGroupList);
+                setData(mFriendList, DataManager.getInstance().getGroups());
                 mIsGetFriend = false;
             }
         }, getActivity(), false, new OnHttpErrorListener() {
@@ -334,7 +334,7 @@ public abstract class ChatBaseFragment extends BaseFragment implements View.OnCl
                     public void onNext(ArrayList<GroupBean> list, String msg) {
                         DataManager.getInstance().saveGroups(list);
                         mGroupList = list;
-                        setData(mFriendList, mGroupList);
+                        setData(DataManager.getInstance().getFriends(), mGroupList);
                         mIsGetGroup = false;
                     }
                 }, getActivity(), false, new OnHttpErrorListener() {

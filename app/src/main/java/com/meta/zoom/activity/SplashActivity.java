@@ -13,6 +13,7 @@ import com.common.lib.bean.WalletBean;
 import com.common.lib.manager.DataManager;
 import com.common.lib.mvp.contract.EmptyContract;
 import com.common.lib.mvp.presenter.EmptyPresenter;
+import com.common.lib.utils.LogUtil;
 import com.meta.zoom.R;
 import com.meta.zoom.contract.MainContract;
 import com.meta.zoom.presenter.MainPresenter;

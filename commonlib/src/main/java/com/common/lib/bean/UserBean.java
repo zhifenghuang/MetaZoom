@@ -230,6 +230,10 @@ public class UserBean extends IDBItemOperation {
         return nickName;
     }
 
+    public String getNickName3() {
+        return nickName;
+    }
+
     public String getPinyinName() {
 //        if (TextUtils.isEmpty(pinyinName)) {
 //            String nick = getNickName();

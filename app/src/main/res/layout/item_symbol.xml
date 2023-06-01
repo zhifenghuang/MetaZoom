@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="71dp"
+    android:background="@drawable/shape_stroke_d2c2ff_15"
+    android:paddingLeft="10dp"
+    android:paddingRight="20dp"
+    android:layout_marginBottom="9dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/ivSymbol"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/app_symbol_118" />
+
+    <TextView
+        android:id="@+id/tvSymbol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="13dp"
+        android:text="UTG"
+        android:textColor="@color/text_color_1"
+        android:layout_gravity="center_vertical"
+        android:textSize="@dimen/dimen_16"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/tvBalance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="13dp"
+        android:text="UTG"
+        android:textColor="@color/text_color_1"
+        android:layout_gravity="center_vertical"
+        android:gravity="right"
+        android:textSize="@dimen/dimen_16"
+        android:textStyle="bold" />
+
+</LinearLayout>

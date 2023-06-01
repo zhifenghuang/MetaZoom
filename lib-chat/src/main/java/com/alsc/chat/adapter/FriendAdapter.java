@@ -26,11 +26,11 @@ public class FriendAdapter extends BaseMultiItemQuickAdapter<FriendItem, BaseVie
 
     public FriendAdapter(Context context) {
         super(new ArrayList<FriendItem>());
-        addItemType(FriendItem.VIEW_TYPE_0, R.layout.item_friend_0);
-        addItemType(FriendItem.VIEW_TYPE_1, R.layout.item_friend_1);
-        addItemType(FriendItem.VIEW_TYPE_2, R.layout.item_friend_2);
-        addItemType(FriendItem.VIEW_TYPE_3, R.layout.item_friend_3);
-        addItemType(FriendItem.VIEW_TYPE_4, R.layout.item_friend_4);
+//        addItemType(FriendItem.VIEW_TYPE_0, R.layout.item_friend_0);
+//        addItemType(FriendItem.VIEW_TYPE_1, R.layout.item_friend_1);
+//        addItemType(FriendItem.VIEW_TYPE_2, R.layout.item_friend_2);
+//        addItemType(FriendItem.VIEW_TYPE_3, R.layout.item_friend_3);
+//        addItemType(FriendItem.VIEW_TYPE_4, R.layout.item_friend_4);
         mContext = context;
     }
 

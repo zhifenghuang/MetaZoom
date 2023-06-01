@@ -30,11 +30,8 @@ public class ApplyListFragment extends ChatBaseFragment {
 
     @Override
     protected void onViewCreated(View view) {
-        setTopStatusBarStyle(view);
-        setText(R.id.tvTitle, R.string.chat_new_friend);
-        setViewVisible(R.id.tvLeft);
-        setText(R.id.tvLeft, R.string.chat_add_friend);
-        setViewsOnClickListener(R.id.tvLeft);
+        setTopStatusBarStyle(R.id.topView);
+        setText(R.id.tvTitle, R.string.chat_new_contact);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -76,7 +73,7 @@ public class ApplyListFragment extends ChatBaseFragment {
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.tvLeft) {
+        if (id == R.id.btnRight) {
             gotoPager(AddFriendFragment.class);
         }
     }

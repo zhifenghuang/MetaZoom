@@ -44,10 +44,8 @@ public class ContactFragment extends ChatBaseFragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         getAdapter().onAttachedToRecyclerView(recyclerView);
         recyclerView.setAdapter(getAdapter());
-        getAdapter().addData(new ContactItem(0, getString(R.string.wallet_new_friend), R.drawable.wallet_new_friend));
-        getAdapter().addData(new ContactItem(0, getString(R.string.wallet_my_group), R.drawable.wallet_group));
-        getAdapter().addData(new ContactItem(0, getString(R.string.wallet_star_friend), R.drawable.wallet_star_friend));
-        getAdapter().addData(new ContactItem(0, getString(R.string.wallet_label_list), R.drawable.wallet_label));
+        getAdapter().addData(new ContactItem(0, getString(R.string.chat_new_contact)));
+        getAdapter().addData(new ContactItem(0, getString(R.string.chat_add_contract)));
     }
 
     private ContactAdapter getAdapter() {
@@ -56,19 +54,10 @@ public class ContactFragment extends ChatBaseFragment {
             mAdapter.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    LogUtil.LogE("position: " + position);
                     if (position == 0) {
                         gotoPager(ApplyListFragment.class);
                     } else if (position == 1) {
-                        gotoPager(GroupListFragment.class);
-                    } else if (position == 2) {
-                        gotoPager(StarFriendFragment.class);
-                    } else if (position == 3) {
-                        gotoPager(LabelFragment.class);
-                    } else {
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable(Constants.BUNDLE_EXTRA, mAdapter.getItem(position).getFriend());
-                        gotoPager(UserInfoFragment.class, bundle);
+                        gotoPager(AddFriendFragment.class);
                     }
                 }
             });
@@ -145,13 +134,9 @@ public class ContactFragment extends ChatBaseFragment {
 
     private ArrayList<ContactItem> getNewList(ArrayList<UserBean> list) {
         ArrayList<ContactItem> newList = new ArrayList<>();
-        ContactItem item = new ContactItem(0, getString(R.string.wallet_new_friend), R.drawable.wallet_new_friend);
+        ContactItem item = new ContactItem(0, getString(R.string.chat_new_contact));
         newList.add(item);
-        item = new ContactItem(0, getString(R.string.wallet_my_group), R.drawable.wallet_group);
-        newList.add(item);
-        item = new ContactItem(0, getString(R.string.wallet_star_friend), R.drawable.wallet_star_friend);
-        newList.add(item);
-        item = new ContactItem(0, getString(R.string.wallet_label_list), R.drawable.wallet_label);
+        item = new ContactItem(0, getString(R.string.chat_add_contract));
         newList.add(item);
         if (list != null) {
             for (UserBean bean : list) {
@@ -196,7 +181,6 @@ public class ContactFragment extends ChatBaseFragment {
     public static class ContactItem implements MultiItemEntity {
 
         public int itemType;
-        public int iconResId;
         public String name;
         public UserBean friend;
 
@@ -205,10 +189,9 @@ public class ContactFragment extends ChatBaseFragment {
             this.friend = friend;
         }
 
-        public ContactItem(int itemType, String name, int iconResId) {
+        public ContactItem(int itemType, String name) {
             this.itemType = itemType;
             this.name = name;
-            this.iconResId = iconResId;
         }
 
         @Override

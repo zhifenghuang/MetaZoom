@@ -32,6 +32,7 @@
     <string name="app_re_enter_password">Re-enter confirm password</string>
     <string name="app_password_not_equal_confirm_password">Password is different from confirm password</string>
     <string name="app_confirm">Confirm</string>
+    <string name="app_cancel">Cancel</string>
     <string name="app_no_less_than_6_characters">No less than 6 characters</string>
     <string name="app_create_wallet_failure"> Fail to create wallet </string>
     <string name="app_import_wallet_failure"> Fail to import wallet </string>
@@ -65,6 +66,8 @@
     <string name="app_send">Send</string>
     <string name="app_received">Received</string>
     <string name="app_transfer">Transfer</string>
+    <string name="app_send_success">Send success</string>
+    <string name="app_send_failed">Send failed</string>
 
     <string name="app_choose_currency">Choose currency</string>
     <string name="app_balance_xxx">Balance: %1$s</string>
@@ -88,13 +91,31 @@
     <string name="app_private_key">Private Key</string>
     <string name="app_enter_private_key">Enter the plaintext private key</string>
 
+    <string name="app_custom_network">Custom Network</string>
+    <string name="app_custom_network_tips">MetaZoom cannot verify the security of custom network, please add only trusted networks</string>
+    <string name="app_easy_add">Easy add</string>
+    <string name="app_network_series">Network series</string>
+    <string name="app_ethereum_series">Ethereum series</string>
+    <string name="app_network_name">Network name</string>
+    <string name="app_input_name">Input name</string>
+    <string name="app_rpc">RPC</string>
+    <string name="app_input_rpc">Input RPC</string>
+    <string name="app_chain_id">ChainID</string>
+    <string name="app_input_chain_id">Input ChainID</string>
+    <string name="app_default_token">Default token(optional)</string>
+    <string name="app_input_default_token">Input Default token(optional)</string>
+    <string name="app_browser">Browser(optional)</string>
+    <string name="app_input_browser_url">Input Browser url</string>
+
 
     <string name="app_wallet">Wallet</string>
     <string name="app_main_balance">Main balance</string>
     <string name="app_assets">Assets</string>
     <string name="app_add">Add</string>
-
     <string name="app_meta_zoom">MetaZoom</string>
+
+    <string name="app_choose_network">Choose a network</string>
+    <string name="app_add_custom_network">Add custom network</string>
 
 
     <string name="create_wallet_agreement">服务及隐私条款</string>
@@ -118,7 +139,28 @@
     <string name="load_wallet_by_private_key_hint">明文私钥</string>
     <string name="load_wallet_by_private_key_help">什么是私钥？</string>
 
-    <string name="wallet_chat">消息</string>
-    <string name="wallet_contact">通讯录</string>
-    <string name="wallet_chat_friend">联系人</string>
+    <string name="app_chat">Chat</string>
+    <string name="app_contacts">Contacts</string>
+    <string name="app_group">Group</string>
+    <string name="app_new_group">New group</string>
+    <string name="app_add_contact">Add contact</string>
+    <string name="app_call_history">Call history</string>
+    <string name="app_invite_friends">Invite Friends</string>
+    <string name="app_faq">FAQ</string>
+
+    <string name="app_no_friends">Temporary no contacts</string>
+
+    <string name="app_add_token">添加代币</string>
+    <string name="app_token_contract_address">代币合约</string>
+    <string name="app_input_contract_address">请输入代币合约地址</string>
+    <string name="app_token_symbol">代币符号</string>
+    <string name="app_input_token_symbol">请输入代币符号</string>
+    <string name="app_token_decimal">代币精度</string>
+    <string name="app_input_token_decimal">请输入代币精度</string>
+    <string name="app_error_invalid_address">无效地址</string>
+    <string name="app_error_must_numeric">必须是数字</string>
+    <string name="app_token_had_added">代币已添加</string>
+    <string name="app_network_had_added">该网络已添加</string>
+
+    <string name="app_please_input_your_pay_psw">请输入您的支付密码</string>
 </resources>

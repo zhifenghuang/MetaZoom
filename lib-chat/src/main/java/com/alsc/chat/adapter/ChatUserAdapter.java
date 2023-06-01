@@ -33,9 +33,12 @@ public class ChatUserAdapter extends BaseQuickAdapter<ChatBean, BaseViewHolder> 
     @Override
     protected void convert(BaseViewHolder helper, ChatBean chatBean) {
         helper.getView(R.id.llParent).setBackgroundColor(ContextCompat.getColor(mContext, chatBean.isTopChat() ? R.color.color_f3_f7_fa : R.color.color_ff_ff_ff));
+        int resId = 0;
         if (chatBean.chatUser != null) {
             helper.setText(R.id.tvName, (mMyInfo.isService() ? ("(" + chatBean.chatUser.getUserId() + ")") : "") + chatBean.chatUser.getNickName());
-            Utils.displayAvatar(mContext, R.drawable.chat_default_avatar, chatBean.chatUser.getAvatarUrl(), helper.getView(R.id.ivAvatar));
+            resId = mContext.getResources().getIdentifier("chat_default_avatar_" + chatBean.chatUser.getUserId() % 6,
+                    "drawable", mContext.getPackageName());
+            Utils.loadImage(mContext, resId, chatBean.chatUser.getAvatarUrl(), helper.getView(R.id.ivAvatar));
         } else {
             helper.setText(R.id.tvName, chatBean.group.getName());
             Utils.displayAvatar(mContext, R.drawable.chat_default_group_avatar, chatBean.group.getIcon(), helper.getView(R.id.ivAvatar));
@@ -75,7 +78,6 @@ public class ChatUserAdapter extends BaseQuickAdapter<ChatBean, BaseViewHolder> 
         } else {
             helper.setGone(R.id.ivResend, chatBean.lastMsg.getSendStatus() >= 0);
         }
-        helper.setGone(R.id.line, getItemPosition(chatBean) == getItemCount() - 1);
     }
 
     public void resortList() {

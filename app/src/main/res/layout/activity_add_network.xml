@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ff_ff_ff"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/app_layout_top_bar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginRight="28dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_custom_network_tips"
+                android:textColor="@color/text_color_8"
+                android:textSize="@dimen/dimen_12" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="@string/app_network_series"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/dimen_18" />
+
+
+            <TextView
+                android:id="@+id/tvSeries"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/shape_stroke_d2c2ff_12"
+                android:gravity="center_vertical"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:text="@string/app_ethereum_series"
+                android:textColor="@color/text_color_1"
+                android:textColorHint="@color/text_color_2"
+                android:textSize="16dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="@string/app_network_name"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/dimen_18" />
+
+
+            <EditText
+                android:id="@+id/etNetworkName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/shape_stroke_d2c2ff_12"
+                android:gravity="center_vertical"
+                android:hint="@string/app_input_name"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:textColor="@color/text_color_1"
+                android:textColorHint="@color/text_color_2"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="@string/app_rpc"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/dimen_18" />
+
+
+            <EditText
+                android:id="@+id/etRPC"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/shape_stroke_d2c2ff_12"
+                android:gravity="center_vertical"
+                android:hint="@string/app_input_rpc"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:textColor="@color/text_color_1"
+                android:textColorHint="@color/text_color_2"
+                android:textSize="16dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="@string/app_chain_id"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/dimen_18" />
+
+
+            <EditText
+                android:id="@+id/etChainID"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/shape_stroke_d2c2ff_12"
+                android:gravity="center_vertical"
+                android:hint="@string/app_input_chain_id"
+                android:inputType="number"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:textColor="@color/text_color_1"
+                android:textColorHint="@color/text_color_2"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="@string/app_default_token"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/dimen_18" />
+
+
+            <EditText
+                android:id="@+id/etDefaultToken"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/shape_stroke_d2c2ff_12"
+                android:gravity="center_vertical"
+                android:hint="@string/app_input_default_token"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:textColor="@color/text_color_1"
+                android:textColorHint="@color/text_color_2"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="@string/app_browser"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/dimen_18" />
+
+
+            <EditText
+                android:id="@+id/etBrowser"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/shape_stroke_d2c2ff_12"
+                android:gravity="center_vertical"
+                android:hint="@string/app_input_browser_url"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:textColor="@color/text_color_1"
+                android:textColorHint="@color/text_color_2"
+                android:textSize="16dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/tvOk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="19dp"
+        android:layout_marginRight="18dp"
+        android:alpha="0.25"
+        android:background="@drawable/app_common_btn_bg"
+        android:gravity="center_horizontal"
+        android:paddingTop="19dp"
+        android:text="@string/app_confirm"
+        android:textColor="@color/text_color_3"
+        android:textSize="@dimen/dimen_16"
+        android:textStyle="bold" />
+
+
+</LinearLayout>

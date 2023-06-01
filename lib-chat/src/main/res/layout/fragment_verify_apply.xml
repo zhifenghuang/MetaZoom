@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_f3_f7_fa"
+    android:background="@color/color_ff_ff_ff"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_top_bar" />
+    <include layout="@layout/layout_top_bar_2" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="13dp"
-        android:layout_marginTop="10dp"
-        android:paddingTop="5dp"
-        android:background="@color/color_ff_ff_ff"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        android:paddingRight="13dp"
-        android:paddingBottom="20.5dp">
+        android:paddingLeft="24dp"
+        android:paddingRight="25dp">
 
-        <ImageView
+        <androidx.constraintlayout.utils.widget.ImageFilterView
             android:id="@+id/ivAvatar"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_width="74dp"
+            android:layout_height="74dp"
+            app:round="12dp" />
 
 
         <LinearLayout
@@ -31,34 +30,32 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:paddingLeft="21dp"
-            android:paddingTop="4dp">
+            android:paddingLeft="15dp"
+            android:paddingTop="12dp">
 
             <TextView
                 android:id="@+id/tvNick"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:textColor="@color/color_00_00_00"
+                android:text="Brother"
+                android:textColor="@color/text_color_1"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
 
             <TextView
-                android:id="@+id/tvId"
-                android:layout_width="match_parent"
+                android:id="@+id/tvID"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="4dp"
-                android:textColor="@color/color_8c_8c_8c"
-                android:textSize="12dp" />
+                android:drawableRight="@drawable/chat_copy"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:paddingTop="10dp"
+                android:text="ID:0xiuiii"
+                android:textColor="@color/text_color_2"
+                android:textSize="14dp" />
 
-            <TextView
-                android:id="@+id/tvLocation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="4dp"
-                android:textColor="@color/color_8c_8c_8c"
-                android:textSize="12dp" />
 
         </LinearLayout>
 
@@ -68,97 +65,43 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="13dp"
-        android:paddingRight="13dp"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
         android:text="@string/chat_you_need_send_verify_apply"
-        android:textColor="@color/color_8c_8c_8c"
-        android:textSize="12dp" />
+        android:textColor="@color/text_color_2"
+        android:textSize="13dp" />
 
-    <LinearLayout
+
+    <EditText
+        android:id="@+id/etVerifyApply"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/color_ff_ff_ff"
-        android:orientation="horizontal"
-        android:paddingLeft="13dp"
-        android:paddingRight="13dp">
-
-        <EditText
-            android:id="@+id/etVerifyApply"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:gravity="center_vertical"
-            android:singleLine="true"
-            android:textColor="@color/color_00_00_00"
-            android:textSize="15dp" />
-
-
-    </LinearLayout>
+        android:layout_height="55dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="24dp"
+        android:background="@drawable/shape_ededed_8"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:singleLine="true"
+        android:textColor="@color/text_color_1"
+        android:textSize="17dp" />
 
 
     <TextView
+        android:id="@+id/btnSend"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="13dp"
-        android:paddingRight="13dp"
-        android:text="@string/chat_add_friend_remark"
-        android:textColor="@color/color_8c_8c_8c"
-        android:textSize="12dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/color_ff_ff_ff"
-        android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
-
-        <EditText
-            android:id="@+id/etFriendRemark"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:gravity="center_vertical"
-            android:paddingRight="10dp"
-            android:singleLine="true"
-            android:textColor="@color/color_00_00_00"
-            android:textSize="15dp" />
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="66dp"
-        android:background="@color/color_ff_ff_ff"
-        android:orientation="horizontal"
-        android:padding="13dp">
-
-        <Button
-            android:id="@+id/btnSend"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/bg_chat_add_label"
-            android:text="@string/chat_send"
-            android:textColor="@color/color_ff_ff_ff"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
+        android:layout_height="57dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginRight="28dp"
+        android:background="@drawable/shape_7a5bd0_19"
+        android:gravity="center"
+        android:text="@string/chat_send"
+        android:textColor="@color/color_ff_ff_ff"
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
 
 </LinearLayout>

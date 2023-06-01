@@ -24,4 +24,5 @@ interface Api {
     fun login(
         @Body map: HashMap<String, Any>
     ): Observable<BasicResponse<UserBean>>
+
 }

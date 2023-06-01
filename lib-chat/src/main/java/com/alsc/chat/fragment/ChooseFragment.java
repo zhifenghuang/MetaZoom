@@ -54,8 +54,6 @@ public class ChooseFragment extends ChatBaseFragment {
             setText(R.id.tvTitle, R.string.chat_switch_language);
         } else if (mChooseType == CHOOSE_DELETE_TYPE) {
             setText(R.id.tvTitle, R.string.chat_delete_after_read);
-        } else if (mChooseType == CHOOSE_PAY_TYPE) {
-            setText(R.id.tvTitle, R.string.chat_pay_type);
         } else if (mChooseType == CHOOSE_AREA) {
             setText(R.id.tvTitle, R.string.chat_area_switch);
         }

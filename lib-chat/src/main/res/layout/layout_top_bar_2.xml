@@ -1,75 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/topView"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/ivLeft"
+
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:onClick="onBackClick"
-        android:paddingLeft="14dp"
-        android:paddingRight="20dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/chat_back_gray"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:onClick="onBackClick"
-        android:paddingLeft="10dp"
-        android:singleLine="true"
-        android:textColor="@color/color_00_00_00"
-        android:textSize="16dp"
-        android:visibility="gone"
-        app:layout_constraintStart_toEndOf="@id/ivLeft"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="70dp">
 
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:textColor="@color/color_00_00_00"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        android:paddingRight="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/ivRight"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:paddingRight="20dp"
-        android:scaleType="centerInside"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="onBackClick"
+            android:paddingLeft="18dp"
+            android:paddingRight="14dp"
+            android:src="@drawable/chat_back_blue"
+            android:textSize="14dp" />
 
 
-    <TextView
-        android:id="@+id/btnRight"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginRight="14dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:textColor="@color/color_ff_ff_ff"
-        android:textSize="15dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:textColor="@color/text_color_6"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/btnRight"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:paddingRight="18dp"
+            android:textColor="@color/text_color_6"
+            android:textSize="14dp" />
+    </RelativeLayout>
+
+
+</FrameLayout>

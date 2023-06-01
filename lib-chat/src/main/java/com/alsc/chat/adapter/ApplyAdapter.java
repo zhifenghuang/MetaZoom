@@ -40,12 +40,14 @@ public class ApplyAdapter extends BaseQuickAdapter<UserBean, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, final UserBean item) {
         helper.setText(R.id.tvName, item.getMemo())
                 .setText(R.id.tvApplyText, TextUtils.isEmpty(item.getRemark()) ? mContext.getString(R.string.chat_request_you_as_friend) : item.getRemark());
-        Utils.displayAvatar(mContext, R.drawable.chat_default_avatar, item.getAvatarUrl(), helper.getView(R.id.ivAvatar));
+        int resId = mContext.getResources().getIdentifier("chat_default_avatar_" + item.getUserId() % 6,
+                "drawable", mContext.getPackageName());
+        Utils.loadImage(mContext, resId, item.getAvatarUrl(), helper.getView(R.id.ivAvatar));
         TextView tvOperator = helper.getView(R.id.tvOperator);
         if (item.getStatus() == 0) {
             tvOperator.setBackgroundResource(R.drawable.bg_chat_apply);
             tvOperator.setText(R.string.chat_accespt);
-            tvOperator.setTextColor(ContextCompat.getColor(mContext, R.color.color_3a_54_ff));
+            tvOperator.setTextColor(ContextCompat.getColor(mContext, com.common.lib.R.color.text_color_6));
             tvOperator.setTag(item);
             tvOperator.setOnClickListener(new View.OnClickListener() {
                 @Override

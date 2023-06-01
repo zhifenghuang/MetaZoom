@@ -1,130 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_ff_ff_ff"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_top_bar" />
-
-    <TextView
-        android:id="@+id/tvNick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:singleLine="true"
-        android:textColor="@color/color_00_00_00"
-        android:textSize="24dp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tvId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="13dp"
-        android:textColor="@color/color_8c_8c_8c"
-        android:textSize="12dp" />
-
-    <TextView
-        android:id="@+id/tvLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="地区：亚洲 新加坡"
-        android:textColor="@color/color_8c_8c_8c"
-        android:textSize="12dp" />
-
-
-    <ImageView
-        android:id="@+id/ivAvatar"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp" />
-
-    <TextView
-        android:id="@+id/tvBlockTip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:text="@string/chat_block_tip"
-        android:textColor="@color/color_8c_8c_8c"
-        android:textSize="12dp"
-        android:visibility="gone" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
+    <include layout="@layout/layout_top_bar_2" />
 
     <LinearLayout
-        android:id="@+id/llBottom"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        android:visibility="gone">
+        android:paddingLeft="24dp"
+        android:paddingRight="25dp">
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/ivAvatar"
+            android:layout_width="74dp"
+            android:layout_height="74dp"
+            app:round="12dp" />
+
 
         <LinearLayout
-            android:id="@+id/ll1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingLeft="22dp">
-
-            <ImageView
-                android:id="@+id/iv1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical" />
-
-            <TextView
-                android:id="@+id/tv1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="14dp"
-                android:textColor="@color/color_00_00_00"
-                android:textSize="15dp" />
-
-        </LinearLayout>
-
-        <View
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-
-        <LinearLayout
-            android:id="@+id/ll2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingRight="22dp"
-            android:visibility="gone">
-
-            <ImageView
-                android:id="@+id/iv2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingTop="12dp">
 
             <TextView
-                android:id="@+id/tv2"
+                android:id="@+id/tvNick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="Brother"
+                android:textColor="@color/text_color_1"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/tvID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="14dp"
-                android:textColor="@color/color_00_00_00"
-                android:textSize="15dp" />
+                android:drawableRight="@drawable/chat_copy"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:paddingTop="10dp"
+                android:text="ID:0xiuiii"
+                android:textColor="@color/text_color_2"
+                android:textSize="14dp" />
+
 
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivToChat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/chat_to_chat" />
 
 
     </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tvAddToContract"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginRight="28dp"
+        android:background="@drawable/shape_7a5bd0_19"
+        android:gravity="center"
+        android:text="@string/chat_add_to_contract"
+        android:textColor="@color/color_ff_ff_ff"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvAddNoteName"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginTop="21dp"
+        android:drawableRight="@drawable/chat_right_arrow"
+        android:gravity="center_vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:text="@string/chat_add_note_name"
+        android:textColor="@color/text_color_1"
+        android:textSize="15dp" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@color/color_ed_ed_ed" />
+
+    <LinearLayout
+        android:id="@+id/llNotification"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:orientation="horizontal"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/chat_mute_notification"
+            android:textColor="@color/text_color_1"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:id="@+id/ivNotification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/chat_switch_on" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/paddingView"
+        android:layout_width="match_parent"
+        android:layout_height="9dp"
+        android:background="@color/color_f8_f8_f8"/>
+
+
+    <LinearLayout
+        android:id="@+id/llBlock"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivBlock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/chat_shield" />
+
+        <TextView
+            android:id="@+id/tvBlock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/chat_shield"
+            android:layout_marginLeft="9dp"
+            android:textColor="@color/text_color_8"
+            android:textSize="15dp" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_f8_f8_f8"/>
 
 
 </LinearLayout>

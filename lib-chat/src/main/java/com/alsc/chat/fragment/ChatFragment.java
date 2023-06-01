@@ -138,7 +138,10 @@ public class ChatFragment extends ChatBaseFragment {
     protected void onViewCreated(View view) {
         mMyInfo = DataManager.getInstance().getUser();
         mChatUser = (UserBean) getArguments().getSerializable(Constants.BUNDLE_EXTRA);
-        setText(R.id.tvLeft, mChatUser.getNickName());
+        setText(R.id.tvName, mChatUser.getNickName());
+        int resId = getResources().getIdentifier("chat_default_avatar_" + mChatUser.getUserId() % 6,
+                "drawable", getActivity().getPackageName());
+        Utils.loadImage(getActivity(), resId, mChatUser.getAvatarUrl(), fv(R.id.ivAvatar));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
@@ -162,17 +165,17 @@ public class ChatFragment extends ChatBaseFragment {
         });
         mSelectedMsg = (BasicMessage) getArguments().getSerializable(Constants.BUNDLE_EXTRA_2);
         setTopStatusBarStyle(view);
-        setViewVisible(R.id.tvLeft, R.id.ivRight);
-        setImage(R.id.ivRight, R.drawable.icon_more_black);
-        setViewsOnClickListener(R.id.ivSend, R.id.ivRight, R.id.ivVoice, R.id.ivAdd,
-                R.id.llAlbum, R.id.llCamera, R.id.btnRight,
+        //     setViewVisible(R.id.tvLeft, R.id.ivRight);
+        //     setImage(R.id.ivRight, R.drawable.icon_more_black);
+        setViewsOnClickListener(R.id.ivSend, R.id.ivVoice, R.id.ivAdd,
+                R.id.llAlbum, R.id.llCamera,
                 R.id.llVideo, R.id.llLocation, R.id.llRedPackage,
                 R.id.llTransfer, R.id.llFile, R.id.llDeleteAfterRead, R.id.ivMsgDeleteType);
 
-        final TextView btnRight = view.findViewById(R.id.btnRight);
-        btnRight.setVisibility(View.GONE);
-        setText(btnRight, getString(R.string.chat_delete));
-        btnRight.setBackgroundResource(R.drawable.bg_chat_add_label);
+//        final TextView btnRight = view.findViewById(R.id.btnRight);
+//        btnRight.setVisibility(View.GONE);
+//        setText(btnRight, getString(R.string.chat_delete));
+//        btnRight.setBackgroundResource(R.drawable.bg_chat_add_label);
 
         initMsgs();
         initEvent();

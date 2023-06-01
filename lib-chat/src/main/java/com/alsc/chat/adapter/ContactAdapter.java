@@ -35,27 +35,27 @@ public class ContactAdapter extends BaseMultiItemQuickAdapter<ContactFragment.Co
         int position=getItemPosition(item);
         switch (getDefItemViewType(position)) {
             case 0:
-                helper.setImageResource(R.id.iv, item.iconResId)
-                        .setText(R.id.tv, item.name)
-                        .setVisible(R.id.ivNew, false)
-                        .setGone(R.id.line, position == 3);
+                helper.setText(R.id.tv, item.name)
+                        .setVisible(R.id.tvNew, false);
                 if (position == 0 && mIsHadNewVerify) {
                     helper.setVisible(R.id.ivNew, true);
                 }
                 break;
             case 1:
                 UserBean friend = item.getFriend();
-                char c = friend.getPinyinName().charAt(0);
-                if (position == 4) {
-                    helper.setText(R.id.tvLetter, String.valueOf(c))
-                            .setGone(R.id.tvLetter, false);
-                } else {
-                    char prevC = getItem(position - 1).getFriend().getPinyinName().charAt(0);
-                    helper.setText(R.id.tvLetter, String.valueOf(c))
-                            .setGone(R.id.tvLetter, prevC == c);
-                }
+//                char c = friend.getPinyinName().charAt(0);
+//                if (position == 4) {
+//                    helper.setText(R.id.tvLetter, String.valueOf(c))
+//                            .setGone(R.id.tvLetter, false);
+//                } else {
+//                    char prevC = getItem(position - 1).getFriend().getPinyinName().charAt(0);
+//                    helper.setText(R.id.tvLetter, String.valueOf(c))
+//                            .setGone(R.id.tvLetter, prevC == c);
+//                }
                 helper.setText(R.id.tvName, friend.getNickName());
-                Utils.displayAvatar(mContext, R.drawable.chat_default_avatar, friend.getAvatarUrl(), helper.getView(R.id.ivAvatar));
+                int resId = mContext.getResources().getIdentifier("chat_default_avatar_" + friend.getUserId() % 6,
+                        "drawable", mContext.getPackageName());
+                Utils.loadImage(mContext, resId, friend.getAvatarUrl(), helper.getView(R.id.ivAvatar));
                 break;
         }
     }

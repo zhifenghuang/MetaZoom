@@ -31,6 +31,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.common.lib.activity.db.DatabaseOperate;
 import com.common.lib.bean.*;
+import com.common.lib.utils.LogUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zhangke.websocket.WebSocketHandler;
@@ -820,7 +821,10 @@ public class MessageAdapter extends BaseQuickAdapter<BasicMessage, BaseViewHolde
 
     protected void showUserInfo(BaseViewHolder helper, BasicMessage item) {
         if (item.isMySendMsg(mMyInfo.getUserId())) {
-            Utils.displayAvatar(mContext, R.drawable.chat_default_avatar, mMyInfo.getAvatarUrl(), helper.getView(R.id.ivRight));
+
+            int resId = mContext.getResources().getIdentifier("chat_default_avatar_" + mMyInfo.getUserId() % 6,
+                    "drawable", mContext.getPackageName());
+            Utils.loadImage(mContext, resId, mMyInfo.getAvatarUrl(), helper.getView(R.id.ivRight));
             helper.getView(R.id.ivRight).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -828,7 +832,9 @@ public class MessageAdapter extends BaseQuickAdapter<BasicMessage, BaseViewHolde
                 }
             });
         } else {
-            Utils.displayAvatar(mContext, R.drawable.chat_default_avatar, mChatUser.getAvatarUrl(), helper.getView(R.id.ivLeft));
+            int resId = mContext.getResources().getIdentifier("chat_default_avatar_" + mChatUser.getUserId() % 6,
+                    "drawable", mContext.getPackageName());
+            Utils.loadImage(mContext, resId, mChatUser.getAvatarUrl(), helper.getView(R.id.ivLeft));
             helper.getView(R.id.ivLeft).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

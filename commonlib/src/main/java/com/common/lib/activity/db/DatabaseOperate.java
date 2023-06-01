@@ -8,6 +8,7 @@ import com.common.lib.bean.BasicMessage;
 import com.common.lib.bean.ChainBean;
 import com.common.lib.bean.GroupMessageBean;
 import com.common.lib.bean.MessageBean;
+import com.common.lib.bean.TokenBean;
 import com.common.lib.bean.UserBean;
 import com.common.lib.bean.WalletBean;
 import com.common.lib.utils.LogUtil;
@@ -83,9 +84,35 @@ public class DatabaseOperate extends DBOperate {
         return list;
     }
 
+    public ArrayList<TokenBean> getTokenList(int chainId, String address) {
+        String sql = "select * from token where chainId=" + chainId + " and walletAddress='" + address + "'";
+        ArrayList<TokenBean> list = mDBManager.getList(sql, TokenBean.class);
+        if (list == null) {
+            list = new ArrayList<>();
+        }
+        return list;
+    }
+
     public boolean isHadWallet(String address, int chainId) {
         String sql = "select * from wallet where address='" + address + "' and chainId=" + chainId;
         ArrayList<WalletBean> list = mDBManager.getList(sql, WalletBean.class);
+        return list != null && !list.isEmpty();
+    }
+
+    public boolean isHadToken(int chainId, String address, String walletAddress) {
+        String sql = "select * from token where chainId=" + chainId + " and contractAddress='" + address +
+                "' and walletAddress='" + walletAddress + "'";
+        ArrayList<TokenBean> list = mDBManager.getList(sql, TokenBean.class);
+        return list != null && !list.isEmpty();
+    }
+
+    public boolean isHadChain(int chainId) {
+        String sql = "select * from chain where chainId=" + chainId;
+        ArrayList<ChainBean> list = mDBManager.getList(sql, ChainBean.class);
+        LogUtil.LogE(sql+", "+list);
+        if (list != null) {
+            LogUtil.LogE(list + "    " + list.size());
+        }
         return list != null && !list.isEmpty();
     }
 

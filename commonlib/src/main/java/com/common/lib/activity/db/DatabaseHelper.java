@@ -47,19 +47,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "createTime long" +
                 ")";
         db.execSQL(sql);
+        sql = "create table 'transaction'(" +
+                "hash varchar(50) primary key," +
+                "blockNumber text," +
+                "'from' text," +
+                "gas text," +
+                "gasPrice text," +
+                "gasUsed text," +
+                "cumulativeGasUsed text," +
+                "'to' text," +
+                "value text," +
+                "timeStamp long" +
+                ")";
+        db.execSQL(sql);
         sql = "create table token(" +   //代币表
                 "id integer primary key autoincrement," +
                 "chainId integer," +  //代币所属公链
-                "contractAddress varchar(128)," +  //代币合约地址
+                "contractAddress text," +  //代币合约地址
                 "symbol varchar(50)," +  //代币符号
-                "tokenPrecision integer" +//代币精度
-                ")";
-        db.execSQL(sql);
-        sql = "create table tokenInfo(" +   //代币信息
-                "id integer primary key autoincrement," +
-                "walletId integer," +  //关联钱包的Id
-                "money varchar(50)," +
-                "createTime long" +
+                "tokenPrecision integer," +//代币精度
+                "walletAddress text," +  //钱包地址
+                "balance text" +  //代币余额
                 ")";
         db.execSQL(sql);
         initData(db);
@@ -67,7 +75,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void initData(SQLiteDatabase db) {
-        insert(db, new ChainBean(118, "Glow Testnet", "https://rpc.glowtest.net", "UTG", ""));
+        // insert(db, new ChainBean(188, "Glow Testnet", "https://rpc.glowtest.net", "UTG", ""));
+        //  insert(db, new ChainBean(188, "UltronGlow Mainnet", "https://rpc.ultronglow.io", "UTG", ""));
+        insert(db, new ChainBean(97, "Binance Smart Chain Testnet", "https://data-seed-prebsc-1-s1.binance.org:8545", "BNB", "https://api-testnet.bscscan.com"));
     }
 
     @Override

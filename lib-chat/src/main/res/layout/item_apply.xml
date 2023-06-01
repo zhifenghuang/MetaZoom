@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="72dp"
+    android:layout_height="60dp"
     android:layout_marginTop="0.5dp"
     android:background="@color/color_ff_ff_ff"
     android:orientation="horizontal"
-    android:paddingLeft="13dp"
-    android:paddingRight="13dp">
+    android:paddingLeft="20dp"
+    android:paddingTop="5dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="5dp">
 
 
-    <ImageView
+    <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/ivAvatar"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center_vertical" />
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        app:round="10dp" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -21,25 +25,24 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:paddingLeft="17dp">
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
         <TextView
             android:id="@+id/tvName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:singleLine="true"
-            android:textColor="@color/color_00_00_00"
-            android:textSize="15dp"
+            android:textColor="@color/text_color_1"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvApplyText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:singleLine="true"
-            android:textColor="@color/color_8c_8c_8c"
+            android:textColor="@color/text_color_2"
             android:textSize="12dp"
             android:visibility="gone" />
 
@@ -48,15 +51,15 @@
     <TextView
         android:id="@+id/tvOperator"
         android:layout_width="wrap_content"
-        android:layout_height="21dp"
+        android:layout_height="40dp"
         android:layout_gravity="center_vertical"
         android:background="@drawable/bg_chat_apply"
         android:gravity="center"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
         android:text="@string/chat_accespt"
-        android:textColor="@color/color_3a_54_ff"
-        android:textSize="12dp" />
+        android:textColor="@color/text_color_6"
+        android:textSize="15dp" />
 
 
 </LinearLayout>

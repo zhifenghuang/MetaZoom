@@ -25,17 +25,19 @@
             android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/ivAddNetWork"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/app_notification" />
+            android:src="@drawable/app_add_network" />
 
         <ImageView
+            android:id="@+id/ivSwitchWallet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="12dp"
-            android:src="@drawable/app_more" />
+            android:src="@drawable/app_switch_network" />
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView

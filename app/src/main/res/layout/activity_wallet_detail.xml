@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="18dp"
         android:text="725.00"
         android:textColor="@color/text_color_7"
         android:textSize="@dimen/dimen_20"
@@ -37,63 +37,31 @@
         android:textColor="@color/text_color_2"
         android:textSize="@dimen/dimen_12" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_all"
+        android:layout_marginLeft="29dp"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/text_color_2"
+        android:textSize="@dimen/dimen_16" />
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal">
-
-
-        <TextView
-            android:id="@+id/tvAll"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingRight="16dp"
-            android:paddingLeft="16dp"
-            android:gravity="center"
-            android:text="@string/app_all"
-            android:textColor="@color/text_color_1"
-            android:textSize="@dimen/dimen_16" />
-
-        <TextView
-            android:id="@+id/tvReceived"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingRight="16dp"
-            android:paddingLeft="16dp"
-            android:gravity="center"
-            android:text="@string/app_receive"
-            android:textColor="@color/text_color_2"
-            android:textSize="@dimen/dimen_16" />
-
-        <TextView
-            android:id="@+id/tvSend"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingRight="16dp"
-            android:paddingLeft="16dp"
-            android:gravity="center"
-            android:text="@string/app_send"
-            android:textColor="@color/text_color_2"
-            android:textSize="@dimen/dimen_16" />
-
-
-    </LinearLayout>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="28dp"
+        android:layout_weight="1" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="28dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="28dp"
         android:layout_marginBottom="15dp"
         android:orientation="horizontal"

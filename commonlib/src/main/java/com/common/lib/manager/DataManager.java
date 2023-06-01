@@ -2,6 +2,8 @@ package com.common.lib.manager;
 
 import android.text.TextUtils;
 
+import com.common.lib.activity.db.DatabaseOperate;
+import com.common.lib.bean.ChainBean;
 import com.common.lib.bean.ChatSettingBean;
 import com.common.lib.bean.ChatSubBean;
 import com.common.lib.bean.FilterMsgBean;
@@ -32,6 +34,8 @@ public class DataManager {
 
     private WalletBean mWallet;
 
+    private ChainBean mChain;
+
     private DataManager() {
 
     }
@@ -56,6 +60,37 @@ public class DataManager {
 
     public String getToken() {
         return getUser() == null ? "" : getUser().getToken();
+    }
+
+
+    public void saveCurrentChain(ChainBean chain) {
+        if (chain == null) {
+            mChain = null;
+            Preferences.getInstacne().setValues(
+                    "current_chain",
+                    ""
+            );
+            return;
+        }
+        mChain = chain;
+        Preferences.getInstacne().setValues(
+                "current_chain",
+                getGson().toJson(mChain)
+        );
+    }
+
+    public ChainBean getCurrentChain() {
+        if (mChain == null) {
+            String str =
+                    Preferences.getInstacne().getValues("current_chain", "");
+            if (TextUtils.isEmpty(str)) {
+                mChain = DatabaseOperate.getInstance().getChainList().get(0);
+                saveCurrentChain(mChain);
+            } else {
+                mChain = getGson().fromJson(str, ChainBean.class);
+            }
+        }
+        return mChain;
     }
 
     public void saveCurrentWallet(WalletBean wallet) {

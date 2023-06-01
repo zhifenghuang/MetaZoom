@@ -75,28 +75,6 @@ public class InputPasswordDialog extends Dialog implements View.OnClickListener 
         if (TextUtils.isEmpty(password)) {
             return;
         }
-//        HttpMethods.getInstance().checkPwd(MD5Utils.encryptMD5(password),
-//                DataManager.getInstance().getToken(), new HttpObserver(new SubscriberOnNextListener() {
-//                    @Override
-//                    public void onNext(Object o, String msg) {
-//                        if (mOnInputPasswordListener != null) {
-//                            mOnInputPasswordListener.afterCheckPassword();
-//                        }
-//                        dismiss();
-//                    }
-//                }, mContext, new OnHttpErrorListener() {
-//                    @Override
-//                    public void onConnectError(Throwable e) {
-//                        Toast.makeText(mContext, mContext.getString(R.string.network_excption), Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onServerError(int errorCode, String errorMsg) {
-//                        if (!TextUtils.isEmpty(errorMsg)) {
-//                            Toast.makeText(mContext, errorMsg, Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                }));
     }
 
     /**

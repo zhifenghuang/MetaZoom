@@ -53,7 +53,7 @@ public class MyInfoFragment extends ChatBaseFragment {
         setText(R.id.tvID, String.valueOf(mMyInfo.getUserId()));
         setText(R.id.tvArea, TextUtils.isEmpty(mMyInfo.getDistrict()) ? getString(R.string.chat_default_area) : mMyInfo.getDistrict());
         setViewsOnClickListener(R.id.llAvatar, R.id.llNick, R.id.llGender, R.id.llQrCode, R.id.llArea);
-        Utils.displayAvatar(getActivity(), R.drawable.chat_default_avatar, mMyInfo.getAvatarUrl(), view.findViewById(R.id.ivAvatar));
+        Utils.loadImage(getActivity(), R.drawable.chat_default_avatar, mMyInfo.getAvatarUrl(), view.findViewById(R.id.ivAvatar));
         if (!TextUtils.isEmpty(mMyInfo.getBindMobile())) {
             setViewVisible(R.id.llPhone, R.id.linePhone);
             setText(R.id.tvPhone, mMyInfo.getBindMobile());

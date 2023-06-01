@@ -139,17 +139,17 @@ abstract class BaseActivity<P : IPresenter> : BaseDialogActivity(), View.OnClick
     override fun onLogout() {
         presenter?.logout()
         finishAllActivity()
-        try {
-            val intent = Intent()
-            val com = ComponentName(
-                packageName,
-                "com.blokbase.pos.activity.LoginActivity"
-            )
-            intent.component = com
-            startActivity(intent)
-        } catch (e: Exception) {
-
-        }
+//        try {
+//            val intent = Intent()
+//            val com = ComponentName(
+//                packageName,
+//                "com.blokbase.pos.activity.LoginActivity"
+//            )
+//            intent.component = com
+//            startActivity(intent)
+//        } catch (e: Exception) {
+//
+//        }
     }
 
     private fun createAndBindPresenter() {
@@ -386,7 +386,7 @@ abstract class BaseActivity<P : IPresenter> : BaseDialogActivity(), View.OnClick
      * @param view
      */
     open fun onBackClick(view: View) {
-        onBackPressed()
+        finish()
     }
 
     /**

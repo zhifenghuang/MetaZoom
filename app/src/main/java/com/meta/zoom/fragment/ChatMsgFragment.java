@@ -1,5 +1,8 @@
 package com.meta.zoom.fragment;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -12,29 +15,25 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.alsc.chat.fragment.AddFriendFragment;
 import com.alsc.chat.fragment.ChatBaseFragment;
 import com.alsc.chat.fragment.ChatListFragment;
 import com.alsc.chat.fragment.ContactFragment;
+import com.alsc.chat.fragment.GroupListFragment;
 import com.alsc.chat.fragment.LeaveMsgFragment;
 import com.alsc.chat.fragment.MyCollectionFragment;
 import com.alsc.chat.fragment.SearchFragment;
 import com.alsc.chat.fragment.SelectFriendFragment;
 import com.alsc.chat.utils.Constants;
 import com.alsc.chat.utils.Utils;
-import com.common.lib.activity.BaseActivity;
 import com.common.lib.activity.db.DatabaseOperate;
 import com.common.lib.bean.*;
 import com.common.lib.dialog.MyDialogFragment;
 import com.common.lib.fragment.BaseFragment;
 import com.common.lib.manager.DataManager;
-import com.meta.zoom.Manifest;
 import com.meta.zoom.R;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -42,12 +41,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ChatMsgFragment extends ChatBaseFragment {
-    private ArrayList<BaseFragment> mBaseFragment;
 
     private ArrayList<UserBean> mFriendList;
     private ArrayList<GroupBean> mGroupList;
     private ChatListFragment mChatListFragment;
     private ContactFragment mFriendListFragment;
+    private GroupListFragment mGroupListFragment;
 
     @Override
     protected int getLayoutId() {
@@ -56,26 +55,22 @@ public class ChatMsgFragment extends ChatBaseFragment {
 
     @Override
     protected void onViewCreated(View view) {
-        initFragments();
-        switchFragment(mBaseFragment.get(0));
-        setViewsOnClickListener(R.id.tvChatMsg, R.id.llContact, R.id.ivSearch,
-                R.id.ivAdd,R.id.ivMenu);
+        mChatListFragment = new ChatListFragment();
+        mFriendListFragment = new ContactFragment();
+        mGroupListFragment = new GroupListFragment();
+        switchFragment(mChatListFragment);
+        setViewsOnClickListener(R.id.tvChat, R.id.tvContacts, R.id.tvGroup, R.id.ivSearch,
+                R.id.ivAdd, R.id.ivMenu);
+        setData(DataManager.getInstance().getFriends(), DataManager.getInstance().getGroups());
     }
 
-    private void initFragments() {
-        mBaseFragment = new ArrayList<>();
-        mChatListFragment = new ChatListFragment();
-        mBaseFragment.add(mChatListFragment);
-        mFriendListFragment = new ContactFragment();
-        mBaseFragment.add(mFriendListFragment);
-    }
 
     public void setNewVerify(boolean isHadNew) {
-        if (getView() == null) {
-            return;
-        }
-        getView().findViewById(R.id.ivNewFriend).setVisibility(isHadNew ? View.VISIBLE : View.INVISIBLE);
-        ((ContactFragment) mBaseFragment.get(1)).setNewVerify(isHadNew);
+//        if (getView() == null) {
+//            return;
+//        }
+//        getView().findViewById(R.id.ivNewFriend).setVisibility(isHadNew ? View.VISIBLE : View.INVISIBLE);
+//        ((ContactFragment) mBaseFragment.get(1)).setNewVerify(isHadNew);
     }
 
 
@@ -88,33 +83,53 @@ public class ChatMsgFragment extends ChatBaseFragment {
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.tvChatMsg:
-                switchFragment(mBaseFragment.get(0));
-                LinearLayout ll2 = fv(R.id.llContact);
+            case R.id.tvChat:
+                switchFragment(mChatListFragment);
                 TextView textView = (TextView) v;
-                textView.setBackgroundResource(com.alsc.chat.R.drawable.shape_7a5bd0_19);
+                textView.setBackgroundResource(R.drawable.shape_7a5bd0_8_left);
                 textView.setTextColor(ContextCompat.getColor(getActivity(), com.common.lib.R.color.text_color_3));
 
-                textView = (TextView) ll2.getChildAt(0);
+                textView = fv(R.id.tvContacts);
+                textView.setBackgroundResource(0);
+                textView.setTextColor(ContextCompat.getColor(getActivity(), com.common.lib.R.color.text_color_1));
+
+                textView = fv(R.id.tvGroup);
                 textView.setBackgroundResource(0);
                 textView.setTextColor(ContextCompat.getColor(getActivity(), com.common.lib.R.color.text_color_1));
                 break;
-            case R.id.llContact:
-                switchFragment(mBaseFragment.get(1));
-                ll2 = (LinearLayout) v;
-                textView = (TextView) ll2.getChildAt(0);
-                textView.setBackgroundResource(com.alsc.chat.R.drawable.shape_7a5bd0_19);
+            case R.id.tvContacts:
+                switchFragment(mFriendListFragment);
+                textView = (TextView) v;
+                textView.setBackgroundColor(ContextCompat.getColor(getActivity(), com.common.lib.R.color.color_7a_5b_d0));
                 textView.setTextColor(ContextCompat.getColor(getActivity(), com.common.lib.R.color.text_color_3));
 
-                textView = fv(R.id.tvChatMsg);
+                textView = fv(R.id.tvChat);
+                textView.setBackgroundResource(0);
+                textView.setTextColor(ContextCompat.getColor(getActivity(), com.common.lib.R.color.text_color_1));
+
+                textView = fv(R.id.tvGroup);
+                textView.setBackgroundResource(0);
+                textView.setTextColor(ContextCompat.getColor(getActivity(), com.common.lib.R.color.text_color_1));
+                break;
+            case R.id.tvGroup:
+                switchFragment(mGroupListFragment);
+                textView = (TextView) v;
+                textView.setBackgroundResource(R.drawable.shape_7a5bd0_8_right);
+                textView.setTextColor(ContextCompat.getColor(getActivity(), com.common.lib.R.color.text_color_3));
+
+                textView = fv(R.id.tvChat);
+                textView.setBackgroundResource(0);
+                textView.setTextColor(ContextCompat.getColor(getActivity(), com.common.lib.R.color.text_color_1));
+
+                textView = fv(R.id.tvContacts);
                 textView.setBackgroundResource(0);
                 textView.setTextColor(ContextCompat.getColor(getActivity(), com.common.lib.R.color.text_color_1));
                 break;
             case R.id.ivMenu:
-            //    showMoreOperatorDialog();
+                showMoreOperatorDialog();
                 break;
             case R.id.ivAdd:
-                showMoreOperatorDialog();
+                gotoPager(AddFriendFragment.class);
                 break;
             case R.id.ivSearch:
                 Bundle bundle = new Bundle();
@@ -202,37 +217,47 @@ public class ChatMsgFragment extends ChatBaseFragment {
 
     public void showMoreOperatorDialog() {
         final MyDialogFragment dialogFragment = new MyDialogFragment(R.layout.layout_chat_list_more_dialog);
+        dialogFragment.setClickDismiss(false);
         dialogFragment.setOnMyDialogListener(new MyDialogFragment.OnMyDialogListener() {
             @Override
             public void initView(View view) {
-                dialogFragment.setDialogViewsOnClickListener(view, R.id.llRoot, R.id.tvStartGroupChat,
-                        R.id.tvAddFriend, R.id.tvScan, R.id.tvFeedback, R.id.tvMyCollection);
+                UserBean myInfo = DataManager.getInstance().getUser();
+                ((TextView) view.findViewById(R.id.tvNick)).setText(myInfo.getNickName());
+                String account = myInfo.getLoginAccount();
+                ((TextView) view.findViewById(R.id.tvID)).setText("ID: " + account.substring(0, 6) + "..." + account.substring(account.length() - 6));
+                int resId = getResources().getIdentifier("chat_default_avatar_" + myInfo.getUserId() % 6,
+                        "drawable", getActivity().getPackageName());
+                Utils.loadImage(getActivity(), resId, myInfo.getAvatarUrl(), view.findViewById(R.id.ivAvatar));
+                dialogFragment.setDialogViewsOnClickListener(view, R.id.tvNewGroup,
+                        R.id.tvAddFriend, R.id.ivClose, R.id.tvFAQ, R.id.tvID, R.id.tvMyCollection);
             }
 
             @Override
             public void onViewClick(int viewId) {
-                if (viewId == R.id.tvStartGroupChat) {
+                if (viewId == R.id.tvNewGroup) {
                     if (mFriendList == null || mFriendList.isEmpty()) {
-                        showToast(R.string.chat_no_friend);
+                        showToast(R.string.app_no_friends);
                         return;
                     }
                     Bundle bundle = new Bundle();
                     bundle.putInt(Constants.BUNDLE_EXTRA, SelectFriendFragment.FROM_GROUP);
                     gotoPager(SelectFriendFragment.class, bundle);
+                    dialogFragment.dismiss();
                 } else if (viewId == R.id.tvAddFriend) {
                     gotoPager(AddFriendFragment.class);
-                } else if (viewId == R.id.tvScan) {
-                    if (!Utils.isGrantPermission(getActivity(),
-                            Manifest.permission.CAMERA)) {
-                        ((BaseActivity) getActivity()).requestPermission(0, Manifest.permission.CAMERA);
-                    } else {
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("wallet://capture"));
-                        startActivity(intent);
-                    }
-                } else if (viewId == R.id.tvFeedback) {
-                    gotoPager(LeaveMsgFragment.class);
+                    dialogFragment.dismiss();
+                } else if (viewId == R.id.tvFAQ) {
+                    dialogFragment.dismiss();
                 } else if (viewId == R.id.tvMyCollection) {
                     gotoPager(MyCollectionFragment.class);
+                    dialogFragment.dismiss();
+                } else if (viewId == R.id.tvID) {
+                    ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData mClipData = ClipData.newPlainText("Label", DataManager.getInstance().getUser().getLoginAccount());
+                    cm.setPrimaryClip(mClipData);
+                    showToast(com.alsc.chat.R.string.chat_copy_successful);
+                } else if (viewId == R.id.ivClose) {
+                    dialogFragment.dismiss();
                 }
             }
         });

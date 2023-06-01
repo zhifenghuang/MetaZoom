@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="71dp"
+    android:layout_marginBottom="17dp"
+    android:background="@drawable/shape_stroke_d2c2ff_15"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/app_receive" />
+
+    <TextView
+        android:id="@+id/tvType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@id/iv"
+        android:singleLine="true"
+        android:text="Ethereum"
+        android:textColor="@color/text_color_1"
+        android:textSize="@dimen/dimen_16"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvType"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="6dp"
+        android:layout_toRightOf="@id/iv"
+        android:singleLine="true"
+        android:text="UTG"
+        android:textColor="@color/text_color_5"
+        android:textSize="@dimen/dimen_12"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:singleLine="true"
+        android:text="+0.1"
+        android:textColor="@color/text_color_11"
+        android:textSize="@dimen/dimen_16"
+        android:textStyle="bold" />
+
+</RelativeLayout>

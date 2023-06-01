@@ -16,8 +16,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/chat_search"/>
+            android:layout_gravity="center_vertical" />
 
         <EditText
             android:id="@+id/etSearch"

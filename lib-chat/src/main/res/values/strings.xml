@@ -18,13 +18,12 @@
     <string name="chat_type_new_member_red_package">[新人红包]</string>
     <string name="chat_type_transfer">[转账]</string>
     <string name="chat_type_personal_profile">[个人名片]</string>
-    <string name="chat_start_group_chat">发起群聊</string>
+
     <string name="chat_help_feedback">帮助与反馈</string>
     <string name="chat_my_collection">我的收藏</string>
 
     <string name="chat_search_contact_record">搜索联系人/聊天记录</string>
     <string name="chat_search_contact">搜索联系人</string>
-    <string name="chat_new_friend">新的朋友</string>
     <string name="chat_label">标签</string>
     <string name="chat_my_chat_groups">我的群聊</string>
     <string name="chat_star_friends">星标好友</string>
@@ -53,7 +52,7 @@
     <string name="chat_friend_memo">好友备注</string>
     <string name="chat_more_info">更多信息</string>
     <string name="chat_send_msg">发送消息</string>
-    <string name="chat_send">发送</string>
+    <string name="chat_send">Send</string>
     <string name="chat_location_info">位置信息</string>
     <string name="chat_install_file_selector">请安装一个文件选择器</string>
     <string name="chat_please_select_a_file">请选择一个文件</string>
@@ -96,10 +95,8 @@
     <string name="chat_minute">%1$s分钟</string>
 
 
-    <string name="chat_add_friend">添加朋友</string>
-    <string name="chat_my_id">我的ID：%1$s</string>
-    <string name="chat_id_phone_email">ID号/账户/邮箱</string>
-    <string name="chat_scan">扫一扫</string>
+    <string name="chat_add_friend">Add contact</string>
+    <string name="chat_id_phone_email">Enter the ID you want to find</string>
     <string name="chat_scan_qrcode">扫描二维码名片</string>
     <string name="chat_phone_contact">手机联系人</string>
     <string name="chat_add_or_invate_contact">添加或邀请通讯录中的好友</string>
@@ -109,9 +106,9 @@
     <string name="chat_accept">接受</string>
     <string name="chat_had_expire">已过期</string>
     <string name="chat_had_added">已添加</string>
-    <string name="chat_you_need_send_verify_apply">你需要发送验证申请，等对方通过</string>
+    <string name="chat_you_need_send_verify_apply">You need to send a verification application and wait for the other party to pass</string>
     <string name="chat_add_friend_remark">为朋友添加备注</string>
-    <string name="chat_i_am">我是%1$s</string>
+    <string name="chat_i_am">I am %1$s</string>
     <string name="chat_accespt">接受</string>
     <string name="chat_add">添加</string>
     <string name="chat_had_add">已添加</string>
@@ -409,7 +406,7 @@
 
 
     <string name="chat_send_group_rp">发群红包</string>
-    <string name="chat_verify_apply">验证申请</string>
+    <string name="chat_verify_apply">Check</string>
     <string name="chat_set_to_star_friend_tip">开启后，好友将收藏到[星标好友]列表中</string>
     <string name="chat_detail">详情</string>
     <string name="chat_had_black">已拉黑</string>
@@ -430,23 +427,22 @@
     <string name="chat_check_new_version">检查新版本</string>
     <string name="chat_clear_memory">清除缓存</string>
 
-    <string name="chat_area_0">亚太区域</string>
-    <string name="chat_area_1">欧美区域</string>
-    <string name="chat_pay_type">支付方式</string>
-    <string name="chat_pay_type_0">UTG支付方式</string>
-    <string name="chat_pay_type_1">CYPT支付方式</string>
-    <string name="chat_pay_type_2">HMKY支付方式</string>
-    <string name="chat_pay_type_3">DFTY支付方式</string>
-    <string name="chat_pay_type_4">KLPO支付方式</string>
-    <string name="chat_pay_type_5">BGH支付方式</string>
     <string name="chat_clear_success">清除成功</string>
 
     <string name="wallet_other_setting">通用设置</string>
     <string name="wallet_contact">通讯录</string>
     <string name="wallet_chat_friend">联系人</string>
-    <string name="wallet_new_friend">新的朋友</string>
-    <string name="wallet_my_group">我的群聊</string>
-    <string name="wallet_star_friend">星标好友</string>
-    <string name="wallet_label_list">标签列表</string>
+
     <string name="wallet_delete">删除</string>
+
+    <string name="chat_new_contact">New Contact</string>
+    <string name="chat_add_contract">Add Contact</string>
+    <string name="chat_add_to_contract">Add To Contacts</string>
+    <string name="chat_add_note_name">Add note name</string>
+    <string name="chat_mute_notification">Mute notification</string>
+    <string name="chat_shield">Shield</string>
+    <string name="chat_unblock">Unblock</string>
+    <string name="chat_new_group">New Group</string>
+
+
 </resources>

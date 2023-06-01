@@ -902,56 +902,56 @@ public class ChatManager {
     }
 
     private void showNotification(Bitmap bmp, UserBean userBean, GroupBean groupBean, BasicMessage msg) {
-        NotificationManager notificationManager = (NotificationManager) mContext
-                .getSystemService(Context.NOTIFICATION_SERVICE);
-        Notification.Builder builder;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("1",
-                    "my_channel", NotificationManager.IMPORTANCE_DEFAULT);
-            notificationManager.createNotificationChannel(channel);
-            builder = new Notification.Builder(
-                    mContext, "1").setDefaults(Notification.DEFAULT_ALL).setAutoCancel(true)
-                    .setWhen(System.currentTimeMillis());
-        } else {
-            builder = new Notification.Builder(
-                    mContext).setDefaults(Notification.DEFAULT_ALL).setAutoCancel(true)
-                    .setWhen(System.currentTimeMillis());
-        }
-        builder.setContentTitle(mContext.getString(R.string.app_name));
-        Notification notification = builder.build();
-        notification.defaults = Notification.DEFAULT_ALL;
-        notification.when = System.currentTimeMillis();
-        notification.icon = mContext.getResources().getIdentifier("app_logo", "mipmap", mContext.getPackageName());
-        final RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.layout_notification);
-        remoteViews.setImageViewResource(R.id.ivAvatar, R.drawable.chat_default_avatar);
-        remoteViews.setTextViewText(R.id.tvMessage, getContentByType(msg, mContext));
-        remoteViews.setTextViewText(R.id.tvTime, Utils.getTimeStrOnlyHour(msg.getCreateTime()));
-        if (userBean == null) {
-            remoteViews.setTextViewText(R.id.tvName, groupBean.getName());
-        } else {
-            remoteViews.setTextViewText(R.id.tvName, userBean.getNickName());
-        }
-        if (bmp == null) {
-            remoteViews.setImageViewResource(R.id.ivAvatar, R.drawable.chat_default_avatar);
-        } else {
-            remoteViews.setImageViewBitmap(R.id.ivAvatar, bmp);
-        }
-
-        Intent intent = new Intent();
-        if (userBean == null) {
-            intent.putExtra(Constants.BUNDLE_EXTRA, 1);
-            intent.putExtra(Constants.BUNDLE_EXTRA_2, groupBean);
-        } else {
-            intent.putExtra(Constants.BUNDLE_EXTRA, 0);
-            intent.putExtra(Constants.BUNDLE_EXTRA_2, userBean);
-        }
-        intent.setComponent(new ComponentName(mContext.getPackageName(), "io.netflow.walletpro.activity.MainActivity"));
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent contentIntent = PendingIntent.getActivity(mContext, ++mNotificationID,
-                intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        remoteViews.setOnClickPendingIntent(R.id.llNotification, contentIntent);
-        notification.contentView = remoteViews;//显示布局
-        notificationManager.notify(TAG, mNotificationID, notification);
+//        NotificationManager notificationManager = (NotificationManager) mContext
+//                .getSystemService(Context.NOTIFICATION_SERVICE);
+//        Notification.Builder builder;
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//            NotificationChannel channel = new NotificationChannel("1",
+//                    "my_channel", NotificationManager.IMPORTANCE_DEFAULT);
+//            notificationManager.createNotificationChannel(channel);
+//            builder = new Notification.Builder(
+//                    mContext, "1").setDefaults(Notification.DEFAULT_ALL).setAutoCancel(true)
+//                    .setWhen(System.currentTimeMillis());
+//        } else {
+//            builder = new Notification.Builder(
+//                    mContext).setDefaults(Notification.DEFAULT_ALL).setAutoCancel(true)
+//                    .setWhen(System.currentTimeMillis());
+//        }
+//        builder.setContentTitle(mContext.getString(R.string.app_name));
+//        Notification notification = builder.build();
+//        notification.defaults = Notification.DEFAULT_ALL;
+//        notification.when = System.currentTimeMillis();
+//        notification.icon = mContext.getResources().getIdentifier("app_logo", "mipmap", mContext.getPackageName());
+//        final RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.layout_notification);
+//        remoteViews.setImageViewResource(R.id.ivAvatar, R.drawable.chat_default_avatar);
+//        remoteViews.setTextViewText(R.id.tvMessage, getContentByType(msg, mContext));
+//        remoteViews.setTextViewText(R.id.tvTime, Utils.getTimeStrOnlyHour(msg.getCreateTime()));
+//        if (userBean == null) {
+//            remoteViews.setTextViewText(R.id.tvName, groupBean.getName());
+//        } else {
+//            remoteViews.setTextViewText(R.id.tvName, userBean.getNickName());
+//        }
+//        if (bmp == null) {
+//            remoteViews.setImageViewResource(R.id.ivAvatar, R.drawable.chat_default_avatar);
+//        } else {
+//            remoteViews.setImageViewBitmap(R.id.ivAvatar, bmp);
+//        }
+//
+//        Intent intent = new Intent();
+//        if (userBean == null) {
+//            intent.putExtra(Constants.BUNDLE_EXTRA, 1);
+//            intent.putExtra(Constants.BUNDLE_EXTRA_2, groupBean);
+//        } else {
+//            intent.putExtra(Constants.BUNDLE_EXTRA, 0);
+//            intent.putExtra(Constants.BUNDLE_EXTRA_2, userBean);
+//        }
+//        intent.setComponent(new ComponentName(mContext.getPackageName(), "io.netflow.walletpro.activity.MainActivity"));
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        PendingIntent contentIntent = PendingIntent.getActivity(mContext, ++mNotificationID,
+//                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        remoteViews.setOnClickPendingIntent(R.id.llNotification, contentIntent);
+//        notification.contentView = remoteViews;//显示布局
+//        notificationManager.notify(TAG, mNotificationID, notification);
     }
 
     public String getContentByType(BasicMessage msg, Context context) {

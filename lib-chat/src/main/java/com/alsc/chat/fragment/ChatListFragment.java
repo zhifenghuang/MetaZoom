@@ -24,6 +24,7 @@ import com.common.lib.activity.db.DatabaseOperate;
 import com.common.lib.bean.*;
 import com.common.lib.dialog.MyDialogFragment;
 import com.common.lib.manager.DataManager;
+import com.common.lib.utils.LogUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
@@ -78,6 +79,8 @@ public class ChatListFragment extends ChatBaseFragment {
             getFriendFromServer();
             getGroupFromServer();
         }
+        mSettings = DataManager.getInstance().getChatSubSettings();
+        initChatList();
     }
 
     private ChatUserAdapter getAdapter() {
@@ -111,7 +114,7 @@ public class ChatListFragment extends ChatBaseFragment {
         DatabaseOperate.getInstance().deleteAllExprieMsg();
         mChatList.clear();
         ArrayList<MessageBean> list = DatabaseOperate.getInstance().getUserChatList(myInfo.getUserId());
-        if (!list.isEmpty()) {
+        if (!list.isEmpty() && mFriendList != null) {
             boolean isFriendMsg;
             ChatBean chatBean;
             for (MessageBean bean : list) {
@@ -329,6 +332,7 @@ public class ChatListFragment extends ChatBaseFragment {
     public void setData(ArrayList<UserBean> friendList, ArrayList<GroupBean> groupList) {
         mFriendList = friendList;
         mGroupList = groupList;
+        LogUtil.LogE(mFriendList + ", " + mGroupList);
         if (getView() != null) {
             initChatList();
         }
