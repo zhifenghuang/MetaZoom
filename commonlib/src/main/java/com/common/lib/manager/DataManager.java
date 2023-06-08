@@ -427,16 +427,7 @@ public class DataManager {
 
 
     public void loginOut() {
-        mMyInfo = null;
-        mWallet = null;
-        saveCurrentWallet(null);
-        saveTotalAssets("");
-        saveNotSeeAsset(0);
-        saveArea(0);
-        savePayType(0);
-        Preferences.getInstacne().setValues("my_user_info", "");
-        Preferences.getInstacne().setValues("user", "");
-        Preferences.getInstacne().setValues("myUserInfoBean", "");
+        saveUser(null);
         Preferences.getInstacne().setValues("groups", "");
         Preferences.getInstacne().setValues("friends", "");
         Preferences.getInstacne().setValues("msg_delete_type", "");

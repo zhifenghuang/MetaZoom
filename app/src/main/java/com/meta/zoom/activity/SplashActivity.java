@@ -8,8 +8,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.common.lib.activity.BaseActivity;
+import com.common.lib.activity.db.DatabaseOperate;
 import com.common.lib.bean.UserBean;
 import com.common.lib.bean.WalletBean;
+import com.common.lib.constant.Constants;
 import com.common.lib.manager.DataManager;
 import com.common.lib.mvp.contract.EmptyContract;
 import com.common.lib.mvp.presenter.EmptyPresenter;
@@ -34,7 +36,9 @@ public class SplashActivity extends BaseActivity<MainContract.Presenter> impleme
             findViewById(R.id.ll).postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    openActivity(StartWalletActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(Constants.BUNDLE_EXTRA, DatabaseOperate.getInstance().getChainList().get(0));
+                    openActivity(StartWalletActivity.class, bundle);
                     finish();
                 }
             }, 1000);

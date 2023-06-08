@@ -5,15 +5,14 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.common.lib.fragment.BaseFragment;
 import com.common.lib.mvp.contract.EmptyContract;
 import com.common.lib.mvp.presenter.EmptyPresenter;
 import com.meta.zoom.R;
+import com.meta.zoom.activity.DappWebActivity;
 
 public class DappWebFragment extends BaseFragment<EmptyContract.Presenter> implements EmptyContract.View {
-
-
-    @NonNull
     @Override
     protected EmptyContract.Presenter onCreatePresenter() {
         return new EmptyPresenter(this);
@@ -22,28 +21,22 @@ public class DappWebFragment extends BaseFragment<EmptyContract.Presenter> imple
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_wallet;
+        return R.layout.fragment_dapp_web;
     }
 
 
     @Override
     protected void initView(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        setTopStatusBarStyle(view);
+        setViewsOnClickListener(R.id.ivScan);
     }
 
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.ivScan:
+                openActivity(DappWebActivity.class);
+                break;
         }
     }
-
-
-
-    public void onRefresh() {
-        if (getView() == null) {
-            return;
-        }
-    }
-
 }

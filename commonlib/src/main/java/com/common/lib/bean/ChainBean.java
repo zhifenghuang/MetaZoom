@@ -56,6 +56,9 @@ public class ChainBean extends IDBItemOperation {
     }
 
     public String getSymbol() {
+        if (symbol == null) {
+            symbol = "";
+        }
         return symbol;
     }
 

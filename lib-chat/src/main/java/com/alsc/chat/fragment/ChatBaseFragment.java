@@ -82,7 +82,7 @@ public abstract class ChatBaseFragment extends BaseFragment implements View.OnCl
     }
 
     protected void showPayInGroupDialog(final GroupBean group, final UserBean inviteUser) {
-        final MyDialogFragment dialogFragment = new MyDialogFragment(R.layout.layout_two_btn_dialog);
+        final MyDialogFragment dialogFragment = new MyDialogFragment(R.layout.chat_layout_two_btn_dialog);
         dialogFragment.setOnMyDialogListener(new MyDialogFragment.OnMyDialogListener() {
             @Override
             public void initView(View view) {

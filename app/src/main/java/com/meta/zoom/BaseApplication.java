@@ -37,13 +37,14 @@ public class BaseApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        System.loadLibrary("TrustWalletCore");
         AppFilePath.init(this);
         ConfigurationManager.Companion.getInstance().setContext(this);
         DatabaseOperate.setContext(this);
         DatabaseOperate.getInstance();
-        String token = DataManager.getInstance().getToken();
-        ChatManager.getInstance().setContext(this);
-        ChatManager.getInstance().initWebSocket(token);
+//        String token = DataManager.getInstance().getToken();
+ //       ChatManager.getInstance().setContext(this);
+//        ChatManager.getInstance().initWebSocket(token);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 

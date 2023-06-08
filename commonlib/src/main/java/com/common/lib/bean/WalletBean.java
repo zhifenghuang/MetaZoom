@@ -7,7 +7,7 @@ import java.util.List;
 
 public class WalletBean extends IDBItemOperation {
 
-    private int id;
+    private Integer id;
     private String walletName;
     private int chainId;
     private String mnemonic;
@@ -36,11 +36,11 @@ public class WalletBean extends IDBItemOperation {
         this.mnemonicCode = mnemonicCode;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

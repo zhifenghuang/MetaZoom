@@ -14,11 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alsc.chat.R;
 import com.alsc.chat.adapter.FriendAdapter;
 import com.alsc.chat.utils.Constants;
-import com.alsc.chat.http.ChatHttpMethods;
-import com.alsc.chat.http.HttpObserver;
-import com.alsc.chat.http.SubscriberOnNextListener;
-import com.alsc.chat.activity.ChatBaseActivity;
-import com.common.lib.activity.BaseActivity;
 import com.common.lib.activity.db.DatabaseOperate;
 import com.common.lib.bean.*;
 import com.common.lib.dialog.MyDialogFragment;
@@ -147,7 +142,7 @@ public class TransferMsgFragment extends ChatBaseFragment {
     }
 
     private void showConfirmDialog(final int type, final GroupBean groupBean, final UserBean friend) {
-        final MyDialogFragment dialogFragment = new MyDialogFragment(R.layout.layout_two_btn_dialog);
+        final MyDialogFragment dialogFragment = new MyDialogFragment(R.layout.chat_layout_two_btn_dialog);
         dialogFragment.setOnMyDialogListener(new MyDialogFragment.OnMyDialogListener() {
             @Override
             public void initView(View view) {

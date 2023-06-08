@@ -68,8 +68,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:background="@drawable/common_shape_gradient_right_bottom_4"
-                android:textColor="@color/text_color_3"
+                android:textColor="@color/text_color_6"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 

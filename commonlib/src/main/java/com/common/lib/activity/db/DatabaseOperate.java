@@ -93,6 +93,24 @@ public class DatabaseOperate extends DBOperate {
         return list;
     }
 
+    public ArrayList<WalletBean> getWalletList(int chainId) {
+        String sql = "select * from wallet where chainId=" + chainId;
+        ArrayList<WalletBean> list = mDBManager.getList(sql, WalletBean.class);
+        if (list == null) {
+            list = new ArrayList<>();
+        }
+        return list;
+    }
+
+    public WalletBean getWallet(String address, int chainId) {
+        String sql = "select * from wallet where address='" + address + "' and chainId=" + chainId;
+        ArrayList<WalletBean> list = mDBManager.getList(sql, WalletBean.class);
+        if (list != null && !list.isEmpty()) {
+            return list.get(0);
+        }
+        return null;
+    }
+
     public boolean isHadWallet(String address, int chainId) {
         String sql = "select * from wallet where address='" + address + "' and chainId=" + chainId;
         ArrayList<WalletBean> list = mDBManager.getList(sql, WalletBean.class);
@@ -109,7 +127,7 @@ public class DatabaseOperate extends DBOperate {
     public boolean isHadChain(int chainId) {
         String sql = "select * from chain where chainId=" + chainId;
         ArrayList<ChainBean> list = mDBManager.getList(sql, ChainBean.class);
-        LogUtil.LogE(sql+", "+list);
+        LogUtil.LogE(sql + ", " + list);
         if (list != null) {
             LogUtil.LogE(list + "    " + list.size());
         }

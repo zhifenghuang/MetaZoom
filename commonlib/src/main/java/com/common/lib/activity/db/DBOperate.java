@@ -10,6 +10,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.common.lib.utils.LogUtil;
+
 /**
  * 数据库操作工具类
  */
@@ -392,7 +394,7 @@ public class DBOperate {
         try {
             return db.insert(dbItem.getTableName(), null, dbItem.getValues());
         } catch (Exception e) {
-
+            LogUtil.LogE(e);
         }
         return -1;
     }

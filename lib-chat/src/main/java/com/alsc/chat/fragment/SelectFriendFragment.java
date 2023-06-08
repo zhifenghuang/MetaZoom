@@ -13,11 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alsc.chat.R;
 import com.alsc.chat.adapter.SelectFriendAdapter;
 import com.alsc.chat.http.ChatHttpMethods;
-import com.alsc.chat.http.ChatHttpMethods;
 import com.alsc.chat.http.HttpObserver;
 import com.alsc.chat.http.SubscriberOnNextListener;
 import com.alsc.chat.activity.ChatBaseActivity;
-import com.common.lib.activity.BaseActivity;
 import com.common.lib.activity.db.DatabaseOperate;
 import com.common.lib.bean.*;
 import com.common.lib.dialog.MyDialogFragment;
@@ -222,7 +220,7 @@ public class SelectFriendFragment extends ChatBaseFragment {
     }
 
     private void showTransferGroupDialog(final UserBean userBean) {
-        final MyDialogFragment dialogFragment = new MyDialogFragment(R.layout.layout_two_btn_dialog);
+        final MyDialogFragment dialogFragment = new MyDialogFragment(R.layout.chat_layout_two_btn_dialog);
         dialogFragment.setOnMyDialogListener(new MyDialogFragment.OnMyDialogListener() {
             @Override
             public void initView(View view) {

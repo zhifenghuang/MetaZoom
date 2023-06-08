@@ -122,7 +122,11 @@ public abstract class IDBItemOperation implements Serializable {
                 if (clz == String.class) {
                     values.put(field.getName(), (String) field.get(this));
                 } else if (clz == Integer.class || clz == int.class) {
-                    values.put(field.getName(), field.getInt(this));
+                    if ("id".equals(field.getName())) {
+                        values.put(field.getName(), (Integer) null);
+                    } else {
+                        values.put(field.getName(), field.getInt(this));
+                    }
                 } else if (clz == Long.class || clz == long.class) {
                     if (!"serialVersionUID".equals(field.getName())) {
                         values.put(field.getName(), field.getLong(this));

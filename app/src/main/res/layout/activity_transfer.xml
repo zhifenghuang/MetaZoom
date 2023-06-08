@@ -32,8 +32,7 @@
             android:id="@+id/ivSymbol"
             android:layout_width="51dp"
             android:layout_height="51dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/app_btc_icon" />
+            android:layout_centerVertical="true" />
 
         <TextView
             android:id="@+id/tvName"

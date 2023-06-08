@@ -236,9 +236,9 @@ public class ETHWalletUtils {
      * @param pwd
      * @return
      */
-    public static WalletBean loadWalletByPrivateKey(String privateKey, String pwd) {
+    public static WalletBean loadWalletByPrivateKey(String walletName, String privateKey, String pwd) {
         ECKeyPair ecKeyPair = ECKeyPair.create(Numeric.toBigInt(privateKey));
-        return generateWallet(generateNewWalletName(), pwd, ecKeyPair);
+        return generateWallet(walletName, pwd, ecKeyPair);
     }
 
 

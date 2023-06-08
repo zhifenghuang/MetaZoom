@@ -74,7 +74,7 @@ public class ImportPrivateKeyActivity extends BaseActivity<MainContract.Presente
                     return;
                 }
                 showProgressDialog();
-                WalletManager.getInstance().loadWalletByPrivateKey(privateKey, psw).subscribe(this::loadSuccess, this::onError);
+                WalletManager.getInstance().loadWalletByPrivateKey(walletName, privateKey, psw).subscribe(this::loadSuccess, this::onError);
                 break;
         }
     }
@@ -88,7 +88,7 @@ public class ImportPrivateKeyActivity extends BaseActivity<MainContract.Presente
             wallet.setWalletType(mChain.getSymbol());
             wallet.setChainId(mChain.getChainId());
             wallet.setMoney("0");
-            DatabaseOperate.getInstance().insert(wallet);
+            wallet.setId((int) DatabaseOperate.getInstance().insert(wallet));
             DataManager.getInstance().saveCurrentWallet(wallet);
             getPresenter().login(wallet.getAddress());
         }

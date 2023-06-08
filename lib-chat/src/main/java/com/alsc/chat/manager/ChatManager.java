@@ -38,6 +38,7 @@ import com.common.lib.activity.db.DatabaseOperate;
 import com.common.lib.bean.*;
 import com.common.lib.dialog.MyDialogFragment;
 import com.common.lib.manager.DataManager;
+import com.common.lib.utils.LogUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zhangke.websocket.SimpleListener;
@@ -202,49 +203,50 @@ public class ChatManager {
     }
 
     public void initWebSocket(String token) {
-        if (TextUtils.isEmpty(token) || mConnectState == 1 || mConnectState == 2) {
-            return;
-        }
-        Log.e(TAG, "initWebSocket:" + mConnectState);
-        disSocketConnect();
-        mConnectState = 2;
-        mWebSocketSetting = new WebSocketSetting();
-
-        //设置连接超时时间
-        mWebSocketSetting.setConnectTimeout(15 * 1000);
-
-        //设置心跳间隔时间
-        mWebSocketSetting.setConnectionLostTimeout(30);
-
-        //设置断开后的重连次数，可以设置的很大，不会有什么性能上的影响
-        mWebSocketSetting.setReconnectFrequency(10);
-
-        //网络状态发生变化后是否重连，
-        //需要调用 WebSocketHandler.registerNetworkChangedReceiver(context) 方法注册网络监听广播
-        mWebSocketSetting.setReconnectWithNetworkChanged(true);
-        //注意，需要在 AndroidManifest 中配置网络状态获取权限
-        //注册网路连接状态变化广播
-        //连接地址，必填，例如 wss://echo.websocket.org
-        String url = String.format("ws://im.metazoom.pro:2348?token=%s&channel=im", token);
-
-        Log.e(TAG, url);
-        //     String url = String.format("ws://chat.blokbase.de:2348?token=%s&channel=im", token);
-        mWebSocketSetting.setConnectUrl(url);//必填
-
-        //   WebSocketHandler.setNull();
-        //通过 init 方法初始化默认的 WebSocketManager 对象
-        WebSocketManager manager = WebSocketHandler.init(mWebSocketSetting);
-        manager.resetConnectState();
-        //启动连接
-        manager.start();
-
-        WebSocketHandler.registerNetworkChangedReceiver(mContext);
-        WebSocketHandler.getDefault().addListener(socketListener);
-        DatabaseOperate.getInstance().handleNotSendMsg(DataManager.getInstance().getUserId());
+//        if (TextUtils.isEmpty(token) || mConnectState == 1 || mConnectState == 2) {
+//            return;
+//        }
+//        Log.e(TAG, "initWebSocket:" + mConnectState);
+//        disSocketConnect();
+//        mConnectState = 2;
+//        mWebSocketSetting = new WebSocketSetting();
+//
+//        //设置连接超时时间
+//        mWebSocketSetting.setConnectTimeout(15 * 1000);
+//
+//        //设置心跳间隔时间
+//        mWebSocketSetting.setConnectionLostTimeout(30);
+//
+//        //设置断开后的重连次数，可以设置的很大，不会有什么性能上的影响
+//        mWebSocketSetting.setReconnectFrequency(10);
+//
+//        //网络状态发生变化后是否重连，
+//        //需要调用 WebSocketHandler.registerNetworkChangedReceiver(context) 方法注册网络监听广播
+//        mWebSocketSetting.setReconnectWithNetworkChanged(true);
+//        //注意，需要在 AndroidManifest 中配置网络状态获取权限
+//        //注册网路连接状态变化广播
+//        //连接地址，必填，例如 wss://echo.websocket.org
+//        String url = String.format("ws://im.metazoom.pro:2348?token=%s&channel=im", token);
+//
+//        Log.e(TAG, url);
+//        //     String url = String.format("ws://chat.blokbase.de:2348?token=%s&channel=im", token);
+//        mWebSocketSetting.setConnectUrl(url);//必填
+//
+//        //   WebSocketHandler.setNull();
+//        //通过 init 方法初始化默认的 WebSocketManager 对象
+//        WebSocketManager manager = WebSocketHandler.init(mWebSocketSetting);
+//        manager.resetConnectState();
+//        //启动连接
+//        manager.start();
+//        LogUtil.LogE("2:"+mContext);
+//        WebSocketHandler.registerNetworkChangedReceiver(mContext);
+//        WebSocketHandler.getDefault().addListener(socketListener);
+//        DatabaseOperate.getInstance().handleNotSendMsg(DataManager.getInstance().getUserId());
     }
 
     public void disSocketConnect() {
         mWebSocketSetting = null;
+        LogUtil.LogE("disSocketConnect1： "+mContext);
         try {
             mConnectState = 0;
             if (WebSocketHandler.getDefault() == null) {
@@ -256,6 +258,7 @@ public class ChatManager {
         } catch (Exception e) {
 
         }
+        LogUtil.LogE("disSocketConnect2： "+mContext);
     }
 
     private SocketListener socketListener = new SimpleListener() {

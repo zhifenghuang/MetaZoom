@@ -83,6 +83,14 @@ public class ChatListFragment extends ChatBaseFragment {
         initChatList();
     }
 
+    public void onRefresh() {
+        if (getView() == null) {
+            return;
+        }
+        getFriendFromServer();
+        getGroupFromServer();
+    }
+
     private ChatUserAdapter getAdapter() {
         if (mAdapter == null) {
             mAdapter = new ChatUserAdapter(getActivity(), DataManager.getInstance().getUser());
@@ -465,7 +473,7 @@ public class ChatListFragment extends ChatBaseFragment {
 
 
     private void showDeleteChatRecord(final ChatBean chatBean) {
-        final MyDialogFragment dialogFragment = new MyDialogFragment(R.layout.layout_two_btn_dialog);
+        final MyDialogFragment dialogFragment = new MyDialogFragment(R.layout.chat_layout_two_btn_dialog);
         dialogFragment.setOnMyDialogListener(new MyDialogFragment.OnMyDialogListener() {
             @Override
             public void initView(View view) {

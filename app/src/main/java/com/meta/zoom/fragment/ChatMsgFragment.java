@@ -64,6 +64,13 @@ public class ChatMsgFragment extends ChatBaseFragment {
         setData(DataManager.getInstance().getFriends(), DataManager.getInstance().getGroups());
     }
 
+    public void onRefresh(){
+        if(getView()==null){
+            return;
+        }
+        mChatListFragment.onRefresh();
+    }
+
 
     public void setNewVerify(boolean isHadNew) {
 //        if (getView() == null) {

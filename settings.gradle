@@ -1,18 +1,23 @@
-pluginManagement {
-    repositories {
-        maven { url "https://jitpack.io" }
-        google()
-        mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
-    }
-}
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        maven { url "https://jitpack.io" }
         google()
+        jcenter()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
+        maven { url "https://jitpack.io" }
+        maven {
+            url = uri("https://maven.pkg.github.com/trustwallet/wallet-core")
+//            Properties properties = new Properties()
+//            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+//            credentials {
+//                username = properties.getProperty("gpr.user")
+//                password = properties.getProperty("gpr.key")
+//            }
+            credentials {
+                username = 'huang08122257@126.com'
+                password = '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'
+            }
+        }
     }
 }
 rootProject.name = "MetaZoom"

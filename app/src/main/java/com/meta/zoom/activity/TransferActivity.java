@@ -3,16 +3,13 @@ package com.meta.zoom.activity;
 import android.Manifest;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 
-import com.alsc.chat.utils.Utils;
 import com.common.lib.activity.BaseActivity;
 import com.common.lib.activity.CaptureActivity;
 import com.common.lib.bean.TokenBean;
@@ -21,9 +18,7 @@ import com.common.lib.constant.EventBusEvent;
 import com.common.lib.manager.DataManager;
 import com.common.lib.mvp.contract.EmptyContract;
 import com.common.lib.mvp.presenter.EmptyPresenter;
-import com.common.lib.utils.LogUtil;
 import com.common.lib.utils.PermissionUtil;
-import com.google.protobuf.ServiceException;
 import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.meta.zoom.R;
 import com.meta.zoom.dialog.InputDialog;
@@ -33,14 +28,6 @@ import com.meta.zoom.wallet.WalletManager;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.DefaultBlockParameterName;
-import org.web3j.protocol.core.Response;
-import org.web3j.protocol.core.methods.request.Transaction;
-import org.web3j.protocol.core.methods.response.EthEstimateGas;
-import org.web3j.protocol.core.methods.response.EthGasPrice;
-import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
-import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Convert;
 
 import java.math.BigInteger;
@@ -79,8 +66,14 @@ public class TransferActivity extends BaseActivity<EmptyContract.Presenter> impl
         setText(R.id.tvBalance, getString(R.string.app_balance_xxx, TextUtils.isEmpty(mToken.getBalance()) ? "0" : mToken.getBalance()));
         initInputListener();
         mGasLimit = new BigInteger(TextUtils.isEmpty(mToken.getContractAddress()) ? "21000" : "100000");
+        WalletManager.getInstance().estimateGas().subscribeOn(Schedulers.io())
+                .subscribe(this::getGas, this::onError);
+
+    }
+
+    private void getGas(BigInteger gas) {
+        mGasPrice = gas;
         try {
-            mGasPrice = WalletManager.getInstance().estimateGas();
             setText(R.id.tvFee, BalanceUtils.weiToEth(mGasPrice.multiply(mGasLimit), 4) + DataManager.getInstance().getCurrentChain().getSymbol());
         } catch (Exception e) {
             setText(R.id.tvFee, "0 " + DataManager.getInstance().getCurrentChain().getSymbol());
@@ -117,6 +110,7 @@ public class TransferActivity extends BaseActivity<EmptyContract.Presenter> impl
                                             mGasPrice, mGasLimit, password)
                                     .subscribeOn(Schedulers.io())
                                     .subscribe(TransferActivity.this::onCreateTransaction, TransferActivity.this::onError);
+
                         } else {
                             WalletManager.getInstance().createERC20Transfer(
                                             DataManager.getInstance().getCurrentWallet(),

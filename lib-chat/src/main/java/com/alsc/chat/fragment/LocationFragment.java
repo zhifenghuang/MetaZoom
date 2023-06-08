@@ -23,8 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alsc.chat.R;
 import com.alsc.chat.adapter.LocationAdapter;
-import com.amap.api.services.geocoder.GeocodeAddress;
-import com.amap.api.services.geocoder.GeocodeQuery;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.alsc.chat.bean.LocationBean;
@@ -53,13 +51,8 @@ import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.alsc.chat.http.ChatHttpMethods;
-import com.alsc.chat.http.HttpObserver;
-import com.alsc.chat.http.SubscriberOnNextListener;
-import com.alsc.chat.activity.ChatBaseActivity;
 import com.common.lib.bean.*;
 import com.common.lib.dialog.MyDialogFragment;
-import com.common.lib.manager.DataManager;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -139,7 +132,7 @@ public class LocationFragment extends ChatBaseFragment implements LocationSource
     }
 
     private void showOpenGpsDialog() {
-        final MyDialogFragment dialogFragment = new MyDialogFragment(R.layout.layout_two_btn_dialog);
+        final MyDialogFragment dialogFragment = new MyDialogFragment(R.layout.chat_layout_two_btn_dialog);
         dialogFragment.setOnMyDialogListener(new MyDialogFragment.OnMyDialogListener() {
             @Override
             public void initView(View view) {

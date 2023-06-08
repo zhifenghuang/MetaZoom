@@ -1,7 +1,11 @@
 package com.meta.zoom.fragment;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,12 +13,20 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alsc.chat.fragment.AddFriendFragment;
+import com.alsc.chat.fragment.MyCollectionFragment;
+import com.alsc.chat.fragment.SelectFriendFragment;
+import com.alsc.chat.utils.Utils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.common.lib.activity.db.DatabaseOperate;
+import com.common.lib.bean.ChainBean;
 import com.common.lib.bean.TokenBean;
+import com.common.lib.bean.UserBean;
 import com.common.lib.bean.WalletBean;
 import com.common.lib.constant.Constants;
 import com.common.lib.constant.EventBusEvent;
+import com.common.lib.dialog.MyDialogFragment;
 import com.common.lib.fragment.BaseFragment;
 import com.common.lib.manager.DataManager;
 import com.common.lib.mvp.contract.EmptyContract;
@@ -23,9 +35,12 @@ import com.common.lib.utils.LogUtil;
 import com.meta.zoom.R;
 import com.meta.zoom.activity.AddTokenActivity;
 import com.meta.zoom.activity.ChooseNetworkActivity;
+import com.meta.zoom.activity.MainActivity;
 import com.meta.zoom.activity.WalletDetailActivity;
+import com.meta.zoom.adapter.ChooseChainAdapter;
 import com.meta.zoom.adapter.MnemonicAdapter;
 import com.meta.zoom.adapter.SymbolAdapter;
+import com.meta.zoom.dialog.ChooseWalletDialog;
 import com.meta.zoom.wallet.WalletManager;
 import com.meta.zoom.wallet.bean.MnemonicBean;
 
@@ -87,7 +102,8 @@ public class WalletFragment extends BaseFragment<EmptyContract.Presenter> implem
                 openActivity(ChooseNetworkActivity.class);
                 break;
             case R.id.ivAddNetWork:
-
+                ChooseWalletDialog dialog = new ChooseWalletDialog(getActivity());
+                dialog.show();
                 break;
             case R.id.tvAdd:
                 openActivity(AddTokenActivity.class);
@@ -128,6 +144,6 @@ public class WalletFragment extends BaseFragment<EmptyContract.Presenter> implem
     }
 
     private void onError(Throwable throwable) {
-        LogUtil.LogE("onError"+throwable.toString());
+        LogUtil.LogE("onError" + throwable.toString());
     }
 }

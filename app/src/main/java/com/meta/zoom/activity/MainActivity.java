@@ -16,6 +16,7 @@ import com.alsc.chat.utils.Constants;
 import com.common.lib.activity.BaseActivity;
 import com.common.lib.bean.ChainBean;
 import com.common.lib.bean.UserBean;
+import com.common.lib.constant.EventBusEvent;
 import com.common.lib.fragment.BaseFragment;
 import com.common.lib.manager.DataManager;
 import com.common.lib.utils.LogUtil;
@@ -29,6 +30,7 @@ import com.meta.zoom.presenter.MainPresenter;
 import com.meta.zoom.wallet.WalletManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends ChatBaseActivity implements MainContract.View {
 
@@ -134,6 +136,20 @@ public class MainActivity extends ChatBaseActivity implements MainContract.View 
 
     @Override
     public void loginSuccess() {
+        ((ChatMsgFragment) mBaseFragment.get(0)).onRefresh();
+    }
 
+    @Override
+    public void onReceive(HashMap map) {
+        if (map.containsKey(EventBusEvent.REFRESH_ACCOUNT)) {
+            ChatManager.getInstance().disSocketConnect();
+            DataManager.getInstance().loginOut();
+            ((MainPresenter) getPresenter()).login(DataManager.getInstance().getCurrentWallet().getAddress());
+            ((WalletFragment) mBaseFragment.get(2)).onRefresh();
+        } else if (map.containsKey(EventBusEvent.REFRESH_NETWORK)) {
+            ((WalletFragment) mBaseFragment.get(2)).onRefresh();
+        } else {
+            super.onReceive(map);
+        }
     }
 }

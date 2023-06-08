@@ -17,6 +17,8 @@ import com.common.lib.bean.ChainBean;
 import java.util.ArrayList;
 
 public class StartWalletActivity extends BaseActivity<EmptyContract.Presenter> implements EmptyContract.View {
+
+    private ChainBean mChain;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_start_wallet;
@@ -25,6 +27,7 @@ public class StartWalletActivity extends BaseActivity<EmptyContract.Presenter> i
     @Override
     protected void onCreated(@Nullable Bundle savedInstanceState) {
         setViewsOnClickListener(R.id.rlNewWallet, R.id.rlImportWallet);
+        mChain= (ChainBean) getIntent().getExtras().getSerializable(Constants.BUNDLE_EXTRA);
     }
 
     @NonNull
@@ -37,15 +40,13 @@ public class StartWalletActivity extends BaseActivity<EmptyContract.Presenter> i
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rlNewWallet:
-                ArrayList<ChainBean> chainList = DatabaseOperate.getInstance().getChainList();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(Constants.BUNDLE_EXTRA, chainList.get(0));
+                bundle.putSerializable(Constants.BUNDLE_EXTRA, mChain);
                 openActivity(CreateWalletActivity.class, bundle);
                 break;
             case R.id.rlImportWallet:
-                chainList = DatabaseOperate.getInstance().getChainList();
                 bundle = new Bundle();
-                bundle.putSerializable(Constants.BUNDLE_EXTRA, chainList.get(0));
+                bundle.putSerializable(Constants.BUNDLE_EXTRA, mChain);
                 openActivity(ChooseImportMethodActivity.class, bundle);
                 break;
         }

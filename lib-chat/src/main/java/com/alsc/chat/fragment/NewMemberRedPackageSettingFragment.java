@@ -13,16 +13,13 @@ import com.alsc.chat.http.ChatHttpMethods;
 import com.alsc.chat.http.HttpObserver;
 import com.alsc.chat.http.SubscriberOnNextListener;
 import com.alsc.chat.activity.ChatBaseActivity;
-import com.common.lib.activity.BaseActivity;
 import com.common.lib.bean.*;
 import com.common.lib.dialog.MyDialogFragment;
-import com.common.lib.manager.DataManager;
 import com.alsc.chat.utils.Constants;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.google.gson.Gson;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -73,7 +70,7 @@ public class NewMemberRedPackageSettingFragment extends ChatBaseFragment {
     }
 
     protected void unLockNewEnvelopeDialog(final int position) {
-        final MyDialogFragment dialogFragment = new MyDialogFragment(R.layout.layout_two_btn_dialog);
+        final MyDialogFragment dialogFragment = new MyDialogFragment(R.layout.chat_layout_two_btn_dialog);
         dialogFragment.setOnMyDialogListener(new MyDialogFragment.OnMyDialogListener() {
             @Override
             public void initView(View view) {

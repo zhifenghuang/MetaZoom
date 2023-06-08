@@ -92,6 +92,7 @@
     <string name="app_enter_private_key">Enter the plaintext private key</string>
 
     <string name="app_custom_network">Custom Network</string>
+    <string name="app_add_network">Add Network</string>
     <string name="app_custom_network_tips">MetaZoom cannot verify the security of custom network, please add only trusted networks</string>
     <string name="app_easy_add">Easy add</string>
     <string name="app_network_series">Network series</string>
@@ -102,11 +103,18 @@
     <string name="app_input_rpc">Input RPC</string>
     <string name="app_chain_id">ChainID</string>
     <string name="app_input_chain_id">Input ChainID</string>
-    <string name="app_default_token">Default token(optional)</string>
+    <string name="app_default_token">Default Token(optional)</string>
+    <string name="app_default_token_2">Default Token</string>
     <string name="app_input_default_token">Input Default token(optional)</string>
     <string name="app_browser">Browser(optional)</string>
+    <string name="app_browser_2">Browser</string>
     <string name="app_input_browser_url">Input Browser url</string>
+    <string name="app_switch_network">Detected that you have added UltronGlow Mainnet, whether to switch to this network</string>
 
+    <string name="app_transaction_details">Transaction Details</string>
+    <string name="app_from">From</string>
+    <string name="app_to">To</string>
+    <string name="app_gas">Gas</string>
 
     <string name="app_wallet">Wallet</string>
     <string name="app_main_balance">Main balance</string>
@@ -114,8 +122,13 @@
     <string name="app_add">Add</string>
     <string name="app_meta_zoom">MetaZoom</string>
 
+    <string name="app_search_dapp">Search Dapp</string>
+
     <string name="app_choose_network">Choose a network</string>
     <string name="app_add_custom_network">Add custom network</string>
+    <string name="app_choose_wallet">Choose wallet</string>
+    <string name="app_manage_wallet">Manage wallet</string>
+    <string name="app_add_wallet">Add wallet</string>
 
 
     <string name="create_wallet_agreement">服务及隐私条款</string>

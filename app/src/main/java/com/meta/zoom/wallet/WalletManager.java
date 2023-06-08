@@ -117,26 +117,16 @@ public class WalletManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Single<WalletBean> loadWalletByPrivateKey(final String privateKey, final String pwd) {
-        return Single.fromCallable(() -> {
-
-                            WalletBean ethWallet = ETHWalletUtils.loadWalletByPrivateKey(privateKey, pwd);
-                            if (ethWallet != null) {
-                                DatabaseOperate.getInstance().insert(ethWallet);
-                            }
-                            return ethWallet;
-                        }
+    public Single<WalletBean> loadWalletByPrivateKey(final String walletName, final String privateKey, final String pwd) {
+        return Single.fromCallable(() -> ETHWalletUtils.loadWalletByPrivateKey(walletName, privateKey, pwd)
                 ).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
 
     }
 
     public Single<WalletBean> loadWalletByMnemonic(final String bipPath, final String mnemonic, final String pwd) {
-        return Single.fromCallable(() -> {
-                    WalletBean ethWallet = ETHWalletUtils.importMnemonic(bipPath
-                            , Arrays.asList(mnemonic.split(" ")), pwd);
-                    return ethWallet;
-                }).subscribeOn(Schedulers.io())
+        return Single.fromCallable(() -> ETHWalletUtils.importMnemonic(bipPath
+                        , Arrays.asList(mnemonic.split(" ")), pwd)).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
 
 
@@ -162,6 +152,40 @@ public class WalletManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public Observable<BigInteger> estimateGas() {
+
+        return getEstimateGas().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<BigInteger> estimateGasLimit(String from, String to, String data) {
+        return getEstimateGasLimit(from, to, data).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    private Observable<BigInteger> getEstimateGasLimit(String from, String to, String data) {
+
+        return Observable.create(e -> {
+            BigInteger gasPrice = mWeb3j.ethGasPrice().send().getGasPrice();
+            EthGetTransactionCount ethGetTransactionCount = mWeb3j.ethGetTransactionCount(from, DefaultBlockParameterName.PENDING).send();
+            BigInteger nonce = ethGetTransactionCount.getTransactionCount();
+            Transaction t = new Transaction(from, nonce, gasPrice, (BigInteger) null, to, new BigInteger("0"), data);
+            EthEstimateGas gas = mWeb3j.ethEstimateGas(t).send();
+            if (null == gas.getError()) {
+                e.onNext(new BigInteger(gas.getResult().substring(2), 16));
+            } else {
+                throw new Exception(gas.getError().getMessage());
+            }
+        });
+    }
+
+    private Observable<BigInteger> getEstimateGas() {
+
+        return Observable.create(e -> {
+            e.onNext(mWeb3j.ethGasPrice().send().getGasPrice());
+        });
+    }
+
     private Observable<ArrayList<TokenBean>> fetchTokens(String walletAddress) {
         return Observable.create(e -> {
             ArrayList<TokenBean> tokens = DatabaseOperate.getInstance().getTokenList(mCurrentNetworkInfo.chainId, walletAddress);
@@ -184,7 +208,10 @@ public class WalletManager {
                 } catch (Exception e1) {
                     LogUtil.LogE("Err" + e1.getMessage());
                 }
-                if (balance == null || balance.compareTo(BigDecimal.ZERO) == 0) {
+                if (balance == null) {
+                    continue;
+                }
+                if (balance.compareTo(BigDecimal.ZERO) == 0) {
                     bean.setBalance("0");
                 } else {
                     BigDecimal decimalDivisor = new BigDecimal(Math.pow(10, bean.getTokenPrecision()));
@@ -244,10 +271,6 @@ public class WalletManager {
         return response.getValue();
     }
 
-    public BigInteger estimateGas() throws Exception {
-        return mWeb3j.ethGasPrice().send().getGasPrice();
-    }
-
 
 //    public String sendRawTransaction(String privateKey, String from, String toAddress, BigDecimal amount) {
 //        try {
@@ -292,14 +315,33 @@ public class WalletManager {
 //        }
 //    }
 
-    public Single<String> createEthTransaction(WalletBean from, String to, BigInteger amount, BigInteger gasPrice, BigInteger gasLimit, String password) {
+    public Single<String> createTransaction(WalletBean from, String to, BigInteger amount, BigInteger gasPrice, BigInteger gasLimit, String data, String password) {
         return getLastTransactionNonce(mWeb3j, from.getAddress())
                 .flatMap(nonce -> Single.fromCallable(() -> {
                             Credentials credentials = WalletUtils.loadCredentials(password, from.getKeystorePath());
+                            LogUtil.LogE("1");
+                            RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit, to,
+                                    amount == null ? new BigInteger("0") : amount, data);
+                            byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, (long) mCurrentNetworkInfo.chainId, credentials);
+                            String hexValue = Numeric.toHexString(signedMessage);
+                            LogUtil.LogE("2");
+                            EthSendTransaction ethSendTransaction = mWeb3j.ethSendRawTransaction(hexValue).send();
+                            LogUtil.LogE("3: "+ethSendTransaction.getTransactionHash());
+                            return ethSendTransaction.getTransactionHash();
+                        }).subscribeOn(Schedulers.computation())
+                        .observeOn(AndroidSchedulers.mainThread()));
+    }
+
+    public Single<String> createEthTransaction(WalletBean from, String to, BigInteger amount, BigInteger gasPrice, BigInteger gasLimit, String password) {
+        return getLastTransactionNonce(mWeb3j, from.getAddress())
+                .flatMap(nonce -> Single.fromCallable(() -> {
+                    LogUtil.LogE("createEthTransaction");
+                            Credentials credentials = WalletUtils.loadCredentials(password, from.getKeystorePath());
                             RawTransaction rawTransaction = RawTransaction.createEtherTransaction(nonce, gasPrice, gasLimit, to, amount);
-                            byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, (byte) mCurrentNetworkInfo.chainId, credentials);
+                            byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, (long) mCurrentNetworkInfo.chainId, credentials);
                             String hexValue = Numeric.toHexString(signedMessage);
                             EthSendTransaction ethSendTransaction = mWeb3j.ethSendRawTransaction(hexValue).send();
+                            LogUtil.LogE("hash: "+ethSendTransaction.getTransactionHash());
                             return ethSendTransaction.getTransactionHash();
                         }).subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread()));
@@ -317,11 +359,9 @@ public class WalletManager {
                             RawTransaction rawTransaction = RawTransaction.createTransaction(
                                     nonce, gasPrice, gasLimit, contractAddress, callFuncData);
 
-                            byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, (byte) mCurrentNetworkInfo.chainId, credentials);
-                            LogUtil.LogE("1");
+                            byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, (long) mCurrentNetworkInfo.chainId, credentials);
                             String hexValue = Numeric.toHexString(signedMessage);
                             EthSendTransaction ethSendTransaction = mWeb3j.ethSendRawTransaction(hexValue).send();
-                            LogUtil.LogE("2");
                             return ethSendTransaction.getTransactionHash();
 
                         }).subscribeOn(Schedulers.computation())

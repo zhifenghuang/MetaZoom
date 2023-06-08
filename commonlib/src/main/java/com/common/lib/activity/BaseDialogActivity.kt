@@ -9,6 +9,7 @@ import com.common.lib.dialog.CommonProgressDialog
 import com.common.lib.dialog.MyDialogFragment
 import com.common.lib.interfaces.OnClickCallback
 import com.common.lib.manager.DataManager
+import com.common.lib.utils.LogUtil
 
 abstract class BaseDialogActivity : BaseMediaActivity() {
 
@@ -112,6 +113,7 @@ abstract class BaseDialogActivity : BaseMediaActivity() {
         btnText2: String?,
         callBack: OnClickCallback? = null
     ) {
+        LogUtil.LogE("showTwoBtnDialog")
         showTwoBtnDialog(null, msg, btnText1, btnText2, callBack)
     }
 

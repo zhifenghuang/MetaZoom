@@ -24,8 +24,7 @@
             android:id="@+id/ivSymbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/app_btc_icon" />
+            android:layout_gravity="center_horizontal" />
 
 
         <TextView
