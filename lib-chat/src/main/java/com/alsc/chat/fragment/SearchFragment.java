@@ -59,13 +59,16 @@ public class SearchFragment extends ChatBaseFragment {
     @Override
     protected void onViewCreated(View view) {
         mSearchType = getArguments().getInt(Constants.BUNDLE_EXTRA, SEARCH_LOCAL_FRIEND);
-        setTopStatusBarStyle(view);
+
         EditText et = view.findViewById(R.id.etSearch);
         if (mSearchType == SEARCH_LOCAL_FRIEND) {
             setViewGone(R.id.topView);
             setViewVisible(R.id.llMyInfo);
+            setTopStatusBarStyle(R.id.llMyInfo);
             UserBean myInfo = DataManager.getInstance().getUser();
-            Utils.displayAvatar(getActivity(), R.drawable.chat_default_avatar, myInfo.getAvatarUrl(), fv(R.id.ivMyAvatar));
+            int resId = getResources().getIdentifier("chat_default_avatar_" + myInfo.getUserId() % 6,
+                    "drawable", getActivity().getPackageName());
+            Utils.displayAvatar(getActivity(), resId, myInfo.getAvatarUrl(), fv(R.id.ivMyAvatar));
             setText(R.id.tvMyName, myInfo.getNickName());
             RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -134,6 +137,7 @@ public class SearchFragment extends ChatBaseFragment {
                 }
             });
         } else if (mSearchType == SEARCH_CHAT_RECORD || mSearchType == SEARCH_GROUP_CHAT_RECORD) {
+            setTopStatusBarStyle(R.id.topView);
             setViewGone(R.id.llMyInfo);
             setText(R.id.tvTitle, R.string.chat_search_chat_record);
             DatabaseOperate.getInstance().deleteAllExprieMsg();

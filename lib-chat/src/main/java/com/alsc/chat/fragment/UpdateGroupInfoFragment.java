@@ -47,10 +47,6 @@ public class UpdateGroupInfoFragment extends ChatBaseFragment {
         mGroup = (GroupBean) getArguments().getSerializable(Constants.BUNDLE_EXTRA);
         setTopStatusBarStyle(view);
 
-        final TextView tvLeft = fv(R.id.tvLeft);
-        tvLeft.setVisibility(View.VISIBLE);
-        tvLeft.setOnClickListener(this);
-        setText(tvLeft, getString(R.string.chat_finish));
 
         EditText etNotice = view.findViewById(R.id.etNotice);
         if (mUpdateGroupType == UPDATE_GROUP_NAME) {

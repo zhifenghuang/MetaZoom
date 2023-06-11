@@ -11,7 +11,7 @@
     <LinearLayout
         android:id="@+id/llTop"
         android:layout_width="match_parent"
-        android:layout_height="68dp"
+        android:layout_height="74dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -23,35 +23,56 @@
             android:paddingRight="15dp"
             android:src="@drawable/chat_back_blue" />
 
-        <androidx.constraintlayout.utils.widget.ImageFilterView
+        <ImageView
             android:id="@+id/ivAvatar"
             android:layout_width="58dp"
             android:layout_height="58dp"
-            android:layout_gravity="center_vertical"
-            app:round="12dp" />
+            android:layout_gravity="center_vertical" />
 
-        <TextView
-            android:id="@+id/tvName"
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:singleLine="true"
+            android:layout_height="match_parent"
             android:layout_marginLeft="18dp"
-            android:layout_gravity="center_vertical"
-            android:textColor="@color/text_color_1"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/text_color_1"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/text_color_2"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/ivMore"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/chat_more"
+            android:paddingLeft="25dp"
             android:paddingRight="25dp"
-            android:paddingLeft="25dp"/>
+            android:src="@drawable/chat_more" />
 
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/llTop"
+        android:background="@color/color_ed_ed_ed" />
 
     <LinearLayout
         android:id="@+id/llBottomTab"
@@ -190,32 +211,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/llLocation"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@drawable/bg_chat_tab_message"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/icon_location" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingTop="3dp"
-                    android:text="@string/chat_my_location"
-                    android:textColor="@color/color_8c_8c_8c"
-                    android:textSize="11dp" />
-
-            </LinearLayout>
 
         </LinearLayout>
 
@@ -227,59 +222,6 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/llRedPackage"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@drawable/bg_chat_tab_message"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/icon_red_package" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingTop="3dp"
-                    android:text="@string/chat_red_package"
-                    android:textColor="@color/color_8c_8c_8c"
-                    android:textSize="11dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llTransfer"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@drawable/bg_chat_tab_message"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/icon_transfer" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingTop="3dp"
-                    android:text="@string/chat_transfer"
-                    android:textColor="@color/color_8c_8c_8c"
-                    android:textSize="11dp" />
-
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/llFile"
@@ -330,7 +272,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:paddingTop="3dp"
-                    android:text="@string/chat_delete_after_read"
+                    android:text="@string/chat_destroy"
                     android:textColor="@color/color_8c_8c_8c"
                     android:textSize="11dp" />
 
@@ -341,7 +283,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:visibility="gone" />
+                android:visibility="invisible" />
 
         </LinearLayout>
 
@@ -350,8 +292,9 @@
     <LinearLayout
         android:id="@+id/llBottom"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="58dp"
         android:layout_above="@id/llBottomTab"
+        android:paddingLeft="14dp"
         android:background="@color/color_ff_ff_ff"
         android:orientation="horizontal">
 
@@ -359,7 +302,6 @@
             android:id="@+id/ivVoice"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingLeft="14dp"
             android:paddingRight="14dp"
             android:scaleType="centerInside"
             android:src="@drawable/icon_voice" />
@@ -403,25 +345,16 @@
             <EditText
                 android:id="@+id/etChat"
                 android:layout_width="0dp"
-                android:layout_height="35dp"
+                android:layout_height="39dp"
                 android:layout_weight="1"
                 android:background="@null"
                 android:maxLength="2000"
                 android:paddingLeft="17dp"
                 android:paddingRight="17dp"
-                android:textColor="@color/color_00_00_00"
-                android:textColorHint="@color/color_8c_8c_8c"
+                android:textColor="@color/text_color_1"
+                android:textColorHint="@color/text_color_2"
                 android:textSize="15dp" />
 
-            <ImageView
-                android:id="@+id/ivSend"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/bg_chat_send"
-                android:scaleType="centerInside"
-                android:src="@drawable/icon_send"
-                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -439,9 +372,23 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="12dp"
-            android:paddingRight="12dp"
             android:scaleType="centerInside"
             android:src="@drawable/icon_add" />
+
+        <TextView
+            android:id="@+id/ivSend"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="13dp"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/shape_7a5bd0_4"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="@string/chat_send"
+            android:textColor="@color/color_ff_ff_ff"
+            android:textSize="14dp" />
 
 
     </LinearLayout>

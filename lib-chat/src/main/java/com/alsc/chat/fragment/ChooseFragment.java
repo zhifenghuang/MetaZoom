@@ -45,7 +45,7 @@ public class ChooseFragment extends ChatBaseFragment {
     protected void onViewCreated(View view) {
         mChooseType = getArguments().getInt(Constants.BUNDLE_EXTRA, CHOOSE_GENDER);
         mCurrentSelect = getArguments().getInt(Constants.BUNDLE_EXTRA_2, 0);
-        setTopStatusBarStyle(view);
+        setTopStatusBarStyle(R.id.topView);
         if (mChooseType == CHOOSE_GENDER) {
             setText(R.id.tvTitle, R.string.chat_choose_gender);
         } else if (mChooseType == CHOOSE_COUNTRY) {

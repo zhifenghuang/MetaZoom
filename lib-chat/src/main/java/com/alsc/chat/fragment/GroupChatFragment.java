@@ -40,10 +40,11 @@ public class GroupChatFragment extends ChatFragment {
 
     @Override
     protected void onViewCreated(View view) {
+        setTopStatusBarStyle(view);
         mMyInfo = DataManager.getInstance().getUser();
         mGroup = (GroupBean) getArguments().getSerializable(Constants.BUNDLE_EXTRA);
-        setText(R.id.tvLeft, mGroup.getName());
-        setText(R.id.tvReadDelete, R.string.chat_send_delete);
+        setText(R.id.tvName, mGroup.getName());
+        Utils.loadImage(getActivity(), R.drawable.chat_default_group_avatar, mGroup.getIcon(), view.findViewById(R.id.ivAvatar));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
@@ -54,7 +55,6 @@ public class GroupChatFragment extends ChatFragment {
         init(view);
         getGroupDetail();
         getGroupUsers();
-        setViewGone(R.id.llTransfer);
         setViewInvisible(R.id.tabEmptyView);
         getFilterMsg();
         getAdapter().setOnItemChildLongClickListener(new OnItemChildLongClickListener() {
@@ -78,9 +78,10 @@ public class GroupChatFragment extends ChatFragment {
                     etChat.setFocusableInTouchMode(true);
                     etChat.requestFocus();
                     showKeyBoard(etChat);
-                } else if (!getAdapter().isEditMode()) {
-                    showMsgMoreDialog(getAdapter().getItem(position), view);
                 }
+//                else if (!getAdapter().isEditMode()) {
+//                    showMsgMoreDialog(getAdapter().getItem(position), view);
+//                }
                 return false;
             }
         });
@@ -104,6 +105,8 @@ public class GroupChatFragment extends ChatFragment {
         }
         ((GroupMessageAdapter) getAdapter()).setShowNick(chatSubBean.getIsShowMemberNick() == 1);
         mFilterMsgs = DataManager.getInstance().getGroupFilterMsg(mGroup.getGroupId());
+        setViewVisible(R.id.tvNum);
+        setText(R.id.tvNum, getString(R.string.chat_xxx_members, String.valueOf(mGroupUsers.size())));
     }
 
     protected void atGroupMember(String text) {
@@ -276,7 +279,7 @@ public class GroupChatFragment extends ChatFragment {
             int msgType = message.getMsgType();
             if (msgType == MessageType.TYPE_UPDATE_GROUP_NAME.ordinal()) {
                 mGroup.setName(message.getContent());
-                setText(R.id.tvLeft, mGroup.getName());
+                setText(R.id.tvName, mGroup.getName());
             } else if (msgType == MessageType.TYPE_ALL_FORBID_CHAT.ordinal()) {
                 mGroup.setAllBlock(1);
                 showForbidView();
@@ -324,6 +327,7 @@ public class GroupChatFragment extends ChatFragment {
                 showForbidView();
                 ((GroupMessageAdapter) getAdapter()).setGroupUsers(list);
                 DataManager.getInstance().saveGroupUsers(mGroup.getGroupId(), list);
+                setText(R.id.tvNum, getString(R.string.chat_xxx_members, String.valueOf(mGroupUsers.size())));
             }
         }, getActivity(), false, (ChatBaseActivity) getActivity()));
     }
@@ -349,7 +353,7 @@ public class GroupChatFragment extends ChatFragment {
                 mGroup = bean;
                 showForbidView();
                 ((GroupMessageAdapter) getAdapter()).setGroup(mGroup);
-                setText(R.id.tvLeft, mGroup.getName());
+                setText(R.id.tvName, mGroup.getName());
                 EventBus.getDefault().post(mGroup);
             }
         }, getActivity(), false, (ChatBaseActivity) getActivity()));
@@ -375,7 +379,7 @@ public class GroupChatFragment extends ChatFragment {
             mGroup = bean;
             showForbidView();
             ((GroupMessageAdapter) getAdapter()).setGroup(mGroup);
-            setText(R.id.tvLeft, mGroup.getName());
+            setText(R.id.tvName, mGroup.getName());
         }
     }
 
@@ -386,9 +390,6 @@ public class GroupChatFragment extends ChatFragment {
                 || id == R.id.llAlbum
                 || id == R.id.llCamera
                 || id == R.id.llVideo
-                || id == R.id.llLocation
-                || id == R.id.llRedPackage
-                || id == R.id.llTransfer
                 || id == R.id.llFile
                 || id == R.id.ivAdd
                 || id == R.id.ivVoice) {

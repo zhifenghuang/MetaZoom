@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.common.lib.activity.BaseActivity;
+import com.common.lib.bean.ChainBean;
 import com.common.lib.constant.Constants;
 import com.common.lib.manager.DataManager;
 import com.common.lib.mvp.contract.EmptyContract;
@@ -22,6 +23,7 @@ import com.meta.zoom.adapter.MnemonicAdapter;
 import com.common.lib.activity.db.DatabaseOperate;
 import com.meta.zoom.contract.MainContract;
 import com.meta.zoom.presenter.MainPresenter;
+import com.meta.zoom.wallet.WalletManager;
 import com.meta.zoom.wallet.bean.MnemonicBean;
 import com.common.lib.bean.WalletBean;
 
@@ -32,6 +34,7 @@ import java.util.List;
 public class VerifyMnemonicActivity extends BaseActivity<MainContract.Presenter> implements MainContract.View {
 
     private WalletBean mWallet;
+    private ChainBean mChain;
     private MnemonicAdapter mOrderAdapter, mShuffleAdapter;
 
     @Override
@@ -45,6 +48,7 @@ public class VerifyMnemonicActivity extends BaseActivity<MainContract.Presenter>
         setViewsOnClickListener(R.id.tvBackedUp);
         Bundle bundle = getIntent().getExtras();
         mWallet = (WalletBean) bundle.getSerializable(Constants.BUNDLE_EXTRA);
+        mChain = (ChainBean) bundle.getSerializable(Constants.BUNDLE_EXTRA_2);
         RecyclerView recyclerView = findViewById(R.id.recyclerView1);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -142,6 +146,8 @@ public class VerifyMnemonicActivity extends BaseActivity<MainContract.Presenter>
                 }
                 DatabaseOperate.getInstance().insert(mWallet);
                 DataManager.getInstance().saveCurrentWallet(mWallet);
+                DataManager.getInstance().saveCurrentChain(mChain);
+                WalletManager.getInstance().resetNetwork(mChain);
                 getPresenter().login(mWallet.getAddress());
                 break;
         }

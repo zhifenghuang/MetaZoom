@@ -11,16 +11,19 @@ public class ChainBean extends IDBItemOperation {
 
     private String explore;
 
+    private int fix = 0;
+
     public ChainBean() {
 
     }
 
-    public ChainBean(int chainId, String chainName, String rpcUrl, String symbol, String explore) {
+    public ChainBean(int chainId, String chainName, String rpcUrl, String symbol, String explore, int fix) {
         this.chainId = chainId;
         this.chainName = chainName;
         this.rpcUrl = rpcUrl;
         this.symbol = symbol;
         this.explore = explore;
+        this.fix = fix;
     }
 
     public String getExplore() {
@@ -60,6 +63,14 @@ public class ChainBean extends IDBItemOperation {
             symbol = "";
         }
         return symbol;
+    }
+
+    public int getFix() {
+        return fix;
+    }
+
+    public void setFix(int fix) {
+        this.fix = fix;
     }
 
     public void setSymbol(String symbol) {

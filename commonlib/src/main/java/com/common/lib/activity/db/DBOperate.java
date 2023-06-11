@@ -517,6 +517,12 @@ public class DBOperate {
         return db.delete(strTBName, strKey + "=?", new String[]{strValue});
     }
 
+    public int delete(IDBItemOperation dbItem, String id) {
+        String strTBName = dbItem.getTableName();
+        String strKey = dbItem.getPrimaryKeyName();
+        return db.delete(strTBName, strKey + "=?", new String[]{id});
+    }
+
     /**
      * 根据指定的条件，update一个对象
      *

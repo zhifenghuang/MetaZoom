@@ -18,6 +18,7 @@ import com.common.lib.constant.EventBusEvent;
 import com.common.lib.manager.DataManager;
 import com.common.lib.mvp.contract.EmptyContract;
 import com.common.lib.mvp.presenter.EmptyPresenter;
+import com.common.lib.utils.LogUtil;
 import com.common.lib.utils.PermissionUtil;
 import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.meta.zoom.R;
@@ -138,6 +139,7 @@ public class TransferActivity extends BaseActivity<EmptyContract.Presenter> impl
 
     private void onError(Throwable throwable) {
         dismissProgressDialog();
+        LogUtil.LogE(throwable);
         showToast(R.string.app_send_failed);
     }
 

@@ -29,6 +29,7 @@ import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
 import org.web3j.crypto.WalletFile;
 import org.web3j.crypto.WalletUtils;
+import org.web3j.protocol.ObjectMapperFactory;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.Response;
@@ -37,13 +38,16 @@ import org.web3j.protocol.core.methods.response.EthEstimateGas;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.Transfer;
 import org.web3j.utils.Convert;
 import org.web3j.utils.Numeric;
 
 import com.meta.zoom.wallet.bean.TransactionBean;
 
 import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
@@ -84,7 +88,9 @@ public class WalletManager {
                 chainBean.getExplore(),
                 chainBean.getExplore(), chainBean.getChainId(), false);
         mWeb3j = Web3j.build(new HttpService(mCurrentNetworkInfo.rpcServerUrl, mHttpClient, false));
-        mBlockExplorerClient.buildApiClient(mCurrentNetworkInfo.backendUrl);
+        if (!TextUtils.isEmpty(mCurrentNetworkInfo.backendUrl)) {
+            mBlockExplorerClient.buildApiClient(mCurrentNetworkInfo.backendUrl);
+        }
     }
 
     public NetworkInfo getCurrentNetworkInfo() {
@@ -117,6 +123,19 @@ public class WalletManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public String deriveKeystore(WalletBean wallet) {
+        String keystore = null;
+        WalletFile walletFile;
+        ObjectMapper objectMapper = ObjectMapperFactory.getObjectMapper();
+        try {
+            walletFile = objectMapper.readValue(new File(wallet.getKeystorePath()), WalletFile.class);
+            keystore = objectMapper.writeValueAsString(walletFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return keystore;
+    }
+
     public Single<WalletBean> loadWalletByPrivateKey(final String walletName, final String privateKey, final String pwd) {
         return Single.fromCallable(() -> ETHWalletUtils.loadWalletByPrivateKey(walletName, privateKey, pwd)
                 ).subscribeOn(Schedulers.io())
@@ -124,8 +143,8 @@ public class WalletManager {
 
     }
 
-    public Single<WalletBean> loadWalletByMnemonic(final String bipPath, final String mnemonic, final String pwd) {
-        return Single.fromCallable(() -> ETHWalletUtils.importMnemonic(bipPath
+    public Single<WalletBean> loadWalletByMnemonic(final String walletName, final String bipPath, final String mnemonic, final String pwd) {
+        return Single.fromCallable(() -> ETHWalletUtils.importMnemonic(walletName, bipPath
                         , Arrays.asList(mnemonic.split(" ")), pwd)).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
 
@@ -140,8 +159,12 @@ public class WalletManager {
 
     private Observable<ArrayList<TransactionBean>> fetchTransaction(String walletAddress, String tokenAddress) {
         return Observable.create(e -> {
-            ArrayList<TransactionBean> transactions = mBlockExplorerClient.fetchTransactions(walletAddress, tokenAddress).blockingFirst();
-            e.onNext(transactions);
+            if (TextUtils.isEmpty(mCurrentNetworkInfo.backendUrl)) {
+                e.onNext(new ArrayList<>());
+            } else {
+                ArrayList<TransactionBean> transactions = mBlockExplorerClient.fetchTransactions(walletAddress, tokenAddress).blockingFirst();
+                e.onNext(transactions);
+            }
             e.onComplete();
         });
     }
@@ -319,14 +342,11 @@ public class WalletManager {
         return getLastTransactionNonce(mWeb3j, from.getAddress())
                 .flatMap(nonce -> Single.fromCallable(() -> {
                             Credentials credentials = WalletUtils.loadCredentials(password, from.getKeystorePath());
-                            LogUtil.LogE("1");
                             RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit, to,
                                     amount == null ? new BigInteger("0") : amount, data);
-                            byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, (long) mCurrentNetworkInfo.chainId, credentials);
+                            byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, mCurrentNetworkInfo.chainId, credentials);
                             String hexValue = Numeric.toHexString(signedMessage);
-                            LogUtil.LogE("2");
                             EthSendTransaction ethSendTransaction = mWeb3j.ethSendRawTransaction(hexValue).send();
-                            LogUtil.LogE("3: "+ethSendTransaction.getTransactionHash());
                             return ethSendTransaction.getTransactionHash();
                         }).subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread()));
@@ -335,13 +355,13 @@ public class WalletManager {
     public Single<String> createEthTransaction(WalletBean from, String to, BigInteger amount, BigInteger gasPrice, BigInteger gasLimit, String password) {
         return getLastTransactionNonce(mWeb3j, from.getAddress())
                 .flatMap(nonce -> Single.fromCallable(() -> {
-                    LogUtil.LogE("createEthTransaction");
+                            LogUtil.LogE("createEthTransaction");
                             Credentials credentials = WalletUtils.loadCredentials(password, from.getKeystorePath());
                             RawTransaction rawTransaction = RawTransaction.createEtherTransaction(nonce, gasPrice, gasLimit, to, amount);
-                            byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, (long) mCurrentNetworkInfo.chainId, credentials);
+                            byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, mCurrentNetworkInfo.chainId, credentials);
                             String hexValue = Numeric.toHexString(signedMessage);
                             EthSendTransaction ethSendTransaction = mWeb3j.ethSendRawTransaction(hexValue).send();
-                            LogUtil.LogE("hash: "+ethSendTransaction.getTransactionHash());
+                            LogUtil.LogE("hash: " + ethSendTransaction.getTransactionHash());
                             return ethSendTransaction.getTransactionHash();
                         }).subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread()));
@@ -359,7 +379,7 @@ public class WalletManager {
                             RawTransaction rawTransaction = RawTransaction.createTransaction(
                                     nonce, gasPrice, gasLimit, contractAddress, callFuncData);
 
-                            byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, (long) mCurrentNetworkInfo.chainId, credentials);
+                            byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, mCurrentNetworkInfo.chainId, credentials);
                             String hexValue = Numeric.toHexString(signedMessage);
                             EthSendTransaction ethSendTransaction = mWeb3j.ethSendRawTransaction(hexValue).send();
                             return ethSendTransaction.getTransactionHash();
@@ -369,7 +389,6 @@ public class WalletManager {
     }
 
     private Single<BigInteger> getLastTransactionNonce(Web3j web3j, String walletAddress) {
-        Log.i("EthereumNetworkRepository", "getLastTransactionNonce，walletAddress: " + walletAddress);
 
         return Single.fromCallable(() -> {
             EthGetTransactionCount ethGetTransactionCount = web3j

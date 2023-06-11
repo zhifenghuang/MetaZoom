@@ -104,7 +104,7 @@
                 android:id="@+id/ivPasswordEye"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/app_eye_open" />
+                android:src="@drawable/app_eye_close" />
 
         </LinearLayout>
 
@@ -137,10 +137,10 @@
                 android:textSize="16dp" />
 
             <ImageView
-                android:id="@+id/ivConfirmPasswordEye"
+                android:id="@+id/ivSurePasswordEye"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/app_eye_open" />
+                android:src="@drawable/app_eye_close" />
 
         </LinearLayout>
     </LinearLayout>

@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:paddingLeft="25dp">
+    android:paddingLeft="28dp">
 
     <ImageView
         android:id="@+id/ivAvatar"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_centerVertical="true" />
 
     <LinearLayout
@@ -25,8 +25,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:textColor="@color/color_00_00_00"
-            android:textSize="15dp" />
+            android:textColor="@color/text_color_1"
+            android:textStyle="bold"
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/tvText"
@@ -34,7 +35,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:singleLine="true"
-            android:textColor="@color/color_8c_8c_8c"
+            android:textColor="@color/text_color_2"
             android:textSize="12dp"
             android:visibility="gone" />
 
@@ -45,7 +46,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_0_5"
         android:layout_alignParentBottom="true"
-        android:alpha="0.5"
-        android:background="@color/color_f3_f7_fa" />
+        android:background="@color/color_ed_ed_ed" />
 
 </RelativeLayout>

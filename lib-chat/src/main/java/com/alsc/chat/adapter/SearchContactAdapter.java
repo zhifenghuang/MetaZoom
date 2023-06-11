@@ -49,11 +49,13 @@ public class SearchContactAdapter extends BaseMultiItemQuickAdapter<ContactItem,
                 if (item.getFriend() != null) {
                     helper.setText(R.id.tvName, item.getFriend().getNickName())
                             .setGone(R.id.tvText, true);
-                    Utils.displayAvatar(mContext, R.drawable.chat_default_avatar, item.getFriend().getAvatarUrl(), helper.getView(R.id.ivAvatar));
+                    int resId = mContext.getResources().getIdentifier("chat_default_avatar_" + item.getFriend().getUserId() % 6,
+                            "drawable", mContext.getPackageName());
+                    Utils.displayAvatar(mContext, resId, item.getFriend().getAvatarUrl(), helper.getView(R.id.ivAvatar));
                 } else {
                     helper.setText(R.id.tvName, item.getGroup().getName())
                             .setGone(R.id.tvText, true);
-                    Utils.displayAvatar(mContext, R.drawable.chat_default_avatar, item.getGroup().getIcon(), helper.getView(R.id.ivAvatar));
+                    Utils.displayAvatar(mContext, R.drawable.chat_default_group_avatar, item.getGroup().getIcon(), helper.getView(R.id.ivAvatar));
                 }
                 break;
             case ContactItem.VIEW_TYPE_2:
@@ -61,12 +63,14 @@ public class SearchContactAdapter extends BaseMultiItemQuickAdapter<ContactItem,
                     helper.setText(R.id.tvName, item.getFriend().getNickName())
                             .setGone(R.id.tvText, false)
                             .setText(R.id.tvText, mContext.getString(R.string.chat_xxx_chat_record, String.valueOf(item.getMsgNum())));
-                    Utils.displayAvatar(mContext, R.drawable.chat_default_avatar, item.getFriend().getAvatarUrl(), helper.getView(R.id.ivAvatar));
+                    int resId = mContext.getResources().getIdentifier("chat_default_avatar_" + item.getFriend().getUserId() % 6,
+                            "drawable", mContext.getPackageName());
+                    Utils.displayAvatar(mContext, resId, item.getFriend().getAvatarUrl(), helper.getView(R.id.ivAvatar));
                 } else {
                     helper.setText(R.id.tvName, item.getGroup().getName())
                             .setGone(R.id.tvText, false)
                             .setText(R.id.tvText, mContext.getString(R.string.chat_xxx_chat_record, String.valueOf(item.getMsgNum())));
-                    Utils.displayAvatar(mContext, R.drawable.chat_default_avatar, item.getGroup().getIcon(), helper.getView(R.id.ivAvatar));
+                    Utils.displayAvatar(mContext, R.drawable.chat_default_group_avatar, item.getGroup().getIcon(), helper.getView(R.id.ivAvatar));
                 }
                 break;
         }

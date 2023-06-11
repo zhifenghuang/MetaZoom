@@ -1,6 +1,7 @@
 package com.meta.zoom.activity;
 
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -29,6 +30,7 @@ import io.reactivex.Observable;
 public class ImportKeystoreActivity extends BaseActivity<MainContract.Presenter> implements MainContract.View {
 
     private ChainBean mChain;
+    private boolean isShowPsw;
 
     @Override
     protected int getLayoutId() {
@@ -38,9 +40,10 @@ public class ImportKeystoreActivity extends BaseActivity<MainContract.Presenter>
     @Override
     protected void onCreated(@Nullable Bundle savedInstanceState) {
         setText(R.id.tvTitle, R.string.app_import_wallet);
-        setViewsOnClickListener(R.id.tvOk);
+        setViewsOnClickListener(R.id.tvOk, R.id.ivEye);
         mChain = (ChainBean) getIntent().getExtras().getSerializable(Constants.BUNDLE_EXTRA);
         initInputListener();
+        isShowPsw = false;
     }
 
     @NonNull
@@ -52,6 +55,12 @@ public class ImportKeystoreActivity extends BaseActivity<MainContract.Presenter>
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.ivEye:
+                isShowPsw = !isShowPsw;
+                setImage(R.id.ivEye, isShowPsw ? R.drawable.app_eye_open : R.drawable.app_eye_close);
+                ((EditText) findViewById(R.id.etPassword)).setInputType(
+                        isShowPsw ? InputType.TYPE_TEXT_VARIATION_PASSWORD : (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD));
+                break;
             case R.id.tvOk:
                 String keystore = getTextById(R.id.etKeystore);
                 String psw = getTextById(R.id.etPassword);
@@ -63,18 +72,19 @@ public class ImportKeystoreActivity extends BaseActivity<MainContract.Presenter>
 
     public void loadSuccess(WalletBean wallet) {
         dismissProgressDialog();
-        LogUtil.LogE(wallet.getAddress());
-        if (DatabaseOperate.getInstance().isHadWallet(wallet.getAddress(), mChain.getChainId())) {
-            showToast(R.string.app_wallet_is_exist);
+        WalletBean bean = DatabaseOperate.getInstance().getWallet(wallet.getAddress(), mChain.getChainId());
+        if (bean != null) {
+            DataManager.getInstance().saveCurrentWallet(bean);
         } else {
             wallet.setWalletType(mChain.getSymbol());
             wallet.setChainId(mChain.getChainId());
             wallet.setMoney("0");
             DatabaseOperate.getInstance().insert(wallet);
             DataManager.getInstance().saveCurrentWallet(wallet);
-            getPresenter().login(wallet.getAddress());
         }
-
+        DataManager.getInstance().saveCurrentChain(mChain);
+        WalletManager.getInstance().resetNetwork(mChain);
+        getPresenter().login(wallet.getAddress());
 
     }
 

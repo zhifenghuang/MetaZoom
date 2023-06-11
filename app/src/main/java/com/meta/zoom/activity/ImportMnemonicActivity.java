@@ -1,6 +1,7 @@
 package com.meta.zoom.activity;
 
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -32,6 +33,8 @@ import io.reactivex.Observable;
 public class ImportMnemonicActivity extends BaseActivity<MainContract.Presenter> implements MainContract.View {
 
     private ChainBean mChain;
+    private boolean isShowPsw1;
+    private boolean isShowPsw2;
 
     private String mEthType = ETHWalletUtils.ETH_JAXX_TYPE;
 
@@ -43,9 +46,11 @@ public class ImportMnemonicActivity extends BaseActivity<MainContract.Presenter>
     @Override
     protected void onCreated(@Nullable Bundle savedInstanceState) {
         setText(R.id.tvTitle, R.string.app_import_wallet);
-        setViewsOnClickListener(R.id.tvOk);
+        setViewsOnClickListener(R.id.tvOk, R.id.ivPasswordEye, R.id.ivSurePasswordEye);
         mChain = (ChainBean) getIntent().getExtras().getSerializable(Constants.BUNDLE_EXTRA);
         initInputListener();
+        isShowPsw1 = false;
+        isShowPsw2 = false;
     }
 
     @NonNull
@@ -57,6 +62,18 @@ public class ImportMnemonicActivity extends BaseActivity<MainContract.Presenter>
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.ivPasswordEye:
+                isShowPsw1 = !isShowPsw1;
+                setImage(R.id.ivPasswordEye, isShowPsw1 ? R.drawable.app_eye_open : R.drawable.app_eye_close);
+                ((EditText) findViewById(R.id.etPassword)).setInputType(
+                        isShowPsw1 ? InputType.TYPE_TEXT_VARIATION_PASSWORD : (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD));
+                break;
+            case R.id.ivSurePasswordEye:
+                isShowPsw2 = !isShowPsw2;
+                setImage(R.id.ivSurePasswordEye, isShowPsw2 ? R.drawable.app_eye_open : R.drawable.app_eye_close);
+                ((EditText) findViewById(R.id.etConfirmPassword)).setInputType(
+                        isShowPsw2 ? InputType.TYPE_TEXT_VARIATION_PASSWORD : (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD));
+                break;
             case R.id.tvOk:
                 String mnemonic = getTextById(R.id.etMnemonic);
                 String[] arr = mnemonic.split(" ");
@@ -89,7 +106,7 @@ public class ImportMnemonicActivity extends BaseActivity<MainContract.Presenter>
                     return;
                 }
                 showProgressDialog();
-                WalletManager.getInstance().loadWalletByMnemonic(mEthType, mnemonic, psw).subscribe(this::loadSuccess, this::onError);
+                WalletManager.getInstance().loadWalletByMnemonic(walletName, mEthType, mnemonic, psw).subscribe(this::loadSuccess, this::onError);
                 break;
         }
     }
@@ -97,16 +114,19 @@ public class ImportMnemonicActivity extends BaseActivity<MainContract.Presenter>
     private void loadSuccess(WalletBean wallet) {
         LogUtil.LogE(wallet.getAddress());
         dismissProgressDialog();
-        if (DatabaseOperate.getInstance().isHadWallet(wallet.getAddress(), mChain.getChainId())) {
-            showToast(R.string.app_wallet_is_exist);
-        } else {
+        WalletBean bean = DatabaseOperate.getInstance().getWallet(wallet.getAddress(), mChain.getChainId());
+        if (bean != null) {
+            DataManager.getInstance().saveCurrentWallet(bean);
+        }else {
             wallet.setWalletType(mChain.getSymbol());
             wallet.setChainId(mChain.getChainId());
             wallet.setMoney("0");
             DatabaseOperate.getInstance().insert(wallet);
             DataManager.getInstance().saveCurrentWallet(wallet);
-            getPresenter().login(wallet.getAddress());
         }
+        DataManager.getInstance().saveCurrentChain(mChain);
+        WalletManager.getInstance().resetNetwork(mChain);
+        getPresenter().login(wallet.getAddress());
     }
 
     public void onError(Throwable e) {

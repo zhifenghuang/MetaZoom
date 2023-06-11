@@ -12,6 +12,7 @@ import com.alsc.chat.utils.Constants;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.common.lib.bean.ChatBean;
 import com.common.lib.bean.UserBean;
 import com.common.lib.manager.DataManager;
 import com.common.lib.utils.LogUtil;
@@ -58,6 +59,10 @@ public class ContactFragment extends ChatBaseFragment {
                         gotoPager(ApplyListFragment.class);
                     } else if (position == 1) {
                         gotoPager(AddFriendFragment.class);
+                    } else {
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable(Constants.BUNDLE_EXTRA, mAdapter.getItem(position).friend);
+                        gotoPager(ChatFragment.class, bundle);
                     }
                 }
             });
@@ -92,7 +97,7 @@ public class ContactFragment extends ChatBaseFragment {
         mFriendList = friendList;
         resort(mFriendList);
         if (getView() != null) {
-            getAdapter().setNewData(getNewList(mFriendList));
+            getAdapter().setNewInstance(getNewList(mFriendList));
             getAdapter().notifyDataSetChanged();
         }
     }
@@ -171,11 +176,6 @@ public class ContactFragment extends ChatBaseFragment {
                 return name1.compareTo(name2);
             }
         });
-    }
-
-    @Override
-    public boolean isNeedSetTopStyle() {
-        return false;
     }
 
     public static class ContactItem implements MultiItemEntity {

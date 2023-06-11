@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -118,10 +119,36 @@ class HttpMethods private constructor() {
         toSubscribe(observable, observer)
     }
 
+    fun chatGPT(
+        role: String,
+        content: String,
+        observer: Observer<String>
+    ) {
+        val map = HashMap<String, Any>()
+        map["role"] = role
+        map["content"] = content
+        val observable = api.chatGPT(map)
+        toSubscribe2(observable, observer)
+    }
+
 
     private fun <T : BasicResponse<Data>, Data> toSubscribe(
         observable: Observable<T>,
         observer: HttpObserver<T, Data>
+    ) {
+        observable.retry(2) { throwable ->
+            throwable is SocketTimeoutException ||
+                    throwable is ConnectException ||
+                    throwable is TimeoutException
+        }.subscribeOn(Schedulers.io())
+            .unsubscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(observer)
+    }
+
+    private fun toSubscribe2(
+        observable: Observable<String>,
+        observer: Observer<String>
     ) {
         observable.retry(2) { throwable ->
             throwable is SocketTimeoutException ||

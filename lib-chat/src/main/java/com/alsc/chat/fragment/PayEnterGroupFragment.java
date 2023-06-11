@@ -38,18 +38,13 @@ public class PayEnterGroupFragment extends ChatBaseFragment {
         setText(R.id.tvTitle, R.string.chat_pay_enter_group);
         setViewsOnClickListener(R.id.llState, R.id.llDetail);
 
-        TextView tvLeft= view.findViewById(R.id.tvLeft);
-        tvLeft.setText(getString(R.string.chat_save));
-        tvLeft.setVisibility(View.VISIBLE);
-        tvLeft.setOnClickListener(this);
-
         mPayInState = mGroup.getPayinState();
         if (mPayInState == 0) {
-            setImage(R.id.ivState, R.drawable.icon_switch_off);
+            setImage(R.id.ivState, R.drawable.chat_switch_off);
             setViewGone(R.id.llSetAmount);
             setViewVisible(R.id.paddingView);
         } else {
-            setImage(R.id.ivState, R.drawable.icon_switch_on);
+            setImage(R.id.ivState, R.drawable.chat_switch_on);
             setViewVisible(R.id.llSetAmount);
             setViewGone(R.id.paddingView);
             if (mGroup.getPayAmount() > 0.0) {
@@ -69,11 +64,11 @@ public class PayEnterGroupFragment extends ChatBaseFragment {
         if (id == R.id.llState) {
             mPayInState = (mPayInState == 1) ? 0 : 1;
             if (mPayInState == 0) {
-                setImage(R.id.ivState, R.drawable.icon_switch_off);
+                setImage(R.id.ivState, R.drawable.chat_switch_off);
                 setViewGone(R.id.llSetAmount);
                 setViewVisible(R.id.paddingView);
             } else {
-                setImage(R.id.ivState, R.drawable.icon_switch_on);
+                setImage(R.id.ivState, R.drawable.chat_switch_on);
                 setViewVisible(R.id.llSetAmount);
                 setViewGone(R.id.paddingView);
                 if (mGroup.getPayAmount() > 0.0) {

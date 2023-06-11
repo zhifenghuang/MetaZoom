@@ -11,8 +11,7 @@
         android:layout_width="41dp"
         android:layout_height="41dp"
         android:scaleType="centerInside"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/app_97_on" />
+        android:layout_centerHorizontal="true" />
     
     <View
         android:id="@+id/line"

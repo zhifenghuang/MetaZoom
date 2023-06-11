@@ -14,12 +14,14 @@ import com.common.lib.activity.db.DatabaseOperate;
 import com.common.lib.bean.ChainBean;
 import com.common.lib.bean.TokenBean;
 import com.common.lib.bean.WalletBean;
+import com.common.lib.constant.Constants;
 import com.common.lib.constant.EventBusEvent;
 import com.common.lib.manager.DataManager;
 import com.common.lib.mvp.contract.EmptyContract;
 import com.common.lib.mvp.presenter.EmptyPresenter;
 import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.meta.zoom.R;
+import com.meta.zoom.wallet.WalletManager;
 import com.meta.zoom.wallet.bean.Address;
 
 import org.greenrobot.eventbus.EventBus;
@@ -39,11 +41,22 @@ public class AddNetworkActivity extends BaseActivity<EmptyContract.Presenter> im
     @Override
     protected void onCreated(@Nullable Bundle savedInstanceState) {
         setText(R.id.tvTitle, R.string.app_custom_network);
-//        setViewVisible(R.id.tvRight);
-//        setText(R.id.tvRight, R.string.app_easy_add);
-        setViewsOnClickListener(R.id.tvRight, R.id.tvOk);
         initInputListener();
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null && bundle.containsKey(Constants.BUNDLE_EXTRA)) {
+            ChainBean bean = (ChainBean) bundle.getSerializable(Constants.BUNDLE_EXTRA);
+            setText(R.id.etNetworkName, bean.getChainName());
+            setText(R.id.etRPC, bean.getRpcUrl());
+            setText(R.id.etChainID, String.valueOf(bean.getChainId()));
+            setText(R.id.etDefaultToken, bean.getSymbol());
+            setText(R.id.etBrowser, bean.getExplore());
+            if (bean.getFix() == 1) {
+                setViewGone(R.id.tvOk);
+            }
+        }
+        setViewsOnClickListener(R.id.tvOk);
     }
+
 
     @NonNull
     @Override
@@ -54,8 +67,6 @@ public class AddNetworkActivity extends BaseActivity<EmptyContract.Presenter> im
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tvRight:
-                break;
             case R.id.tvOk:
                 int chainID = 0;
                 try {
@@ -64,13 +75,26 @@ public class AddNetworkActivity extends BaseActivity<EmptyContract.Presenter> im
                     showToast(R.string.app_error_must_numeric);
                     return;
                 }
-                if (DatabaseOperate.getInstance().isHadChain(chainID)) {
-                    showToast(R.string.app_network_had_added);
-                    return;
+                ChainBean bean = DatabaseOperate.getInstance().getChain(chainID);
+                if (bean != null) {
+                    if (bean.getFix() == 1) {  //不可更改
+                        showToast(R.string.app_network_had_added);
+                        return;
+                    }
+                    bean.setChainName(getTextById(R.id.etNetworkName));
+                    bean.setRpcUrl(getTextById(R.id.etRPC));
+                    bean.setSymbol(getTextById(R.id.etDefaultToken));
+                    bean.setExplore(getTextById(R.id.etBrowser));
+                    DatabaseOperate.getInstance().update(bean);
+                    if (bean.getChainId() == DataManager.getInstance().getCurrentChain().getChainId()) {
+                        DataManager.getInstance().saveCurrentChain(bean);
+                        WalletManager.getInstance().resetNetwork(bean);
+                    }
+                } else {
+                    bean = new ChainBean(chainID, getTextById(R.id.etNetworkName), getTextById(R.id.etRPC)
+                            , getTextById(R.id.etDefaultToken), getTextById(R.id.etBrowser), 0);
+                    DatabaseOperate.getInstance().insert(bean);
                 }
-                ChainBean bean = new ChainBean(chainID, getTextById(R.id.etNetworkName), getTextById(R.id.etRPC)
-                        , getTextById(R.id.etDefaultToken), getTextById(R.id.etBrowser));
-                DatabaseOperate.getInstance().insert(bean);
                 HashMap<String, Object> map = new HashMap<>();
                 map.put(EventBusEvent.REFRESH_NETWORK, "");
                 EventBus.getDefault().post(map);

@@ -8,9 +8,14 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.common.lib.activity.BaseActivity;
 import com.common.lib.activity.db.DatabaseOperate;
+import com.common.lib.constant.Constants;
 import com.common.lib.constant.EventBusEvent;
+import com.common.lib.interfaces.OnClickCallback;
 import com.common.lib.mvp.contract.EmptyContract;
 import com.common.lib.mvp.presenter.EmptyPresenter;
 import com.meta.zoom.R;
@@ -47,6 +52,29 @@ public class ChooseNetworkActivity extends BaseActivity<EmptyContract.Presenter>
     private ChainAdapter getAdapter() {
         if (mAdapter == null) {
             mAdapter = new ChainAdapter(this);
+            mAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, final int position) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(Constants.BUNDLE_EXTRA, mAdapter.getItem(position));
+                    openActivity(AddNetworkActivity.class, bundle);
+                }
+            });
+            mAdapter.addChildClickViewIds(R.id.ivDelete);
+            mAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+                @Override
+                public void onItemChildClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+                    showTwoBtnDialog(getString(R.string.app_are_you_sure_delete_network),
+                            getString(R.string.app_cancel),
+                            getString(R.string.app_confirm), new OnClickCallback() {
+                                @Override
+                                public void onClick(int viewId) {
+                                    DatabaseOperate.getInstance().delete(mAdapter.getItem(position));
+                                    mAdapter.removeAt(position);
+                                }
+                            });
+                }
+            });
         }
         return mAdapter;
     }

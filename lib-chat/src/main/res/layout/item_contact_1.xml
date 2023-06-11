@@ -12,9 +12,8 @@
         android:background="@color/color_f7_f7_f7"
         android:gravity="center_vertical"
         android:paddingLeft="13.5dp"
-        android:text="A"
         android:textColor="@color/color_9b_ab_bf"
-        android:textSize="15dp" />
+        android:textSize="14dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f8_f8_f8"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_top_bar_2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="71dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:background="@color/color_ff_ff_ff"
+        android:paddingLeft="23dp"
+        android:paddingRight="23dp">
+
+        <ImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="51dp"
+            android:layout_height="51dp"
+            android:layout_gravity="center_vertical"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="13dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/dimen_16"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UTG"
+                android:layout_marginTop="5dp"
+                android:drawablePadding="11dp"
+                android:drawableRight="@drawable/app_copy_address"
+                android:textColor="@color/text_color_5"
+                android:textSize="@dimen/dimen_14" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvModifyName"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:background="@color/color_ff_ff_ff"
+        android:gravity="center_vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="28dp"
+        android:drawableRight="@drawable/chat_right_arrow"
+        android:text="@string/app_modify_name"
+        android:textColor="@color/text_color_1"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/tvViewPrivateKey"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="1dp"
+        android:background="@color/color_ff_ff_ff"
+        android:gravity="center_vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="28dp"
+        android:drawableRight="@drawable/chat_right_arrow"
+        android:text="@string/app_view_private_key"
+        android:textColor="@color/text_color_1"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/tvViewKeystore"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="1dp"
+        android:background="@color/color_ff_ff_ff"
+        android:gravity="center_vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="28dp"
+        android:drawableRight="@drawable/chat_right_arrow"
+        android:text="@string/app_view_keystore"
+        android:textColor="@color/text_color_1"
+        android:textSize="15dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/tvDelete"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:background="@drawable/shape_stroke_ff0000_19"
+        android:gravity="center"
+        android:layout_marginLeft="28dp"
+        android:layout_marginRight="28dp"
+        android:layout_marginBottom="49dp"
+        android:text="@string/app_delete"
+        android:letterSpacing="0.1"
+        android:textColor="@color/text_color_8"
+        android:textStyle="bold"
+        android:textSize="18dp" />
+
+
+
+</LinearLayout>

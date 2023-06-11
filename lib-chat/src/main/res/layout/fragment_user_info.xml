@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        android:paddingLeft="24dp"
-        android:paddingRight="25dp">
+        android:paddingLeft="24dp">
 
         <androidx.constraintlayout.utils.widget.ImageFilterView
             android:id="@+id/ivAvatar"
@@ -61,7 +60,8 @@
             android:id="@+id/ivToChat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:paddingTop="30dp"
+            android:paddingRight="25dp"
             android:src="@drawable/chat_to_chat" />
 
 
@@ -132,7 +132,7 @@
         android:id="@+id/paddingView"
         android:layout_width="match_parent"
         android:layout_height="9dp"
-        android:background="@color/color_f8_f8_f8"/>
+        android:background="@color/color_f8_f8_f8" />
 
 
     <LinearLayout
@@ -154,8 +154,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="@string/chat_shield"
             android:layout_marginLeft="9dp"
+            android:text="@string/chat_shield"
             android:textColor="@color/text_color_8"
             android:textSize="15dp" />
 
@@ -165,7 +165,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_f8_f8_f8"/>
+        android:background="@color/color_f8_f8_f8" />
 
 
 </LinearLayout>

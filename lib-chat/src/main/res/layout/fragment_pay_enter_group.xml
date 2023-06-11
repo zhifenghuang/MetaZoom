@@ -2,23 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_ff_ff_ff"
+    android:background="@color/color_f8_f8_f8"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_top_bar" />
+    <include layout="@layout/layout_top_bar_2" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/color_f3_f7_fa" />
 
     <LinearLayout
         android:id="@+id/llState"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/color_ff_ff_ff"
         android:orientation="horizontal"
-        android:paddingLeft="14dp"
-        android:paddingRight="14dp">
+        android:paddingLeft="25dp"
+        android:paddingRight="24dp">
 
         <TextView
             android:layout_width="0dp"
@@ -26,7 +24,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:text="@string/chat_function_state"
-            android:textColor="@color/color_00_00_00"
+            android:textColor="@color/text_color_1"
             android:textSize="15dp" />
 
         <ImageView
@@ -34,23 +32,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/icon_switch_off" />
+            android:src="@drawable/chat_switch_off" />
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="14dp"
-        android:background="@color/color_f3_f7_fa" />
 
     <LinearLayout
         android:id="@+id/llCoinType"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/color_ff_ff_ff"
         android:orientation="horizontal"
-        android:paddingLeft="14dp"
-        android:paddingRight="14dp">
+        android:paddingLeft="25dp"
+        android:paddingRight="28dp">
 
         <TextView
             android:layout_width="0dp"
@@ -58,45 +53,38 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:text="@string/chat_coin_type"
-            android:textColor="@color/color_00_00_00"
+            android:textColor="@color/text_color_1"
             android:textSize="15dp" />
 
         <TextView
+            android:id="@+id/tvType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:drawableRight="@drawable/chat_right_arrow"
+            android:drawablePadding="10dp"
             android:text="@string/chat_alsc"
-            android:textColor="@color/color_00_00_00"
-            android:textSize="15dp" />
+            android:textColor="@color/text_color_2"
+            android:textSize="12dp" />
 
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="14dp"
-        android:background="@color/color_f3_f7_fa" />
-
-    <View
-        android:id="@+id/paddingView"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/color_f3_f7_fa" />
 
     <LinearLayout
         android:id="@+id/llSetAmount"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/color_ff_ff_ff"
         android:orientation="horizontal"
-        android:paddingLeft="14dp"
-        android:paddingRight="14dp">
+        android:paddingLeft="25dp"
+        android:paddingRight="38dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/chat_pay_amount"
-            android:textColor="@color/color_00_00_00"
+            android:textColor="@color/text_color_1"
             android:textSize="15dp" />
 
         <EditText
@@ -108,23 +96,21 @@
             android:hint="@string/chat_please_set_pay_amount"
             android:inputType="numberDecimal"
             android:paddingLeft="10dp"
-            android:textColor="@color/color_00_00_00"
-            android:textColorHint="@color/color_8c_8c_8c"
-            android:textSize="15dp" />
+            android:textColor="@color/text_color_1"
+            android:textColorHint="@color/text_color_2"
+            android:textSize="12dp" />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/color_f3_f7_fa" />
 
     <LinearLayout
         android:id="@+id/llDetail"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="11dp"
+        android:background="@color/color_ff_ff_ff"
         android:orientation="horizontal"
-        android:paddingLeft="14dp"
-        android:paddingRight="14dp">
+        android:paddingLeft="25dp"
+        android:paddingRight="28dp">
 
         <TextView
             android:layout_width="0dp"
@@ -142,9 +128,7 @@
             android:layout_gravity="center_vertical"
             android:drawableRight="@drawable/icon_right_arrow"
             android:drawablePadding="10dp"
-            android:gravity="center"
-            android:textColor="@color/color_00_00_00"
-            android:textSize="15dp" />
+            android:gravity="center" />
 
     </LinearLayout>
 

@@ -13,7 +13,7 @@
         android:background="@android:color/transparent"
         android:indeterminateDuration="1000"
         android:indeterminateOnly="true"
-        android:indeterminateTint="@color/color_ff_64_3a"
+        android:indeterminateTint="@color/color_7a_5b_d0"
         android:maxWidth="40dp"
         android:maxHeight="40dp" />
 

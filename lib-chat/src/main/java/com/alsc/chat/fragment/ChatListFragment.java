@@ -74,21 +74,8 @@ public class ChatListFragment extends ChatBaseFragment {
         recyclerView.setAdapter(getAdapter());
 
         mChatList = new ArrayList<>();
-        UserBean myInfo = DataManager.getInstance().getUser();
-        if (myInfo != null) {
-            getFriendFromServer();
-            getGroupFromServer();
-        }
         mSettings = DataManager.getInstance().getChatSubSettings();
         initChatList();
-    }
-
-    public void onRefresh() {
-        if (getView() == null) {
-            return;
-        }
-        getFriendFromServer();
-        getGroupFromServer();
     }
 
     private ChatUserAdapter getAdapter() {
@@ -108,7 +95,7 @@ public class ChatListFragment extends ChatBaseFragment {
                     }
                 }
             });
-            mAdapter.setNewData(mChatList);
+            mAdapter.setNewInstance(mChatList);
         }
         return mAdapter;
     }
@@ -121,52 +108,55 @@ public class ChatListFragment extends ChatBaseFragment {
         }
         DatabaseOperate.getInstance().deleteAllExprieMsg();
         mChatList.clear();
+        if (mFriendList == null) {
+            mFriendList = new ArrayList<>();
+        }
+
         ArrayList<MessageBean> list = DatabaseOperate.getInstance().getUserChatList(myInfo.getUserId());
-        if (!list.isEmpty() && mFriendList != null) {
-            boolean isFriendMsg;
+        boolean isAddChatGPT = false;
+        if (!list.isEmpty()) {
             ChatBean chatBean;
             for (MessageBean bean : list) {
                 if (bean.getFromId() == 0 || TextUtils.isEmpty(bean.getTag()) || bean.getTag().startsWith("0_") || bean.getTag().equals("_0")) {
                     continue;
                 }
-                isFriendMsg = false;
-                for (UserBean friend : mFriendList) {
-                    if (friend.getBlock() == 1) {
-                        continue;
-                    }
-                    if (friend.getContactId() == bean.getToId()
-                            || friend.getContactId() == bean.getFromId()) {
-                        chatBean = new ChatBean();
-                        chatBean.chatUser = friend;
-                        chatBean.lastMsg = bean;
-                        chatBean.chatSubBean = mSettings.get("user_" + friend.getContactId());
-                        chatBean.unReadNum = bean.getUnReadNum();//DatabaseOperate.getInstance().getUnReadNum(myInfo.getUserId(), friend.getContactId());
-                        mChatList.add(chatBean);
-                        isFriendMsg = true;
-                        break;
-                    }
-                }
-                if (!isFriendMsg && myInfo.isService() && !TextUtils.isEmpty(bean.getExtra())) {  //客服消息要特殊处理，需要把陌生人显示出来
-                    ArrayList<UserBean> users = getGson().fromJson(bean.getExtra(), new TypeToken<ArrayList<UserBean>>() {
-                    }.getType());
+                if (bean.getToId() == -1
+                        || bean.getFromId() == -1) {
                     chatBean = new ChatBean();
-                    if (users != null && !users.isEmpty()) {
-                        for (UserBean userBean : users) {
-                            if (userBean.getUserId() != myInfo.getUserId()) {
-                                chatBean.chatUser = userBean;
-                                break;
-                            }
+                    chatBean.chatUser = UserBean.createChatGPTUser();
+                    chatBean.lastMsg = bean;
+                    chatBean.chatSubBean = mSettings.get("user_-1");
+                    chatBean.unReadNum = 0;//bean.getUnReadNum();
+                    mChatList.add(chatBean);
+                    isAddChatGPT = true;
+                } else {
+                    for (UserBean friend : mFriendList) {
+                        if (friend.getBlock() == 1) {
+                            continue;
+                        }
+                        if (friend.getContactId() == bean.getToId()
+                                || friend.getContactId() == bean.getFromId()) {
+                            chatBean = new ChatBean();
+                            chatBean.chatUser = friend;
+                            chatBean.lastMsg = bean;
+                            chatBean.chatSubBean = mSettings.get("user_" + friend.getContactId());
+                            chatBean.unReadNum = 0;//bean.getUnReadNum();//DatabaseOperate.getInstance().getUnReadNum(myInfo.getUserId(), friend.getContactId());
+                            mChatList.add(chatBean);
+                            break;
                         }
                     }
-                    chatBean.lastMsg = bean;
-                    chatBean.chatSubBean = mSettings.get("user_" + chatBean.chatUser.getContactId());
-                    chatBean.unReadNum = bean.getUnReadNum();//DatabaseOperate.getInstance().getUnReadNum(myInfo.getUserId(), chatBean.chatUser.getContactId());
-                    mChatList.add(chatBean);
                 }
             }
         }
+        if (!isAddChatGPT) {
+            ChatBean chatBean = new ChatBean();
+            chatBean.chatUser = UserBean.createChatGPTUser();
+            chatBean.chatSubBean = mSettings.get("user_-1");
+            chatBean.unReadNum = 0;//bean.getUnReadNum();
+            mChatList.add(chatBean);
+        }
         initGroupChatList(myInfo.getUserId());
-        getAdapter().setNewData(mChatList);
+        getAdapter().setNewInstance(mChatList);
         getAdapter().resortList();
         getAdapter().notifyDataSetChanged();
         resetTotalUnReadNum();
@@ -185,7 +175,7 @@ public class ChatListFragment extends ChatBaseFragment {
                         chatBean.group = group;
                         chatBean.lastMsg = bean;
                         chatBean.chatSubBean = mSettings.get("group_" + group.getGroupId());
-                        chatBean.unReadNum = bean.getUnReadNum();//DatabaseOperate.getInstance().getGroupUnReadNum(myId, group.getGroupId());
+                        chatBean.unReadNum = 0;//bean.getUnReadNum();//DatabaseOperate.getInstance().getGroupUnReadNum(myId, group.getGroupId());
                         mChatList.add(chatBean);
                         break;
                     }
@@ -207,7 +197,6 @@ public class ChatListFragment extends ChatBaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReceiveMsg(MessageBean message) {
         if (getView() != null && message != null) {
-            UserBean myInfo = DataManager.getInstance().getUser();
             for (ChatBean chatBean : mChatList) {
                 if (chatBean.chatUser == null) {
                     continue;
@@ -215,7 +204,7 @@ public class ChatListFragment extends ChatBaseFragment {
                 if (chatBean.chatUser.getContactId() == message.getFromId()
                         || chatBean.chatUser.getContactId() == message.getToId()) {
                     chatBean.lastMsg = message;
-                    chatBean.unReadNum += 1;
+                    //  chatBean.unReadNum += 1;
                     mChatList.remove(chatBean);
                     getAdapter().receiveNewMsg(chatBean);
                     getAdapter().notifyDataSetChanged();
@@ -231,31 +220,12 @@ public class ChatListFragment extends ChatBaseFragment {
                         chatBean = new ChatBean();
                         chatBean.chatUser = bean;
                         chatBean.lastMsg = message;
-                        chatBean.unReadNum += 1;
+                        //    chatBean.unReadNum += 1;
                         chatBean.chatSubBean = mSettings.get("user_" + bean.getContactId());
                         getAdapter().receiveNewMsg(chatBean);
                         getAdapter().notifyDataSetChanged();
                         resetTotalUnReadNum();
                         return;
-                    }
-                }
-            }
-            if (myInfo.isService() && !TextUtils.isEmpty(message.getExtra())) {  //客服消息要特殊处理，需要把陌生人显示出来
-                ArrayList<UserBean> users = getGson().fromJson(message.getExtra(), new TypeToken<ArrayList<UserBean>>() {
-                }.getType());
-                chatBean = new ChatBean();
-                if (users != null && !users.isEmpty()) {
-                    for (UserBean userBean : users) {
-                        if (userBean.getUserId() != myInfo.getUserId()) {
-                            chatBean.chatUser = userBean;
-                            chatBean.lastMsg = message;
-                            chatBean.chatSubBean = mSettings.get("user_" + userBean.getContactId());
-                            chatBean.unReadNum = DatabaseOperate.getInstance().getUnReadNum(myInfo.getUserId(), userBean.getContactId());
-                            getAdapter().receiveNewMsg(chatBean);
-                            getAdapter().notifyDataSetChanged();
-                            resetTotalUnReadNum();
-                            break;
-                        }
                     }
                 }
             } else {
@@ -288,7 +258,7 @@ public class ChatListFragment extends ChatBaseFragment {
                         }
                     }
                     chatBean.lastMsg = message;
-                    chatBean.unReadNum += 1;
+                    //   chatBean.unReadNum += 1;
                     mChatList.remove(chatBean);
                     getAdapter().receiveNewMsg(chatBean);
                     getAdapter().notifyDataSetChanged();
@@ -312,7 +282,7 @@ public class ChatListFragment extends ChatBaseFragment {
                         ChatBean chatBean = new ChatBean();
                         chatBean.group = bean;
                         chatBean.lastMsg = message;
-                        chatBean.unReadNum += 1;
+                        //       chatBean.unReadNum += 1;
                         chatBean.chatSubBean = mSettings.get("group_" + bean.getGroupId());
                         getAdapter().receiveNewMsg(chatBean);
                         getAdapter().notifyDataSetChanged();
@@ -490,10 +460,16 @@ public class ChatListFragment extends ChatBaseFragment {
                     UserBean myInfo = DataManager.getInstance().getUser();
                     if (chatBean.chatUser != null) {
                         DatabaseOperate.getInstance().deleteUserChatRecord(myInfo.getUserId(), chatBean.chatUser.getContactId());
+                        if (chatBean.chatUser.getUserId() != -1) {
+                            getAdapter().removeChatUser(chatBean);
+                        } else {
+                            chatBean.lastMsg = null;
+                            getAdapter().notifyDataSetChanged();
+                        }
                     } else {
                         DatabaseOperate.getInstance().deleteGroupChatRecord(myInfo.getUserId(), chatBean.group.getGroupId());
+                        getAdapter().removeChatUser(chatBean);
                     }
-                    getAdapter().removeChatUser(chatBean);
                     resetTotalUnReadNum();
                 }
             }
@@ -501,10 +477,6 @@ public class ChatListFragment extends ChatBaseFragment {
         dialogFragment.show(getChildFragmentManager(), "MyDialogFragment");
     }
 
-    @Override
-    public boolean isNeedSetTopStyle() {
-        return false;
-    }
 
     // 设置菜单监听器。
     SwipeMenuCreator swipeMenuCreator = new SwipeMenuCreator() {

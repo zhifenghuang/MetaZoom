@@ -156,9 +156,8 @@ class WebAppInterface(
                     browser = array[0] as String
                 }
 
-                val chain = ChainBean(chainId, chainName, rpcUrl, symbol, browser)
-
-                if (DatabaseOperate.getInstance().isHadChain(chainId)) {
+                val ch = DatabaseOperate.getInstance().getChain(chainId)
+                if (ch != null) {
                     (context as BaseActivity<*>).showTwoBtnDialog(
                         context.getString(R.string.app_switch_network),
                         context.getString(R.string.app_cancel),
@@ -168,13 +167,14 @@ class WebAppInterface(
                                 when (viewId) {
                                     com.common.lib.R.id.btn2 -> {
                                         LogUtil.LogE("switchChainWallet")
-                                        switchChainWallet(chain)
+                                        switchChainWallet(ch)
                                     }
                                 }
                             }
                         }
                     )
                 } else {
+                    val chain = ChainBean(chainId, chainName, rpcUrl, symbol, browser, 0)
                     val dialog =
                         AddNetworkDialog(context, chain, AddNetworkDialog.OnAddClickListener {
                             DatabaseOperate.getInstance().insert(chain)

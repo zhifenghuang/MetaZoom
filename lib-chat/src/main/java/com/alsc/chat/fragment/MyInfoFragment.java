@@ -46,22 +46,15 @@ public class MyInfoFragment extends ChatBaseFragment {
     @Override
     protected void onViewCreated(View view) {
         mMyInfo = DataManager.getInstance().getUser();
-        setTopStatusBarStyle(view);
+        setTopStatusBarStyle(R.id.topView);
         setText(R.id.tvTitle, R.string.chat_person_info);
         setText(R.id.tvNick, mMyInfo.getNickName());
-        setText(R.id.tvGender, mMyInfo.getGender() == 1 ? R.string.chat_male : R.string.chat_female);
-        setText(R.id.tvID, String.valueOf(mMyInfo.getUserId()));
-        setText(R.id.tvArea, TextUtils.isEmpty(mMyInfo.getDistrict()) ? getString(R.string.chat_default_area) : mMyInfo.getDistrict());
-        setViewsOnClickListener(R.id.llAvatar, R.id.llNick, R.id.llGender, R.id.llQrCode, R.id.llArea);
-        Utils.loadImage(getActivity(), R.drawable.chat_default_avatar, mMyInfo.getAvatarUrl(), view.findViewById(R.id.ivAvatar));
-        if (!TextUtils.isEmpty(mMyInfo.getBindMobile())) {
-            setViewVisible(R.id.llPhone, R.id.linePhone);
-            setText(R.id.tvPhone, mMyInfo.getBindMobile());
-        }
-        if (!TextUtils.isEmpty(mMyInfo.getBindEmail())) {
-            setViewVisible(R.id.llEmail, R.id.lineEmail);
-            setText(R.id.tvEmail, mMyInfo.getBindEmail());
-        }
+        String account = mMyInfo.getLoginAccount();
+        setText(R.id.tvID, account.substring(0, 6) + "..." + account.substring(account.length() - 6));
+        setViewsOnClickListener(R.id.llAvatar, R.id.llNick);
+        int resId = getResources().getIdentifier("chat_default_avatar_" + mMyInfo.getUserId() % 6,
+                "drawable", getActivity().getPackageName());
+        Utils.loadImage(getActivity(), resId, mMyInfo.getAvatarUrl(), fv(R.id.ivAvatar));
     }
 
     @Override
@@ -78,39 +71,13 @@ public class MyInfoFragment extends ChatBaseFragment {
             Bundle bundle = new Bundle();
             bundle.putSerializable(Constants.BUNDLE_EXTRA, mMyInfo);
             gotoPager(UpdateNickFragment.class, bundle);
-        } else if (id == R.id.llGender) {
-            Bundle bundle = new Bundle();
-            bundle.putInt(Constants.BUNDLE_EXTRA, ChooseFragment.CHOOSE_GENDER);
-            bundle.putInt(Constants.BUNDLE_EXTRA_2, mMyInfo.getGender());
-            gotoPager(ChooseFragment.class, bundle);
-        } else if (id == R.id.llQrCode) {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(Constants.BUNDLE_EXTRA, QrcodeFragment.USER_QRCODE);
-            bundle.putSerializable(Constants.BUNDLE_EXTRA_2, mMyInfo);
-            gotoPager(QrcodeFragment.class, bundle);
-        } else if (id == R.id.llArea) {
-            Bundle bundle = new Bundle();
-            bundle.putInt(Constants.BUNDLE_EXTRA, ChooseFragment.CHOOSE_COUNTRY);
-            gotoPager(ChooseFragment.class, bundle);
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReceive(HashMap map) {
         if (getView() != null && map != null) {
-            if (map.containsKey(ChooseFragment.CHOOSE_COUNTRY)) {
-                ChooseFragment.ChooseType type = (ChooseFragment.ChooseType) map.get(ChooseFragment.CHOOSE_COUNTRY);
-                setText(R.id.tvArea, type.typeName);
-                mMyInfo.setDistrict(type.typeName);
-                DataManager.getInstance().saveUser(mMyInfo);
-                updateInfo("", "", -1, mMyInfo.getDistrict());
-            } else if (map.containsKey(ChooseFragment.CHOOSE_GENDER)) {
-                ChooseFragment.ChooseType type = (ChooseFragment.ChooseType) map.get(ChooseFragment.CHOOSE_GENDER);
-                mMyInfo.setGender(type.type);
-                setText(R.id.tvGender, type.typeName);
-                DataManager.getInstance().saveUser(mMyInfo);
-                updateInfo("", "", type.type, "");
-            } else if (map.containsKey(Constants.UPDATE_NICK)) {
+            if (map.containsKey(Constants.UPDATE_NICK)) {
                 String nick = (String) map.get(Constants.UPDATE_NICK);
                 mMyInfo.setNickName(nick);
                 setText(R.id.tvNick, mMyInfo.getNickName());
@@ -146,7 +113,9 @@ public class MyInfoFragment extends ChatBaseFragment {
             public void onNext(Object o, String msg) {
                 if (getView() != null) {
                     if (!TextUtils.isEmpty(avatarUrl)) {
-                        Utils.displayAvatar(getActivity(), R.drawable.chat_default_avatar, avatarUrl, fv(R.id.ivAvatar));
+                        int resId = getResources().getIdentifier("chat_default_avatar_" + mMyInfo.getUserId() % 6,
+                                "drawable", getActivity().getPackageName());
+                        Utils.loadImage(getActivity(), resId, avatarUrl, fv(R.id.ivAvatar));
                         mMyInfo.setAvatarUrl(avatarUrl);
                         DataManager.getInstance().saveUser(mMyInfo);
                     }

@@ -44,7 +44,12 @@ public class OkHttpClientManager {
     private ArrayList<String> mNeedDownLoadingUrl = new ArrayList<>();
 
     private OkHttpClientManager() {
-        mOkHttpClient = new OkHttpClient();
+        mOkHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .build();
+
     }
 
     public static OkHttpClientManager getInstance() {

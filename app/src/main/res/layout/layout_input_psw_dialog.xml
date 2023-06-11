@@ -20,7 +20,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="@string/app_please_input_your_pay_psw"
-            android:textColor="@color/color_00_00_00"
+            android:textColor="@color/text_color_1"
             android:textSize="17dp"
             android:textStyle="bold" />
 
@@ -34,19 +34,18 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/shape_ffffff_stroke_cecece_4"
             android:gravity="center_vertical"
-            android:hint="@string/app_please_input_your_pay_psw"
             android:inputType="textPassword"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             android:singleLine="true"
-            android:textColor="@color/color_00_00_00"
+            android:textColor="@color/text_color_1"
             android:textSize="15dp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginTop="22dp"
-            android:background="@color/color_ce_ce_ce" />
+            android:background="@color/color_ed_ed_ed" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -69,7 +68,7 @@
                 android:layout_width="0.5dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center_vertical"
-                android:background="@color/line" />
+                android:background="@color/color_ed_ed_ed" />
 
             <TextView
                 android:id="@+id/btn2"

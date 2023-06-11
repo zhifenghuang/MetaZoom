@@ -35,7 +35,7 @@ public class PayEnterGroupDetailFragment extends ChatBaseFragment {
     protected void onViewCreated(View view) {
         mGroup = (GroupBean) getArguments().getSerializable(Constants.BUNDLE_EXTRA);
         setTopStatusBarStyle(view);
-        setText(R.id.tvTitle, R.string.chat_pay_enter_group_record);
+        setText(R.id.tvTitle, R.string.chat_records);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());

@@ -5,6 +5,7 @@ import com.common.lib.bean.BasicMessage;
 import com.common.lib.bean.FileBean;
 import com.common.lib.bean.MessageType;
 import com.common.lib.bean.UploadAvatarEvent;
+import com.common.lib.utils.LogUtil;
 import com.upyun.library.common.Params;
 import com.upyun.library.common.UploadEngine;
 import com.upyun.library.listener.UpCompleteListener;
@@ -132,7 +133,7 @@ public class UPYFileUploadManger {
 
 
     public void uploadFile(File file) {
-
+        LogUtil.LogE("uploadFile: " + file.getAbsolutePath() + "\n" + file.length());
         final Map<String, Object> paramsMap = new HashMap<>();
         paramsMap.put(Params.BUCKET, Constants.SPACE);
         paramsMap.put(Params.SAVE_KEY, String.format(Constants.AVATAR_SAVE_PATH, file.getName()));
@@ -147,6 +148,7 @@ public class UPYFileUploadManger {
         UpCompleteListener completeListener = new UpCompleteListener() {
             @Override
             public void onComplete(boolean isSuccess, Response response, Exception error) {
+                LogUtil.LogE(isSuccess + ", " + error);
                 try {
                     String result = null;
                     if (response != null) {

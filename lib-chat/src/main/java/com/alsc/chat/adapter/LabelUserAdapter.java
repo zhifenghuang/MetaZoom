@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.common.lib.bean.UserBean;
 import com.common.lib.manager.DataManager;
+import com.common.lib.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,62 +41,10 @@ public class LabelUserAdapter extends BaseQuickAdapter<UserBean, BaseViewHolder>
 
     @Override
     protected void convert(BaseViewHolder helper, UserBean item) {
-        final int position = getItemPosition(item);
-        ImageView ivAvatar = helper.getView(R.id.ivAvatar);
-        ImageView ivDelete = helper.getView(R.id.ivDelete);
-        if (position < getItemCount() - 2) {
-            helper.setText(R.id.tvName, item.getNickName());
-            Utils.displayAvatar(mContext, R.drawable.chat_default_avatar, item.getAvatarUrl(), ivAvatar);
-            if (mEditModel == 0) {
-                ivDelete.setVisibility(View.GONE);
-                ivAvatar.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable(Constants.BUNDLE_EXTRA, item);
-                        ((ChatBaseActivity) mContext).gotoPager(item.getUserId() == DataManager.getInstance().getUserId() ? MyInfoFragment.class : UserInfoFragment.class, bundle);
-                    }
-                });
-            } else {
-                ivDelete.setVisibility(View.VISIBLE);
-                ivAvatar.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        remove(position);
-                        mUsers.remove(position);
-                    }
-                });
-            }
-        } else if (position == getItemCount() - 2) {
-            helper.setText(R.id.tvName, "");
-            ivDelete.setVisibility(View.GONE);
-            ivAvatar.setImageResource(R.drawable.icon_user_add);
-            ivAvatar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(Constants.BUNDLE_EXTRA, SelectFriendFragment.FROM_ADD_LABEL_OR_GROUP_USER);
-                    ArrayList<UserBean> list = (ArrayList<UserBean>) getData();
-                    int size = list.size();
-                    list.remove(size - 1);
-                    list.remove(size - 2);
-                    //bundle.putSerializable(Constants.BUNDLE_EXTRA_2, list);
-                    DataManager.getInstance().setObject(list.clone());
-                    ((ChatBaseActivity) mContext).gotoPager(SelectFriendFragment.class, bundle);
-                }
-            });
-        } else {
-            helper.setText(R.id.tvName, "");
-            ivDelete.setVisibility(View.GONE);
-            ivAvatar.setImageResource(R.drawable.icon_user_delete);
-            ivAvatar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mEditModel = mEditModel == 0 ? 1 : 0;
-                    notifyDataSetChanged();
-                }
-            });
-        }
+        helper.setText(R.id.tvName, item.getNickName());
+        int resId = mContext.getResources().getIdentifier("chat_default_avatar_" + item.getUserId() % 6,
+                "drawable", mContext.getPackageName());
+        Utils.loadImage(mContext, resId, item.getAvatarUrl(), helper.getView(R.id.ivAvatar));
     }
 
     public ArrayList<UserBean> getSelectedUsers() {

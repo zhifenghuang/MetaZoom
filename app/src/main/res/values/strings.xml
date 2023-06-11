@@ -25,7 +25,7 @@
     <string name="app_import_wallet">Import Wallet</string>
     <string name="app_import_wallet_way">Import from existed mnemonic or private key</string>
 
-    <string name="app_create_xxx_wallet">Create %1$s Wallet</string>
+    <string name="app_create_wallet">Create Wallet</string>
     <string name="app_wallet_name">Wallet name</string>
     <string name="app_1_12_characters">1~12 characters</string>
     <string name="app_set_wallet_password">Set wallet password</string>
@@ -122,7 +122,7 @@
     <string name="app_add">Add</string>
     <string name="app_meta_zoom">MetaZoom</string>
 
-    <string name="app_search_dapp">Search Dapp</string>
+    <string name="app_search_dapp">Search DApp or enter a link</string>
 
     <string name="app_choose_network">Choose a network</string>
     <string name="app_add_custom_network">Add custom network</string>
@@ -163,6 +163,31 @@
 
     <string name="app_no_friends">Temporary no contacts</string>
 
+    <string name="app_setting">Settings</string>
+    <string name="app_edit_profile">Edit Profile</string>
+    <string name="app_basic_setting">Basic Settings</string>
+    <string name="app_chat_privacy">Chat and Privacy</string>
+    <string name="app_security_center">Security center</string>
+    <string name="app_system_setting">System settings</string>
+
+    <string name="app_other">Other</string>
+    <string name="app_chat_gpt">Chat GPT</string>
+    <string name="app_announcement">Announcement</string>
+    <string name="app_about">About</string>
+
+    <string name="app_manage">Manage</string>
+    <string name="app_modify_name">Modify name</string>
+    <string name="app_view_private_key">View private key</string>
+    <string name="app_view_keystore">View keystore</string>
+    <string name="app_delete">Delete</string>
+    <string name="app_modify_successful">Modify Successful</string>
+    <string name="app_delete_successful">Delete Successful</string>
+
+    <string name="app_your_private_key">Your Private Key</string>
+    <string name="app_your_key_store">Your Keystore</string>
+    <string name="app_are_you_sure_delete_wallet">Are you sure delete this wallet?</string>
+    <string name="app_are_you_sure_delete_network">Are you sure delete this network?</string>
+
     <string name="app_add_token">添加代币</string>
     <string name="app_token_contract_address">代币合约</string>
     <string name="app_input_contract_address">请输入代币合约地址</string>
@@ -173,7 +198,7 @@
     <string name="app_error_invalid_address">无效地址</string>
     <string name="app_error_must_numeric">必须是数字</string>
     <string name="app_token_had_added">代币已添加</string>
-    <string name="app_network_had_added">该网络已添加</string>
+    <string name="app_network_had_added">该网络已添加，且不可更改</string>
 
-    <string name="app_please_input_your_pay_psw">请输入您的支付密码</string>
+    <string name="app_please_input_your_pay_psw">Please input wallet password</string>
 </resources>

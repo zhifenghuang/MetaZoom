@@ -2,111 +2,105 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_ff_ff_ff"
+    android:background="@color/color_f8_f8_f8"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_top_bar" />
+    <RelativeLayout
+        android:id="@+id/topView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_7a_5b_d0"
+        android:paddingBottom="20dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:onClick="onBackClick"
+            android:paddingLeft="18dp"
+            android:paddingRight="14dp"
+            android:src="@drawable/chat_back_white"
+            android:textSize="14dp" />
+
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:text="@string/chat_detail"
+            android:textColor="@color/text_color_3"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+
+        <ImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_below="@id/tvTitle"
+            android:layout_marginLeft="24dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_below="@id/tvTitle"
+            android:layout_toRightOf="@id/ivAvatar"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="17dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:id="@+id/tvNick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/text_color_3"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/tvID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha="0.6"
+                android:paddingTop="5dp"
+                android:textColor="@color/text_color_3"
+                android:textSize="14dp" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/color_f3_f7_fa">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/color_ff_ff_ff"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="13dp"
-                android:paddingTop="15dp"
-                android:paddingRight="13dp"
-                android:paddingBottom="20.5dp">
-
-                <ImageView
-                    android:id="@+id/ivAvatar"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp" />
-
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingLeft="21dp"
-                    android:paddingTop="4dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tvNick"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/color_00_00_00"
-                            android:textSize="18dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvMemo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:singleLine="true"
-                            android:textColor="@color/color_8c_8c_8c"
-                            android:textSize="18dp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-
-                    <TextView
-                        android:id="@+id/tvId"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="4dp"
-                        android:textColor="@color/color_8c_8c_8c"
-                        android:textSize="12dp" />
-
-                    <TextView
-                        android:id="@+id/tvLocation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="4dp"
-                        android:textColor="@color/color_8c_8c_8c"
-                        android:textSize="12dp" />
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@color/color_f3_f7_fa" />
 
             <LinearLayout
                 android:id="@+id/llAddMemo"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="54dp"
+                android:background="@color/color_ff_ff_ff"
                 android:orientation="horizontal"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp">
+                android:paddingLeft="25dp"
+                android:paddingRight="28dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/chat_add_memo"
-                    android:textColor="@color/color_00_00_00"
+                    android:textColor="@color/text_color_1"
                     android:textSize="15dp" />
 
                 <TextView
@@ -114,7 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:drawableRight="@drawable/icon_right_arrow"
+                    android:drawableRight="@drawable/chat_right_arrow"
                     android:drawablePadding="15dp"
                     android:gravity="center_vertical|right"
                     android:textColor="@color/color_00_00_00"
@@ -122,225 +116,69 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_0_5"
-                android:layout_marginLeft="14dp"
-                android:background="@color/color_f3_f7_fa" />
-
-
-            <LinearLayout
-                android:id="@+id/llAddLabel"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:orientation="horizontal"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="@string/chat_add_to_label"
-                    android:textColor="@color/color_00_00_00"
-                    android:textSize="15dp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/icon_right_arrow" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_0_5"
-                android:layout_marginLeft="14dp"
-                android:background="@color/color_f3_f7_fa" />
-
-
-            <LinearLayout
-                android:id="@+id/llSetStarFriend"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:orientation="horizontal"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/chat_set_to_star_friend"
-                        android:textColor="@color/color_00_00_00"
-                        android:textSize="15dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="5dp"
-                        android:text="@string/chat_set_to_star_friend_tip"
-                        android:textColor="@color/color_8c_8c_8c"
-                        android:textSize="10dp" />
-
-                </LinearLayout>
-
-
-                <ImageView
-                    android:id="@+id/ivSwitchStarFriend"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/icon_switch_off" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_0_5"
-                android:layout_marginLeft="14dp"
-                android:background="@color/color_f3_f7_fa" />
-
-            <LinearLayout
-                android:id="@+id/llRecommendFriend"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:orientation="horizontal"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="@string/chat_recommend_to_friend"
-                    android:textColor="@color/color_00_00_00"
-                    android:textSize="15dp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/icon_right_arrow" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@color/color_f3_f7_fa" />
 
             <TextView
                 android:id="@+id/tvReadDelete"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:drawableRight="@drawable/icon_right_arrow"
+                android:layout_height="54dp"
+                android:layout_marginTop="@dimen/dimen_1"
+                android:background="@color/color_ff_ff_ff"
+                android:drawableRight="@drawable/chat_right_arrow"
                 android:gravity="center_vertical"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="28dp"
                 android:text="@string/chat_delete_after_read"
-                android:textColor="@color/color_00_00_00"
+                android:textColor="@color/text_color_1"
                 android:textSize="15dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_0_5"
-                android:layout_marginLeft="14dp"
-                android:background="@color/color_f3_f7_fa" />
 
 
             <TextView
                 android:id="@+id/tvSearchMsg"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:drawableRight="@drawable/icon_right_arrow"
+                android:layout_height="54dp"
+                android:layout_marginTop="@dimen/dimen_1"
+                android:drawableRight="@drawable/chat_right_arrow"
                 android:gravity="center_vertical"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
-                android:text="@string/chat_search_chat_record"
-                android:textColor="@color/color_00_00_00"
+                android:paddingLeft="25dp"
+                android:paddingRight="28dp"
+                android:background="@color/color_ff_ff_ff"
+                android:text="@string/chat_find_chat_history"
+                android:textColor="@color/text_color_1"
                 android:textSize="15dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_0_5"
-                android:layout_marginLeft="14dp"
-                android:background="@color/color_f3_f7_fa" />
 
 
             <TextView
                 android:id="@+id/tvClearMsg"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:drawableRight="@drawable/icon_right_arrow"
+                android:layout_height="54dp"
+                android:layout_marginTop="@dimen/dimen_1"
+                android:background="@color/color_ff_ff_ff"
+                android:drawableRight="@drawable/chat_right_arrow"
                 android:gravity="center_vertical"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
-                android:text="@string/chat_clear_chat_record"
-                android:textColor="@color/color_00_00_00"
+                android:paddingLeft="25dp"
+                android:paddingRight="28dp"
+                android:text="@string/chat_clear_chat_history"
+                android:textColor="@color/text_color_1"
                 android:textSize="15dp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@color/color_f3_f7_fa" />
-
-            <LinearLayout
-                android:id="@+id/llTopChat"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:orientation="horizontal"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="@string/chat_top_chat"
-                    android:textColor="@color/color_00_00_00"
-                    android:textSize="15dp" />
-
-                <ImageView
-                    android:id="@+id/ivTopChatSwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/icon_switch_off" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_0_5"
-                android:layout_marginLeft="14dp"
-                android:background="@color/color_f3_f7_fa" />
 
             <LinearLayout
                 android:id="@+id/llMsgSwitch"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/color_ff_ff_ff"
                 android:orientation="horizontal"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp">
+                android:paddingLeft="25dp"
+                android:paddingRight="24dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="@string/chat_message_not_interupt"
-                    android:textColor="@color/color_00_00_00"
+                    android:text="@string/chat_notifications"
+                    android:textColor="@color/text_color_1"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -348,23 +186,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/icon_switch_off" />
+                    android:src="@drawable/chat_switch_off" />
 
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@color/color_f3_f7_fa" />
 
 
             <LinearLayout
                 android:id="@+id/llAddToBlackList"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="54dp"
+                android:background="@color/color_ff_ff_ff"
                 android:orientation="horizontal"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp">
+                android:paddingLeft="25dp"
+                android:paddingRight="24dp">
 
                 <TextView
                     android:layout_width="0dp"
@@ -372,7 +206,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:text="@string/chat_add_to_black_list"
-                    android:textColor="@color/color_00_00_00"
+                    android:textColor="@color/text_color_1"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -380,33 +214,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/icon_switch_off" />
+                    android:src="@drawable/chat_switch_off" />
 
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_0_5"
-                android:layout_marginLeft="14dp"
-                android:background="@color/color_f3_f7_fa" />
 
 
             <TextView
                 android:id="@+id/tvDeleteFriend"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:drawableRight="@drawable/icon_right_arrow"
+                android:layout_height="54dp"
+                android:layout_marginTop="@dimen/dimen_1"
+                android:background="@color/color_ff_ff_ff"
+                android:drawableRight="@drawable/chat_right_arrow"
                 android:gravity="center_vertical"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="28dp"
                 android:text="@string/chat_delete_contact"
-                android:textColor="@color/color_00_00_00"
+                android:textColor="@color/text_color_1"
                 android:textSize="15dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@color/color_f3_f7_fa" />
 
 
         </LinearLayout>

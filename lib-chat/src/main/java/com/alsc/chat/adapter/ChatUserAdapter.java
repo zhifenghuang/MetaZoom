@@ -36,12 +36,16 @@ public class ChatUserAdapter extends BaseQuickAdapter<ChatBean, BaseViewHolder> 
         int resId = 0;
         if (chatBean.chatUser != null) {
             helper.setText(R.id.tvName, (mMyInfo.isService() ? ("(" + chatBean.chatUser.getUserId() + ")") : "") + chatBean.chatUser.getNickName());
-            resId = mContext.getResources().getIdentifier("chat_default_avatar_" + chatBean.chatUser.getUserId() % 6,
-                    "drawable", mContext.getPackageName());
-            Utils.loadImage(mContext, resId, chatBean.chatUser.getAvatarUrl(), helper.getView(R.id.ivAvatar));
+            if (chatBean.chatUser.getUserId() == -1) {
+                helper.setImageResource(R.id.ivAvatar, R.drawable.chat_chat_gpt);
+            } else {
+                resId = mContext.getResources().getIdentifier("chat_default_avatar_" + chatBean.chatUser.getUserId() % 6,
+                        "drawable", mContext.getPackageName());
+                Utils.loadImage(mContext, resId, chatBean.chatUser.getAvatarUrl(), helper.getView(R.id.ivAvatar));
+            }
         } else {
             helper.setText(R.id.tvName, chatBean.group.getName());
-            Utils.displayAvatar(mContext, R.drawable.chat_default_group_avatar, chatBean.group.getIcon(), helper.getView(R.id.ivAvatar));
+            Utils.loadImage(mContext, R.drawable.chat_default_group_avatar, chatBean.group.getIcon(), helper.getView(R.id.ivAvatar));
         }
         if (chatBean.isNotInterupt()) {
             helper.setVisible(R.id.tvUnReadMsgNum, false)
@@ -56,6 +60,11 @@ public class ChatUserAdapter extends BaseQuickAdapter<ChatBean, BaseViewHolder> 
             } else {
                 helper.setVisible(R.id.tvUnReadMsgNum, false);
             }
+        }
+        if (chatBean.lastMsg == null) {
+            helper.setText(R.id.tvMessage, "I can answer any question!");
+            helper.setGone(R.id.ivResend, true);
+            return;
         }
         int msgType = chatBean.lastMsg.getMsgType();
         if (msgType == MessageType.TYPE_INVITE_PAY_IN_GROUP.ordinal()) {
@@ -86,6 +95,12 @@ public class ChatUserAdapter extends BaseQuickAdapter<ChatBean, BaseViewHolder> 
             @Override
             public int compare(ChatBean o1, ChatBean o2) {
 
+                if (o1.chatUser != null && o1.chatUser.getUserId() == -1) {
+                    return -1;
+                }
+                if (o2.chatUser != null && o2.chatUser.getUserId() == -1) {
+                    return 1;
+                }
                 long time1 = o1.lastMsg.getCreateTime();
                 long time2 = o2.lastMsg.getCreateTime();
                 if (o1.isTopChat() && o2.isTopChat()) {

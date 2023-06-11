@@ -66,7 +66,13 @@ public class MainActivity extends ChatBaseActivity implements MainContract.View 
             bundle.putSerializable(Constants.BUNDLE_EXTRA, DataManager.getInstance().getUser());
             gotoPager(UpdateNickFragment.class, bundle);
         }
+        UserBean myInfo = DataManager.getInstance().getUser();
+        String address = DataManager.getInstance().getCurrentWallet().getAddress();
+        if (myInfo == null || !myInfo.getLoginAccount().equalsIgnoreCase(address)) {
+            ((MainPresenter) getPresenter()).login(address);
+        }
     }
+
 
     private void initViews() {
         LinearLayout llBottom = findViewById(R.id.llBottom);
@@ -79,6 +85,10 @@ public class MainActivity extends ChatBaseActivity implements MainContract.View 
                 @Override
                 public void onClick(View view) {
                     int tag = (int) view.getTag();
+                    if (DataManager.getInstance().getUser() == null) {
+                        ((MainPresenter) getPresenter()).login(DataManager.getInstance().getCurrentWallet().getAddress());
+                        return;
+                    }
                     if (tag == mCurrentItem) {
                         return;
                     }
@@ -142,12 +152,10 @@ public class MainActivity extends ChatBaseActivity implements MainContract.View 
     @Override
     public void onReceive(HashMap map) {
         if (map.containsKey(EventBusEvent.REFRESH_ACCOUNT)) {
-            ChatManager.getInstance().disSocketConnect();
-            DataManager.getInstance().loginOut();
             ((MainPresenter) getPresenter()).login(DataManager.getInstance().getCurrentWallet().getAddress());
-            ((WalletFragment) mBaseFragment.get(2)).onRefresh();
+            mBaseFragment.get(2).onRefresh();
         } else if (map.containsKey(EventBusEvent.REFRESH_NETWORK)) {
-            ((WalletFragment) mBaseFragment.get(2)).onRefresh();
+            mBaseFragment.get(2).onRefresh();
         } else {
             super.onReceive(map);
         }

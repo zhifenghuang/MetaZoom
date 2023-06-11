@@ -17,6 +17,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.common.lib.activity.BaseActivity;
 import com.common.lib.bean.GroupBean;
+import com.common.lib.bean.UserBean;
 import com.common.lib.manager.DataManager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -29,8 +30,6 @@ public class GroupListFragment extends ChatBaseFragment {
     public static final int FROM_TRANSFER_MSG = 1;
 
     private GroupAdapter mAdapter;
-
-    private int mFromType;
 
     @Override
     protected int getLayoutId() {
@@ -49,6 +48,14 @@ public class GroupListFragment extends ChatBaseFragment {
         getGroups();
     }
 
+    public void setData(ArrayList<GroupBean> groupList) {
+        mGroupList = groupList;
+        if (getView() != null) {
+            getAdapter().setNewInstance(groupList);
+            getAdapter().notifyDataSetChanged();
+        }
+    }
+
 
     private GroupAdapter getAdapter() {
         if (mAdapter == null) {
@@ -56,17 +63,17 @@ public class GroupListFragment extends ChatBaseFragment {
             mAdapter.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    if (mFromType != FROM_TRANSFER_MSG) {
+//                    if (mFromType != FROM_TRANSFER_MSG) {
                         Bundle bundle = new Bundle();
                         bundle.putSerializable(Constants.BUNDLE_EXTRA, mAdapter.getItem(position));
                         gotoPager(GroupChatFragment.class, bundle);
                         ((BaseActivity) getActivity()).finishAllOtherActivity();
-                    } else {
-                        HashMap<String, GroupBean> map = new HashMap<>();
-                        map.put(Constants.SELECT_A_GROUP, mAdapter.getItem(position));
-                        EventBus.getDefault().post(map);
-                        finish();
-                    }
+//                    } else {
+//                    HashMap<String, GroupBean> map = new HashMap<>();
+//                    map.put(Constants.SELECT_A_GROUP, mAdapter.getItem(position));
+//                    EventBus.getDefault().post(map);
+//                    finish();
+//                    //                  }
                 }
             });
         }
@@ -90,6 +97,7 @@ public class GroupListFragment extends ChatBaseFragment {
                     return;
                 }
                 getAdapter().setNewInstance(list);
+                getAdapter().notifyDataSetChanged();
                 DataManager.getInstance().saveGroups(list);
             }
         }, getActivity(), false, (ChatBaseActivity) getActivity()));

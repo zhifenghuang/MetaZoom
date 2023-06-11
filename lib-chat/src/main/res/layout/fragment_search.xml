@@ -10,25 +10,26 @@
     <LinearLayout
         android:id="@+id/llMyInfo"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
         android:orientation="horizontal"
-        android:paddingLeft="20dp">
+        android:paddingLeft="28dp"
+        android:paddingRight="28dp">
 
         <ImageView
             android:id="@+id/ivMyAvatar"
-            android:layout_width="46dp"
-            android:layout_height="46dp" />
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
 
         <TextView
             android:id="@+id/tvMyName"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
             android:layout_weight="1"
             android:paddingLeft="19dp"
             android:singleLine="true"
-            android:textColor="@color/color_fe_fe_fe"
+            android:textColor="@color/text_color_1"
             android:textSize="18dp"
             android:textStyle="bold" />
 
@@ -39,7 +40,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        android:paddingLeft="13dp">
+        android:paddingLeft="28dp">
 
         <EditText
             android:id="@+id/etSearch"
@@ -54,9 +55,9 @@
             android:imeOptions="actionSearch"
             android:paddingLeft="20dp"
             android:singleLine="true"
-            android:textColor="@color/color_00_00_00"
-            android:textColorHint="@color/color_8c_8c_8c"
-            android:textSize="15dp" />
+            android:textColor="@color/text_color_1"
+            android:textColorHint="@color/text_color_2"
+            android:textSize="16dp" />
 
 
         <TextView
@@ -65,9 +66,9 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:paddingLeft="11dp"
-            android:paddingRight="15dp"
+            android:paddingRight="23dp"
             android:text="@string/chat_cancel"
-            android:textColor="@color/color_3a_54_ff"
+            android:textColor="@color/text_color_6"
             android:textSize="15dp" />
 
 

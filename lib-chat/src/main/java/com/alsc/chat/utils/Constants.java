@@ -16,11 +16,11 @@ public class Constants {
     public static final int PAGE_NUM = 30;
 
     //空间名
-    public static final String SPACE = "utgutg";
+    public static final String SPACE = "time-upload";
     //操作
-    public static final String OPERATER = "gilc168168";
+    public static final String OPERATER = "huangzf";
     //密码
-    public static final String PASSWORD = "xasMS954xZ86jHRjfRIpkLgLT0TF6k3a";
+    public static final String PASSWORD = "3yL4YrkLIEeK7lGQeoMoGvVaf4A=";
 
     //头像存储地址
     public static final String  AVATAR_SAVE_PATH = "/avatar/%s";
@@ -40,7 +40,7 @@ public class Constants {
     //文件存储地址
     public static final String FILE_SAVE_PATH = "/chat/file/%s";
 
-    public static final String IMAGE_HTTP_HOST = "http://utgutg.test.upcdn.net";
+    public static final String IMAGE_HTTP_HOST = "http://time-upload.test.upcdn.net";
 
     public static final String FINISH_ACTIVITY = "finish_activity";
     public static final String REFRESH_PROGRESS = "refresh_progress";

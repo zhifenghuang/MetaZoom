@@ -76,9 +76,9 @@ abstract class BaseFragment<P : IPresenter> : BaseDialogFragment(), View.OnClick
         bindPresenter()
         initView(view, savedInstanceState)
         EventBus.getDefault().register(this)
-        if (isNeedSetTopStyle()) {
-            setTopStatusBarStyle(view);
-        }
+//        if (isNeedSetTopStyle()) {
+//            setTopStatusBarStyle(view);
+//        }
     }
 
     open fun onSelectFragment() {
@@ -174,6 +174,10 @@ abstract class BaseFragment<P : IPresenter> : BaseDialogFragment(), View.OnClick
 
     protected fun getTextById(id: Int): String {
         return view!!.findViewById<TextView>(id).text.toString().trim()
+    }
+
+    protected fun getTextById(tv: TextView): String {
+        return tv.text.toString().trim()
     }
 
     protected fun setViewVisible(vararg views: View) {
@@ -293,7 +297,12 @@ abstract class BaseFragment<P : IPresenter> : BaseDialogFragment(), View.OnClick
 
 
     protected open fun setTopStatusBarStyle(topView: View) {
-        topView.setPadding(0, BaseUtils.getStatusBarHeight(resources) + topView.paddingTop, 0, 0)
+        topView.setPadding(
+            topView.paddingLeft,
+            BaseUtils.getStatusBarHeight(resources) + topView.paddingTop,
+            topView.paddingRight,
+            topView.paddingBottom
+        )
     }
 
     open fun getDisplayMetrics(): DisplayMetrics? {
@@ -418,8 +427,8 @@ abstract class BaseFragment<P : IPresenter> : BaseDialogFragment(), View.OnClick
         }
     }
 
-    open fun isNeedSetTopStyle(): Boolean {
-        return false
-    }
+//    open fun isNeedSetTopStyle(): Boolean {
+//        return false
+//    }
 
 }

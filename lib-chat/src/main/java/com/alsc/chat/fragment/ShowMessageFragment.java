@@ -26,31 +26,12 @@ import com.alsc.chat.http.OkHttpClientManager;
 import com.alsc.chat.utils.Constants;
 import com.alsc.chat.utils.Utils;
 import com.alsc.chat.view.ShowPicView;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.maps.AMap;
-import com.amap.api.maps.CameraUpdateFactory;
-import com.amap.api.maps.LocationSource;
-import com.amap.api.maps.MapView;
-import com.amap.api.maps.UiSettings;
-import com.amap.api.maps.model.BitmapDescriptorFactory;
-import com.amap.api.maps.model.LatLng;
-import com.amap.api.maps.model.MarkerOptions;
-import com.amap.api.maps.model.MyLocationStyle;
 import com.chs.filepicker.filepicker.util.OpenFile;
-import com.alsc.chat.http.ChatHttpMethods;
-import com.alsc.chat.http.HttpObserver;
-import com.alsc.chat.http.SubscriberOnNextListener;
-import com.alsc.chat.activity.ChatBaseActivity;
 import com.common.lib.activity.BaseActivity;
 import com.common.lib.bean.*;
-import com.common.lib.dialog.MyDialogFragment;
-import com.common.lib.manager.DataManager;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
 import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
 import com.xiao.nicevideoplayer.TxVideoPlayerController;
-
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
@@ -67,13 +48,6 @@ public class ShowMessageFragment extends ChatBaseFragment {
     private int mType;
     private BasicMessage mMessage;
     private String mUrl;
-
-
-    private MapView mMapView;
-    private AMap mAMap;
-
-    private AMapLocationClient mLocationClient = null;
-    private AMapLocationClientOption mLocationOption = null;
 
     private ArrayList<BasicMessage> mMsgList;
     private ArrayList<View> mViewList;
@@ -98,12 +72,6 @@ public class ShowMessageFragment extends ChatBaseFragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        if (mMessage != null && mMessage.getMsgType() == MessageType.TYPE_LOCATION.ordinal()) {
-            mMapView = view.findViewById(R.id.mapView);
-            mMapView.onCreate(savedInstanceState);// 此方法必须重写
-            initMap();
-            showLocationMsg();
-        }
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -425,136 +393,8 @@ public class ShowMessageFragment extends ChatBaseFragment {
         }
     }
 
-    /**
-     * 初始化AMap对象
-     */
-    private void initMap() {
-        if (mAMap == null) {
-            mAMap = mMapView.getMap();
-            UiSettings settings = mAMap.getUiSettings();
-            settings.setZoomControlsEnabled(false);
-            mAMap.setLocationSource(new LocationSource() {
-                @Override
-                public void activate(OnLocationChangedListener onLocationChangedListener) {
-
-                }
-
-                @Override
-                public void deactivate() {
-
-                }
-            });//设置了定位的监听,这里要实现LocationSource接口
-            // 是否显示定位按钮
-            settings.setMyLocationButtonEnabled(false);
-            mAMap.setMyLocationEnabled(true);
-            mAMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
-
-            MyLocationStyle myLocationStyle = new MyLocationStyle();
-            myLocationStyle.strokeColor(Color.TRANSPARENT);
-            myLocationStyle.radiusFillColor(Color.TRANSPARENT);
-            myLocationStyle.myLocationIcon(null);
-            myLocationStyle.myLocationIcon(BitmapDescriptorFactory
-                    .fromResource(R.drawable.chat_gps_d_1));
-            mAMap.setMyLocationStyle(myLocationStyle);
-
-            mAMap.moveCamera(CameraUpdateFactory.zoomTo(mAMap.getMaxZoomLevel() - 3));
-        }
-    }
-
-    private void showLocationMsg() {
-        setTopStatusBarStyle(getView());
-        TextView tvLeft = fv(R.id.tvTitle);
-        tvLeft.setText(R.string.chat_location_info);
-        tvLeft.setTextColor(ContextCompat.getColor(getActivity(), R.color.color_00_00_00));
-        fv(R.id.topView).setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.color_ff_ff_ff));
-        if (!TextUtils.isEmpty(mMessage.getContent())) {
-            try {
-                JSONObject jsonObject = new JSONObject(mMessage.getContent());
-                double lat = jsonObject.optDouble("lat");
-                double lon = jsonObject.optDouble("lon");
-                setText(R.id.tvName, jsonObject.optString("title"));
-                setText(R.id.tvAddress, jsonObject.optString("address"));
-                LatLng pos = new LatLng(lat, lon);
-                mAMap.moveCamera(CameraUpdateFactory.changeLatLng(pos));
-                MarkerOptions markerOptions = new MarkerOptions()
-                        .position(pos)
-                        .draggable(true)
-                        .icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.chat_gps_1)));
-                mAMap.addMarker(markerOptions);
-            } catch (Exception e) {
-
-            }
-        }
-    }
-
-    private void startLocation() {
-        //初始化定位
-        mLocationClient = new AMapLocationClient(getActivity().getApplicationContext());
-        //初始化定位参数
-        mLocationOption = new AMapLocationClientOption();
-        //设置定位模式为Hight_Accuracy高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
-        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        //设置是否返回地址信息（默认返回地址信息）
-        mLocationOption.setNeedAddress(true);
-        //设置是否只定位一次,默认为false
-        mLocationOption.setOnceLocation(false);
-        //设置是否强制刷新WIFI，默认为强制刷新
-        mLocationOption.setWifiActiveScan(true);
-        //设置是否允许模拟位置,默认为false，不允许模拟位置
-        mLocationOption.setMockEnable(false);
-        //设置定位间隔,单位毫秒,默认为2000ms
-        mLocationOption.setInterval(3000);
-        //给定位客户端对象设置定位参数
-        mLocationClient.setLocationOption(mLocationOption);
-        //启动定位
-        mLocationClient.startLocation();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mMapView != null) {
-            if (mLocationClient == null) {
-                startLocation();
-            } else {
-                mLocationClient.startLocation();
-            }
-            mMapView.onResume();
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (mMapView != null) {
-            mMapView.onPause();
-        }
-    }
 
 
-    /**
-     * 方法必须重写
-     */
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (mMapView != null) {
-            mMapView.onSaveInstanceState(outState);
-        }
-    }
-
-    /**
-     * 方法必须重写
-     */
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mMapView != null) {
-            mMapView.onDestroy();
-            mLocationClient.stopLocation();
-            mLocationClient.onDestroy();//销毁定位客户端。
-        }
-    }
 
     @Override
     public void updateUIText() {

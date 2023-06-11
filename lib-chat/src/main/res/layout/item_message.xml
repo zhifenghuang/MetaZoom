@@ -1237,7 +1237,7 @@
         android:paddingLeft="50dp"
         android:paddingRight="50dp"
         android:text="@string/chat_rest_time_delete"
-        android:textColor="@color/color_07_bb_99"
+        android:textColor="@color/text_color_6"
         android:textSize="11dp" />
 
 </LinearLayout>

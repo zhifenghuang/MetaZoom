@@ -26,6 +26,8 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
                 if (getRootView() == null) {
                     return;
                 }
+                DataManager.getInstance().loginOut();
+                ChatManager.getInstance().disSocketConnect();
                 DataManager.getInstance().saveUser(bean);
                 ChatManager.getInstance().initWebSocket(bean.getToken());
                 getRootView().loginSuccess();

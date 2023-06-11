@@ -13,10 +13,10 @@ import com.alsc.chat.http.SubscriberOnNextListener;
 import com.alsc.chat.manager.UPYFileUploadManger;
 import com.alsc.chat.utils.Constants;
 import com.alsc.chat.utils.Utils;
-import com.common.lib.activity.BaseActivity;
 import com.common.lib.activity.db.DatabaseOperate;
 import com.common.lib.bean.*;
 import com.common.lib.dialog.MyDialogFragment;
+import com.common.lib.interfaces.OnClickCallback;
 import com.common.lib.manager.DataManager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -42,15 +42,15 @@ public class GroupDetailFragment extends ChatBaseFragment {
 
     @Override
     protected void onViewCreated(View view) {
-        setText(R.id.tvTitle, getString(R.string.chat_detail));
+        setTopStatusBarStyle(R.id.topView);
         mSettings = DataManager.getInstance().getChatSubSettings();
-        setTopStatusBarStyle(view);
-        setViewsOnClickListener(R.id.llGroupInfo, R.id.llGroupQrCode,
-                R.id.tvGroupManager, R.id.tvGroupNotice,
-                R.id.llGroupMsgSwitch, R.id.llTopChat,
-                R.id.llInGroupNick, R.id.llShowNickInGroup,
-                R.id.tvSearchMsg, R.id.tvClearMsg,
-                R.id.tvDeleteQuit, R.id.tvAddMember);
+        setViewsOnClickListener(R.id.ivEdit,
+                R.id.tvGroupManager,
+                R.id.llGroupMsgSwitch,
+                R.id.tvRemoveMember,
+                R.id.tvClearChatHistory,
+                R.id.tvFindChatHistory,
+                R.id.llDisband, R.id.tvAddMember);
         mGroup = (GroupBean) getArguments().getSerializable(Constants.BUNDLE_EXTRA);
 
         if (DataManager.getInstance().getObject() != null) {
@@ -61,9 +61,7 @@ public class GroupDetailFragment extends ChatBaseFragment {
         if (mChatSubBean == null) {
             mChatSubBean = new ChatSubBean();
         }
-        setImage(R.id.ivGroupMsgSwitch, mGroup.getIgnore() == 1 ? R.drawable.icon_switch_on : R.drawable.icon_switch_off);
-        setImage(R.id.ivTopChatSwitch, mGroup.getTop() == 1 ? R.drawable.icon_switch_on : R.drawable.icon_switch_off);
-        setImage(R.id.ivShowNickInGroup, mChatSubBean.getIsShowMemberNick() == 1 ? R.drawable.icon_switch_on : R.drawable.icon_switch_off);
+        setImage(R.id.ivGroupMsgSwitch, mGroup.getIgnore() == 1 ? R.drawable.chat_switch_on : R.drawable.chat_switch_off);
 
         if (mGroupUsers == null) {
             mGroupUsers = new ArrayList<>();
@@ -81,38 +79,42 @@ public class GroupDetailFragment extends ChatBaseFragment {
     }
 
     private void showGroupDetail() {
-        boolean isShowAddButton = false;
-        if (mGroup.getJoinStint() == 0) {
-            if (mGroup.getJoinType() == 0 && mGroup.getGroupRole() == 3) {  //只有群主能拉人
-                isShowAddButton = true;
-            } else if (mGroup.getJoinType() == 1) {
-                isShowAddButton = true;
-            }
+        if (mGroup.getGroupRole() == 3) {
+            setViewGone(R.id.tvRemoveMember);
+            setText(R.id.tvDisband, R.string.chat_delete_and_quit);
         }
-        fv(R.id.tvAddMember).setVisibility(isShowAddButton ? View.VISIBLE : View.GONE);
         setText(R.id.tvGroupName, mGroup.getName());
-        setText(R.id.tvInGroupNick, mGroup.getMyNickInGroup());
-        Utils.displayAvatar(getActivity(), R.drawable.chat_default_group_avatar, mGroup.getIcon(), fv(R.id.ivGroupCover));
+        Utils.loadImage(getActivity(), R.drawable.chat_default_group_avatar, mGroup.getIcon(), fv(R.id.ivGroupCover));
     }
 
 
     @Override
     public void updateUIText() {
         if (mGroup.getGroupRole() == 3) {
-            setViewVisible(R.id.tvGroupManager, R.id.lineGroupManager);
+            setViewVisible(R.id.tvGroupManager);
         } else {
-            setViewGone(R.id.tvGroupManager, R.id.lineGroupManager);
+            setViewGone(R.id.tvGroupManager);
         }
         Object object = DataManager.getInstance().getObject();
         if (object instanceof HashMap) {
             HashMap<String, ArrayList<UserBean>> map = (HashMap<String, ArrayList<UserBean>>) object;
             if (map.containsKey("add_member")) {
                 mGroupUsers.addAll(map.get("add_member"));
+            } else if (map.containsKey("delete_member")) {
+                ArrayList<UserBean> list = map.get("delete_member");
+                for (UserBean bean : list) {
+                    for (UserBean user : mGroupUsers) {
+                        if (bean.getUserId() == user.getUserId()) {
+                            mGroupUsers.remove(user);
+                            break;
+                        }
+                    }
+                }
             }
             DataManager.getInstance().saveGroupUsers(mGroup.getGroupId(), mGroupUsers);
         }
         DataManager.getInstance().setObject(null);
-        setText(R.id.tvGroupMemberNum, getString(R.string.chat_member_num_xxx, String.valueOf(mGroupUsers.size())));
+        setText(R.id.tvGroupMemberNum, getString(R.string.chat_xxx_members, String.valueOf(mGroupUsers.size())));
         showGroupDetail();
     }
 
@@ -120,69 +122,98 @@ public class GroupDetailFragment extends ChatBaseFragment {
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.llGroupInfo) {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(Constants.BUNDLE_EXTRA, mGroup);
-            // bundle.putSerializable(Constants.BUNDLE_EXTRA_2, mGroupUsers);
-            DataManager.getInstance().setObject(mGroupUsers.clone());
-            gotoPager(GroupInfoFragment.class, bundle);
-        } else if (id == R.id.llGroupQrCode) {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(Constants.BUNDLE_EXTRA, QrcodeFragment.GROUP_QRCODE);
-            mGroup.setMemberNum(mGroupUsers.size());
-            bundle.putSerializable(Constants.BUNDLE_EXTRA_2, mGroup);
-            gotoPager(QrcodeFragment.class, bundle);
-        } else if (id == R.id.tvGroupNotice) {
-            if (mGroup.getGroupRole() != 3) {
-                ((BaseActivity) getActivity()).showOneBtnDialog(
-                        getString(R.string.chat_only_ower_can_update_notice),
-                        getString(R.string.chat_ok), null);
-                return;
-            }
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(Constants.BUNDLE_EXTRA, mGroup);
-            bundle.putInt(Constants.BUNDLE_EXTRA_2, UpdateGroupInfoFragment.UPDATE_GROUP_NOTICE);
-            gotoPager(UpdateGroupInfoFragment.class, bundle);
+        if (id == R.id.ivEdit) {
+            showUpdateGroupNameDialog();
         } else if (id == R.id.tvGroupManager) {
             Bundle bundle = new Bundle();
             bundle.putSerializable(Constants.BUNDLE_EXTRA, mGroup);
-            //bundle.putSerializable(Constants.BUNDLE_EXTRA_2, mGroupUsers);
-            DataManager.getInstance().setObject(mGroupUsers.clone());
-            gotoPager(GroupManagerFragment.class, bundle);
+            gotoPager(AddGroupWayFragment.class, bundle);
         } else if (id == R.id.llGroupMsgSwitch) {
             int msgSwitch = mGroup.getIgnore() == 1 ? 0 : 1;
             operatorGroupIgnore(msgSwitch);
-        } else if (id == R.id.llTopChat) {
-            int topSwitch = mGroup.getTop() == 1 ? 0 : 1;
-            operatorGroupTop(topSwitch);
-        } else if (id == R.id.llInGroupNick) {
+        } else if (id == R.id.tvAddMember) {
             Bundle bundle = new Bundle();
-            bundle.putSerializable(Constants.BUNDLE_EXTRA, mGroup);
-            bundle.putInt(Constants.BUNDLE_EXTRA_2, UpdateGroupInfoFragment.UPDATE_IN_GROUP_NICK);
-            gotoPager(UpdateGroupInfoFragment.class, bundle);
-        } else if (id == R.id.llShowNickInGroup) {
-            int isShowMemberNick = mChatSubBean.getIsShowMemberNick() == 1 ? 0 : 1;
-            mChatSubBean.setIsShowMemberNick(isShowMemberNick);
-            setImage(R.id.ivShowNickInGroup, mChatSubBean.getIsShowMemberNick() == 1 ? R.drawable.icon_switch_on : R.drawable.icon_switch_off);
-            mSettings.put("group_" + mGroup.getGroupId(), mChatSubBean);
-            DataManager.getInstance().saveChatSubSettings(mSettings);
-        } else if (id == R.id.tvSearchMsg) {
+            bundle.putSerializable(Constants.BUNDLE_EXTRA, SelectFriendFragment.FROM_GROUP_DETAIL_ADD_MEMBER);
+            bundle.putSerializable(Constants.BUNDLE_EXTRA_3, mGroup);
+            DataManager.getInstance().setObject(mGroupUsers.clone());
+            gotoPager(SelectFriendFragment.class, bundle);
+        } else if (id == R.id.tvRemoveMember) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(Constants.BUNDLE_EXTRA, SelectFriendFragment.DELETE_GROUP_USER);
+            bundle.putSerializable(Constants.BUNDLE_EXTRA_3, mGroup);
+            DataManager.getInstance().setObject(mGroupUsers.clone());
+            gotoPager(SelectFriendFragment.class, bundle);
+        } else if (id == R.id.llDisband) {
+            if (mGroup.getGroupRole() == 3) {
+                disbandGroup();
+            } else {
+                exitGroup();
+            }
+        } else if (id == R.id.tvClearChatHistory) {
+            showTwoBtnDialog(getString(R.string.chat_are_you_sure_delete_group),
+                    getString(R.string.chat_cancel),
+                    getString(R.string.chat_ok), new OnClickCallback() {
+                        @Override
+                        public void onClick(int viewId) {
+                            UserBean myInfo = DataManager.getInstance().getUser();
+                            DatabaseOperate.getInstance().deleteGroupChatRecord(myInfo.getUserId(), mGroup.getGroupId());
+                            HashMap<String, String> map = new HashMap<>();
+                            map.put(Constants.CLEAR_MESSAGE, "");
+                            EventBus.getDefault().post(map);
+                        }
+                    });
+        } else if (id == R.id.tvFindChatHistory) {
             Bundle bundle = new Bundle();
             bundle.putInt(Constants.BUNDLE_EXTRA, SearchFragment.SEARCH_GROUP_CHAT_RECORD);
             bundle.putSerializable(Constants.BUNDLE_EXTRA_2, mGroup);
             gotoPager(SearchFragment.class, bundle);
-        } else if (id == R.id.tvClearMsg) {
-            showDeleteDialog(0);
-        } else if (id == R.id.tvDeleteQuit) {
-            showDeleteDialog(1);
-        } else if (id == R.id.tvAddMember) {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(Constants.BUNDLE_EXTRA, SelectFriendFragment.FROM_GROUP_DETAIL);
-            // bundle.putSerializable(Constants.BUNDLE_EXTRA_2, mGroupUsers);
-            bundle.putSerializable(Constants.BUNDLE_EXTRA_3, mGroup);
-            DataManager.getInstance().setObject(mGroupUsers.clone());
-            gotoPager(SelectFriendFragment.class, bundle);
         }
+    }
+
+    private void disbandGroup() {
+        showTwoBtnDialog(getString(R.string.chat_chat_are_you_sure_end_group),
+                getString(R.string.chat_cancel),
+                getString(R.string.chat_ok), new OnClickCallback() {
+                    @Override
+                    public void onClick(int viewId) {
+                        ChatHttpMethods.getInstance().dismissGroup(String.valueOf(mGroup.getGroupId()),
+                                new HttpObserver(new SubscriberOnNextListener() {
+                                    @Override
+                                    public void onNext(Object o, String msg) {
+                                        removeGroup();
+                                        UserBean myInfo = DataManager.getInstance().getUser();
+                                        DatabaseOperate.getInstance().deleteGroupChatRecord(myInfo.getUserId(), mGroup.getGroupId());
+                                        HashMap<String, Object> map = new HashMap<>();
+                                        map.put(Constants.END_GROUP, mGroup.getGroupId());
+                                        EventBus.getDefault().post(map);
+                                        finish();
+                                    }
+                                }, getActivity(), (ChatBaseActivity) getActivity()));
+                    }
+                });
+
+    }
+
+    private void quitGroup() {
+        showTwoBtnDialog(getString(R.string.chat_are_you_sure_delete_group),
+                getString(R.string.chat_cancel),
+                getString(R.string.chat_ok), new OnClickCallback() {
+                    @Override
+                    public void onClick(int viewId) {
+                        ChatHttpMethods.getInstance().exitGroup(String.valueOf(mGroup.getGroupId()), new HttpObserver(new SubscriberOnNextListener() {
+                            @Override
+                            public void onNext(Object o, String msg) {
+                                UserBean myInfo = DataManager.getInstance().getUser();
+                                DatabaseOperate.getInstance().deleteGroupChatRecord(myInfo.getUserId(), mGroup.getGroupId());
+                                removeGroup();
+                                HashMap<String, Object> map = new HashMap<>();
+                                map.put(Constants.END_GROUP, mGroup.getGroupId());
+                                EventBus.getDefault().post(map);
+                                finish();
+                            }
+                        }, getActivity(), (ChatBaseActivity) getActivity()));
+                    }
+                });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -209,34 +240,8 @@ public class GroupDetailFragment extends ChatBaseFragment {
     public void onReceiveInfo(HashMap<String, Object> map) {
         if (getView() != null && map != null) {
             if (map.containsKey(Constants.EDIT_GROUP_MEMBER)) {
-                setText(R.id.tvGroupMemberNum, getString(R.string.chat_member_num_xxx, String.valueOf(mGroupUsers.size())));
-            } else if (map.containsKey(Constants.END_GROUP)) {
-                long groupId = (long) map.get(Constants.END_GROUP);
-                if (groupId == mGroup.getGroupId()) {
-                    finish();
-                }
+                setText(R.id.tvGroupMemberNum, getString(R.string.chat_xxx_members, String.valueOf(mGroupUsers.size())));
             }
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onReceiveAvatarFile(File file) {
-        if (getView() != null) {
-            UPYFileUploadManger.getInstance().uploadFile(file);
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onReceiveAvatarUrl(UploadAvatarEvent avatar) {
-        if (getView() != null && avatar.isSuccess()) {
-            mGroup.setIcon(avatar.getUrl());
-            saveNewGroup(mGroup);
-            ChatHttpMethods.getInstance().updateGroupIcon(String.valueOf(mGroup.getGroupId()), avatar.getUrl(), new HttpObserver(new SubscriberOnNextListener() {
-                @Override
-                public void onNext(Object o, String msg) {
-
-                }
-            }, getActivity(), (ChatBaseActivity) getActivity()));
         }
     }
 
@@ -256,38 +261,44 @@ public class GroupDetailFragment extends ChatBaseFragment {
         }
     }
 
-    private void showDeleteDialog(int type) {
-        final MyDialogFragment dialogFragment = new MyDialogFragment(R.layout.chat_layout_two_btn_dialog);
+    private void showUpdateGroupNameDialog() {
+        final MyDialogFragment dialogFragment = new MyDialogFragment(R.layout.dialog_update_group_name);
+        dialogFragment.setClickDismiss(false);
         dialogFragment.setOnMyDialogListener(new MyDialogFragment.OnMyDialogListener() {
             @Override
             public void initView(View view) {
-                ((TextView) view.findViewById(R.id.tv1)).setText(getString(R.string.chat_tip));
-                ((TextView) view.findViewById(R.id.tv2)).setText(getString(type == 0 ?
-                        R.string.chat_are_you_sure_delete_group_chat_record : R.string.chat_are_you_sure_delete_group));
-                ((TextView) view.findViewById(R.id.btn1)).setText(getString(R.string.chat_cancel));
-                ((TextView) view.findViewById(R.id.btn2)).setText(getString(R.string.chat_ok));
-                dialogFragment.setDialogViewsOnClickListener(view, R.id.btn1, R.id.btn2);
+                dialogFragment.setDialogViewsOnClickListener(view, R.id.tvOk);
             }
 
             @Override
             public void onViewClick(int viewId) {
-                if (viewId == R.id.btn2) {
-                    if (type == 0) {
-                        UserBean myInfo = DataManager.getInstance().getUser();
-                        DatabaseOperate.getInstance().deleteGroupChatRecord(myInfo.getUserId(), mGroup.getGroupId());
-                        HashMap<String, String> map = new HashMap<>();
-                        map.put(Constants.CLEAR_MESSAGE, "");
-                        EventBus.getDefault().post(map);
-                    } else if (type == 1) {
-                        deleteGroup();
+                if (viewId == R.id.tvOk) {
+                    final String name = getTextById(dialogFragment.getView().findViewById(R.id.etGroupName));
+                    if (TextUtils.isEmpty(name)) {
+                        showToast(R.string.chat_please_enter);
+                        return;
                     }
+                    ChatHttpMethods.getInstance().updateGroupName(String.valueOf(mGroup.getGroupId()), name,
+                            new HttpObserver(new SubscriberOnNextListener<GroupBean>() {
+                                @Override
+                                public void onNext(GroupBean bean, String msg) {
+                                    sendUpdateGroupMsg(mGroup, MessageType.TYPE_UPDATE_GROUP_NAME.ordinal(), name);
+                                    if (getView() == null) {
+                                        return;
+                                    }
+                                    mGroup.setName(name);
+                                    EventBus.getDefault().post(mGroup);
+                                    setText(R.id.tvGroupName, name);
+                                    dialogFragment.dismiss();
+                                }
+                            }, getActivity(), (ChatBaseActivity) getActivity()));
                 }
             }
         });
         dialogFragment.show(getChildFragmentManager(), "MyDialogFragment");
     }
 
-    private void deleteGroup() {
+    private void exitGroup() {
         ChatHttpMethods.getInstance().exitGroup(String.valueOf(mGroup.getGroupId()), new HttpObserver(new SubscriberOnNextListener() {
             @Override
             public void onNext(Object o, String msg) {
@@ -325,24 +336,10 @@ public class GroupDetailFragment extends ChatBaseFragment {
                     return;
                 }
                 mGroupUsers = list;
-                setText(R.id.tvGroupMemberNum, getString(R.string.chat_member_num_xxx, String.valueOf(mGroupUsers.size())));
+                setText(R.id.tvGroupMemberNum, getString(R.string.chat_xxx_members, String.valueOf(mGroupUsers.size())));
                 DataManager.getInstance().saveGroupUsers(mGroup.getGroupId(), list);
             }
         }, getActivity(), false, (ChatBaseActivity) getActivity()));
-    }
-
-    private void operatorGroupTop(final int top) {
-        ChatHttpMethods.getInstance().updateGroupTop(String.valueOf(mGroup.getGroupId()), top, new HttpObserver(new SubscriberOnNextListener() {
-            @Override
-            public void onNext(Object o, String msg) {
-                if (getView() == null) {
-                    return;
-                }
-                mGroup.setTop(top);
-                setImage(R.id.ivTopChatSwitch, mGroup.getTop() == 1 ? R.drawable.icon_switch_on : R.drawable.icon_switch_off);
-                EventBus.getDefault().post(mGroup);
-            }
-        }, getActivity(), (ChatBaseActivity) getActivity()));
     }
 
     private void operatorGroupIgnore(final int ignore) {
@@ -353,7 +350,7 @@ public class GroupDetailFragment extends ChatBaseFragment {
                     return;
                 }
                 mGroup.setIgnore(ignore);
-                setImage(R.id.ivGroupMsgSwitch, mGroup.getIgnore() == 1 ? R.drawable.icon_switch_on : R.drawable.icon_switch_off);
+                setImage(R.id.ivGroupMsgSwitch, mGroup.getIgnore() == 1 ? R.drawable.chat_switch_on : R.drawable.chat_switch_off);
                 EventBus.getDefault().post(mGroup);
             }
         }, getActivity(), (ChatBaseActivity) getActivity()));

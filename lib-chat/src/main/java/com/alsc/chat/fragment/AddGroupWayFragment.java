@@ -30,22 +30,16 @@ public class AddGroupWayFragment extends ChatBaseFragment {
     protected void onViewCreated(View view) {
         mGroup = (GroupBean) getArguments().getSerializable(Constants.BUNDLE_EXTRA);
         setTopStatusBarStyle(view);
-        setText(R.id.tvTitle, R.string.chat_enter_group_way);
-        setViewsOnClickListener(R.id.llOnlyOwer, R.id.llOnlyMember, R.id.llAnyCan,
-                R.id.llNoCan, R.id.tvPayEnterGroup);
+        setText(R.id.tvTitle, R.string.chat_group_manager);
+        setViewsOnClickListener(R.id.llOnlyOwer, R.id.llOnlyMember, R.id.tvPayEnterGroup);
         resetJoinTypeUI();
-        resetJoinStintUI();
     }
 
     private void resetJoinTypeUI() {
-        setImage(R.id.ivOnlyOwer, mGroup.getJoinType() == 1 ? R.drawable.icon_switch_off : R.drawable.icon_switch_on);
-        setImage(R.id.ivOnlyMember, mGroup.getJoinType() == 0 ? R.drawable.icon_switch_off : R.drawable.icon_switch_on);
+        setImage(R.id.ivOnlyOwer, mGroup.getJoinType() == 1 ? R.drawable.chat_switch_off : R.drawable.chat_switch_on);
+        setImage(R.id.ivOnlyMember, mGroup.getJoinType() == 0 ? R.drawable.chat_switch_off : R.drawable.chat_switch_on);
     }
 
-    private void resetJoinStintUI() {
-        setImage(R.id.ivAnyCan, mGroup.getJoinStint() == 1 ? R.drawable.icon_switch_off : R.drawable.icon_switch_on);
-        setImage(R.id.ivNoCan, mGroup.getJoinStint() == 0 ? R.drawable.icon_switch_off : R.drawable.icon_switch_on);
-    }
 
     @Override
     public void updateUIText() {
@@ -64,8 +58,6 @@ public class AddGroupWayFragment extends ChatBaseFragment {
         int id = v.getId();
         if (id == R.id.llOnlyOwer || id == R.id.llOnlyMember) {
             updateJoinType(mGroup.getJoinType() == 1 ? 0 : 1);
-        } else if (id == R.id.llAnyCan || id == R.id.llNoCan) {
-            updateJoinStint(mGroup.getJoinStint() == 1 ? 0 : 1);
         } else if (id == R.id.tvPayEnterGroup) {
             Bundle bundle = new Bundle();
             bundle.putSerializable(Constants.BUNDLE_EXTRA, mGroup);
@@ -85,22 +77,6 @@ public class AddGroupWayFragment extends ChatBaseFragment {
                         mGroup.setJoinType(joinType);
                         EventBus.getDefault().post(mGroup);
                         resetJoinTypeUI();
-                    }
-                }, getActivity(), (ChatBaseActivity) getActivity()));
-    }
-
-    private void updateJoinStint(final int joinStint) {
-        ChatHttpMethods.getInstance().updateEnterGroupStint(String.valueOf(mGroup.getGroupId()), String.valueOf(joinStint),
-                new HttpObserver(new SubscriberOnNextListener<GroupBean>() {
-                    @Override
-                    public void onNext(GroupBean bean, String msg) {
-                        sendRefreshGroupSystemMsg();
-                        if (getView() == null) {
-                            return;
-                        }
-                        mGroup.setJoinStint(joinStint);
-                        EventBus.getDefault().post(mGroup);
-                        resetJoinStintUI();
                     }
                 }, getActivity(), (ChatBaseActivity) getActivity()));
     }

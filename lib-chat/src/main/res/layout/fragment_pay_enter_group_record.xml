@@ -5,7 +5,7 @@
     android:background="@color/color_ff_ff_ff"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_top_bar" />
+    <include layout="@layout/layout_top_bar_2" />
 
 
     <androidx.recyclerview.widget.RecyclerView

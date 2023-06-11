@@ -57,7 +57,7 @@ public class UserInfoFragment extends ChatBaseFragment {
                         R.id.paddingView, R.id.llBlock);
                 setViewsOnClickListener(R.id.tvAddToContract);
             } else {
-                setViewsOnClickListener(R.id.tvAddNoteName, R.id.llNotification, R.id.llBlock);
+                setViewsOnClickListener(R.id.tvAddNoteName, R.id.ivToChat, R.id.llNotification, R.id.llBlock);
                 setViewGone(R.id.tvAddToContract);
                 resetBlockUI();
             }
@@ -106,7 +106,7 @@ public class UserInfoFragment extends ChatBaseFragment {
     }
 
     private void resetBlockUI() {
-        LogUtil.LogE("block: "+mUserInfo.getBlock());
+        LogUtil.LogE("block: " + mUserInfo.getBlock());
         if (mUserInfo.getBlock() == 1) {
             setImage(R.id.ivBlock, R.drawable.chat_unblock);
             setText(R.id.tvBlock, R.string.chat_unblock);

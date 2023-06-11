@@ -43,15 +43,15 @@ public class ContactAdapter extends BaseMultiItemQuickAdapter<ContactFragment.Co
                 break;
             case 1:
                 UserBean friend = item.getFriend();
-//                char c = friend.getPinyinName().charAt(0);
-//                if (position == 4) {
-//                    helper.setText(R.id.tvLetter, String.valueOf(c))
-//                            .setGone(R.id.tvLetter, false);
-//                } else {
-//                    char prevC = getItem(position - 1).getFriend().getPinyinName().charAt(0);
-//                    helper.setText(R.id.tvLetter, String.valueOf(c))
-//                            .setGone(R.id.tvLetter, prevC == c);
-//                }
+                char c = friend.getPinyinName().charAt(0);
+                if (position == 2) {
+                    helper.setText(R.id.tvLetter, String.valueOf(c))
+                            .setGone(R.id.tvLetter, false);
+                } else {
+                    char prevC = getItem(position - 1).getFriend().getPinyinName().charAt(0);
+                    helper.setText(R.id.tvLetter, String.valueOf(c))
+                            .setGone(R.id.tvLetter, prevC == c);
+                }
                 helper.setText(R.id.tvName, friend.getNickName());
                 int resId = mContext.getResources().getIdentifier("chat_default_avatar_" + friend.getUserId() % 6,
                         "drawable", mContext.getPackageName());

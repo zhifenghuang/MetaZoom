@@ -44,12 +44,17 @@ public class ChooseChainAdapter extends BaseQuickAdapter<ChainBean, BaseViewHold
         int drawableId = 0;
         int pos = getItemPosition(bean);
 
+        boolean isSelect = mSelectIndex == pos;
         try {
             drawableId = mContext.getResources().getIdentifier(
-                    "app_" + bean.getChainId() + (mSelectIndex == pos ? "_on" : "_off"), "drawable", mContext.getPackageName());
+                    "app_" + bean.getChainId() + (isSelect ? "_on" : "_off"), "drawable", mContext.getPackageName());
         } catch (Exception e) {
         }
-        helper.setImageResource(R.id.ivSymbol, drawableId);
+        if (drawableId == 0) {
+            drawableId = (isSelect ? R.drawable.app_unknow_on : R.drawable.app_unkonw_off);
+        }
+        helper.setImageResource(R.id.ivSymbol, drawableId)
+                .setGone(R.id.line, !isSelect);
     }
 
 

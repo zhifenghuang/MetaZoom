@@ -8,11 +8,6 @@
     <include layout="@layout/layout_top_bar" />
 
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/color_f3_f7_fa" />
-
 
     <EditText
         android:id="@+id/etNotice"

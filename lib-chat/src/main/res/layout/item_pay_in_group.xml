@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="72.5dp"
-    android:orientation="horizontal"
-    android:layout_marginTop="10dp"
-    android:background="@color/color_ff_ff_ff"
-    android:paddingLeft="14dp">
+    android:layout_height="66dp"
+    android:paddingRight="23dp"
+    android:paddingLeft="25dp">
 
 
     <ImageView
         android:id="@+id/ivAvatar"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_centerVertical="true" />
 
     <TextView
@@ -21,9 +19,8 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:paddingLeft="10dp"
-        android:paddingRight="14dp"
-        android:textColor="@color/color_3a_54_ff"
-        android:textSize="13dp" />
+        android:textColor="@color/text_color_6"
+        android:textSize="14dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:textColor="@color/color_00_00_00"
+            android:textColor="@color/text_color_1"
             android:textSize="15dp"
             android:textStyle="bold" />
 
@@ -50,18 +47,11 @@
             android:gravity="center_vertical"
             android:paddingTop="5dp"
             android:singleLine="true"
-            android:textColor="@color/color_8c_8c_8c"
-            android:textSize="11dp" />
+            android:textColor="@color/text_color_2"
+            android:textSize="13dp" />
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_0_5"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="14dp"
-        android:alpha="0.5"
-        android:background="@color/color_f3_f7_fa" />
 
 
 </RelativeLayout>

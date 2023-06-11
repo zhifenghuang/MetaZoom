@@ -23,6 +23,7 @@ import com.alsc.chat.fragment.ContactFragment;
 import com.alsc.chat.fragment.GroupListFragment;
 import com.alsc.chat.fragment.LeaveMsgFragment;
 import com.alsc.chat.fragment.MyCollectionFragment;
+import com.alsc.chat.fragment.PrivacyFragment;
 import com.alsc.chat.fragment.SearchFragment;
 import com.alsc.chat.fragment.SelectFriendFragment;
 import com.alsc.chat.utils.Constants;
@@ -32,6 +33,7 @@ import com.common.lib.bean.*;
 import com.common.lib.dialog.MyDialogFragment;
 import com.common.lib.fragment.BaseFragment;
 import com.common.lib.manager.DataManager;
+import com.common.lib.utils.BaseUtils;
 import com.meta.zoom.R;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -62,13 +64,19 @@ public class ChatMsgFragment extends ChatBaseFragment {
         setViewsOnClickListener(R.id.tvChat, R.id.tvContacts, R.id.tvGroup, R.id.ivSearch,
                 R.id.ivAdd, R.id.ivMenu);
         setData(DataManager.getInstance().getFriends(), DataManager.getInstance().getGroups());
+        UserBean myInfo = DataManager.getInstance().getUser();
+        if (myInfo != null) {
+            getFriendFromServer();
+            getGroupFromServer();
+        }
     }
 
-    public void onRefresh(){
-        if(getView()==null){
+    public void onRefresh() {
+        if (getView() == null) {
             return;
         }
-        mChatListFragment.onRefresh();
+        getFriendFromServer();
+        getGroupFromServer();
     }
 
 
@@ -154,17 +162,9 @@ public class ChatMsgFragment extends ChatBaseFragment {
         }
         mChatListFragment.setData(mFriendList, mGroupList);
         mFriendListFragment.setData(mFriendList);
+        mGroupListFragment.setData(mGroupList);
     }
 
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void onReceive(ChangeLanguageEvent event) {
-//        if (getView() == null) {
-//            return;
-//        }
-//        setText(R.id.tvTitle, R.string.wallet_contact);
-//        setText(R.id.tvChatMsg, R.string.wallet_chat);
-//        setText(R.id.tvContact, R.string.wallet_chat_friend);
-//    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReceive(HashMap map) {
@@ -217,11 +217,6 @@ public class ChatMsgFragment extends ChatBaseFragment {
         }
     }
 
-    @Override
-    public boolean isNeedSetTopStyle() {
-        return true;
-    }
-
     public void showMoreOperatorDialog() {
         final MyDialogFragment dialogFragment = new MyDialogFragment(R.layout.layout_chat_list_more_dialog);
         dialogFragment.setClickDismiss(false);
@@ -235,17 +230,16 @@ public class ChatMsgFragment extends ChatBaseFragment {
                 int resId = getResources().getIdentifier("chat_default_avatar_" + myInfo.getUserId() % 6,
                         "drawable", getActivity().getPackageName());
                 Utils.loadImage(getActivity(), resId, myInfo.getAvatarUrl(), view.findViewById(R.id.ivAvatar));
-                dialogFragment.setDialogViewsOnClickListener(view, R.id.tvNewGroup,
+                dialogFragment.setDialogViewsOnClickListener(view, R.id.ivSetting, R.id.tvNewGroup,
                         R.id.tvAddFriend, R.id.ivClose, R.id.tvFAQ, R.id.tvID, R.id.tvMyCollection);
             }
 
             @Override
             public void onViewClick(int viewId) {
-                if (viewId == R.id.tvNewGroup) {
-                    if (mFriendList == null || mFriendList.isEmpty()) {
-                        showToast(R.string.app_no_friends);
-                        return;
-                    }
+                if (viewId == R.id.ivSetting) {
+                    gotoPager(PrivacyFragment.class);
+                    dialogFragment.dismiss();
+                } else if (viewId == R.id.tvNewGroup) {
                     Bundle bundle = new Bundle();
                     bundle.putInt(Constants.BUNDLE_EXTRA, SelectFriendFragment.FROM_GROUP);
                     gotoPager(SelectFriendFragment.class, bundle);

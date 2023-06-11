@@ -46,7 +46,9 @@ public class GroupMessageAdapter extends MessageAdapter {
 
     protected void showUserInfo(final BaseViewHolder helper,final BasicMessage item) {
         if (item.isMySendMsg(mMyInfo.getUserId())) {
-            Utils.displayAvatar(mContext, R.drawable.chat_default_avatar, mMyInfo.getAvatarUrl(), helper.getView(R.id.ivRight));
+            int resId = mContext.getResources().getIdentifier("chat_default_avatar_" + mMyInfo.getUserId() % 6,
+                    "drawable", mContext.getPackageName());
+            Utils.loadImage(mContext, resId, mMyInfo.getAvatarUrl(), helper.getView(R.id.ivRight));
             helper.getView(R.id.ivRight).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -77,7 +79,9 @@ public class GroupMessageAdapter extends MessageAdapter {
                     return true;
                 }
             });
-            Utils.displayAvatar(mContext, R.drawable.chat_default_avatar, userBean == null ? "" : userBean.getAvatarUrl(), ivLeft);
+            int resId = mContext.getResources().getIdentifier("chat_default_avatar_" + mMyInfo.getUserId() % 6,
+                    "drawable", mContext.getPackageName());
+            Utils.displayAvatar(mContext, resId, userBean == null ? "" : userBean.getAvatarUrl(), ivLeft);
             ivLeft.setTag(R.id.chat_id, userBean);
             ivLeft.setOnClickListener(new View.OnClickListener() {
                 @Override

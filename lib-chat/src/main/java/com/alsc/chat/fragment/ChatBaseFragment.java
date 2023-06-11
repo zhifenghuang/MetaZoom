@@ -76,10 +76,10 @@ public abstract class ChatBaseFragment extends BaseFragment implements View.OnCl
     }
 
 
-    @Override
-    public boolean isNeedSetTopStyle() {
-        return false;
-    }
+//    @Override
+//    public boolean isNeedSetTopStyle() {
+//        return false;
+//    }
 
     protected void showPayInGroupDialog(final GroupBean group, final UserBean inviteUser) {
         final MyDialogFragment dialogFragment = new MyDialogFragment(R.layout.chat_layout_two_btn_dialog);
@@ -198,7 +198,7 @@ public abstract class ChatBaseFragment extends BaseFragment implements View.OnCl
         groupMessageBean.setFromId(DataManager.getInstance().getUserId());
         ArrayList<HashMap<String, Object>> userList = new ArrayList<>();
         for (UserBean bean : list) {
-            if (bean != null) {
+            if (bean != null && bean.getContactId() > 0L) {
                 userList.add(bean.toMap());
             }
         }

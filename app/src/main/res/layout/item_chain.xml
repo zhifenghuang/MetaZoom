@@ -8,11 +8,18 @@
     android:paddingRight="10dp">
 
     <ImageView
+        android:id="@+id/ivDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:src="@drawable/app_close"
+        android:layout_alignParentRight="true" />
+
+    <ImageView
         android:id="@+id/ivSymbol"
         android:layout_width="51dp"
         android:layout_height="51dp"
-        android:layout_centerVertical="true"
-        android:src="@drawable/app_symbol_118" />
+        android:layout_centerVertical="true" />
 
     <TextView
         android:id="@+id/tvName"

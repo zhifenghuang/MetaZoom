@@ -2,355 +2,218 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_ff_ff_ff"
+    android:background="@color/color_f8_f8_f8"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_top_bar" />
 
-
-    <androidx.core.widget.NestedScrollView
+    <RelativeLayout
+        android:id="@+id/topView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:background="@color/color_7a_5b_d0"
+        android:paddingBottom="20dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:onClick="onBackClick"
+            android:paddingLeft="18dp"
+            android:paddingRight="14dp"
+            android:src="@drawable/chat_back_white"
+            android:textSize="14dp" />
+
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:text="@string/chat_group_info"
+            android:textColor="@color/text_color_3"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+
+        <ImageView
+            android:id="@+id/ivGroupCover"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_below="@id/tvTitle"
+            android:layout_marginLeft="24dp"
+            android:src="@drawable/chat_default_group_avatar" />
+
+        <ImageView
+            android:id="@+id/ivEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:layout_below="@id/tvTitle"
+            android:layout_alignParentRight="true"
+            android:paddingRight="28dp"
+            android:src="@drawable/chat_edit" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="58dp"
+            android:layout_below="@id/tvTitle"
+            android:layout_toRightOf="@id/ivGroupCover"
+            android:gravity="center_vertical"
             android:orientation="vertical"
-            android:paddingTop="10dp">
+            android:paddingLeft="17dp"
+            android:paddingRight="10dp">
 
-
-            <LinearLayout
-                android:id="@+id/llGroupInfo"
+            <TextView
+                android:id="@+id/tvGroupName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="13dp"
-                android:paddingTop="10dp"
-                android:paddingRight="13dp"
-                android:paddingBottom="30dp">
+                android:singleLine="true"
+                android:textColor="@color/text_color_3"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/ivGroupCover"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp" />
-
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingLeft="21dp">
-
-                    <TextView
-                        android:id="@+id/tvGroupName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:textColor="@color/color_00_00_00"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-
-
-                    <TextView
-                        android:id="@+id/tvGroupMemberNum"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="6dp"
-                        android:text="@string/chat_member_num"
-                        android:textColor="@color/color_8c_8c_8c"
-                        android:textSize="12dp" />
-
-
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:src="@drawable/icon_right_arrow" />
-            </LinearLayout>
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@color/color_f3_f7_fa" />
-
-
-            <LinearLayout
-                android:id="@+id/llGroupQrCode"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:orientation="horizontal"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="@string/chat_group_qrcode"
-                    android:textColor="@color/color_00_00_00"
-                    android:textSize="15dp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/icon_right_arrow" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="14dp"
-                android:background="@color/color_f3_f7_fa" />
 
             <TextView
-                android:id="@+id/tvGroupNotice"
+                android:id="@+id/tvGroupMemberNum"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:drawableRight="@drawable/icon_right_arrow"
-                android:gravity="center_vertical"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
-                android:text="@string/chat_group_notice"
-                android:textColor="@color/color_00_00_00"
-                android:textSize="15dp" />
-
-            <View
-                android:id="@+id/lineGroupManager"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="14dp"
-                android:background="@color/color_f3_f7_fa" />
-
-            <TextView
-                android:id="@+id/tvGroupManager"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:drawableRight="@drawable/icon_right_arrow"
-                android:gravity="center_vertical"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
-                android:text="@string/chat_group_manager"
-                android:textColor="@color/color_00_00_00"
-                android:textSize="15dp" />
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@color/color_f3_f7_fa" />
-
-            <LinearLayout
-                android:id="@+id/llTopChat"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:orientation="horizontal"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="@string/chat_top_chat"
-                    android:textColor="@color/color_00_00_00"
-                    android:textSize="15dp" />
-
-                <ImageView
-                    android:id="@+id/ivTopChatSwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/icon_switch_off" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="14dp"
-                android:background="@color/color_f3_f7_fa" />
-
-            <LinearLayout
-                android:id="@+id/llGroupMsgSwitch"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:orientation="horizontal"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="@string/chat_message_not_interupt"
-                    android:textColor="@color/color_00_00_00"
-                    android:textSize="15dp" />
-
-                <ImageView
-                    android:id="@+id/ivGroupMsgSwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/icon_switch_off" />
-
-            </LinearLayout>
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@color/color_f3_f7_fa" />
-
-            <LinearLayout
-                android:id="@+id/llInGroupNick"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:orientation="horizontal"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/chat_nick_in_group"
-                    android:textColor="@color/color_00_00_00"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:id="@+id/tvInGroupNick"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:drawableRight="@drawable/icon_right_arrow"
-                    android:drawablePadding="10dp"
-                    android:gravity="right"
-                    android:paddingLeft="10dp"
-                    android:singleLine="true"
-                    android:textColor="@color/color_00_00_00"
-                    android:textSize="15dp" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="14dp"
-                android:background="@color/color_f3_f7_fa" />
-
-            <LinearLayout
-                android:id="@+id/llShowNickInGroup"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:orientation="horizontal"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="@string/chat_show_group_member_nick"
-                    android:textColor="@color/color_00_00_00"
-                    android:textSize="15dp" />
-
-                <ImageView
-                    android:id="@+id/ivShowNickInGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/icon_switch_off" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@color/color_f3_f7_fa" />
-
-            <TextView
-                android:id="@+id/tvSearchMsg"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:drawableRight="@drawable/icon_right_arrow"
-                android:gravity="center_vertical"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
-                android:text="@string/chat_search_chat_record"
-                android:textColor="@color/color_00_00_00"
-                android:textSize="15dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="14dp"
-                android:background="@color/color_f3_f7_fa" />
-
-            <TextView
-                android:id="@+id/tvClearMsg"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:drawableRight="@drawable/icon_right_arrow"
-                android:gravity="center_vertical"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
-                android:text="@string/chat_clear_chat_record"
-                android:textColor="@color/color_00_00_00"
-                android:textSize="15dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="14dp"
-                android:background="@color/color_f3_f7_fa" />
-
-            <TextView
-                android:id="@+id/tvDeleteQuit"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:drawableRight="@drawable/icon_right_arrow"
-                android:gravity="center_vertical"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
-                android:text="@string/chat_delete_and_quit"
-                android:textColor="@color/color_00_00_00"
-                android:textSize="15dp" />
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="14dp"
-                android:background="@color/color_f3_f7_fa" />
+                android:layout_height="wrap_content"
+                android:alpha="0.6"
+                android:paddingTop="5dp"
+                android:textColor="@color/text_color_3"
+                android:textSize="14dp" />
 
 
         </LinearLayout>
 
 
-    </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/llGroupMsgSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@color/color_ff_ff_ff"
+        android:orientation="horizontal"
+        android:paddingLeft="25dp"
+        android:paddingRight="24dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/chat_notifications"
+            android:textColor="@color/text_color_1"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:id="@+id/ivGroupMsgSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/chat_switch_off" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tvGroupManager"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/color_ff_ff_ff"
+        android:drawableRight="@drawable/chat_right_arrow"
+        android:gravity="center_vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="28dp"
+        android:text="@string/chat_group_manager"
+        android:textColor="@color/text_color_1"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/tvFindChatHistory"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/color_ff_ff_ff"
+        android:drawableRight="@drawable/chat_right_arrow"
+        android:gravity="center_vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="28dp"
+        android:text="@string/chat_find_chat_history"
+        android:textColor="@color/text_color_1"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/tvClearChatHistory"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/color_ff_ff_ff"
+        android:drawableRight="@drawable/chat_right_arrow"
+        android:gravity="center_vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="28dp"
+        android:text="@string/chat_clear_chat_history"
+        android:textColor="@color/text_color_1"
+        android:textSize="15dp" />
 
     <TextView
         android:id="@+id/tvAddMember"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:drawableLeft="@drawable/icon_add_friend"
-        android:drawablePadding="17dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="11dp"
+        android:background="@color/color_ff_ff_ff"
+        android:drawableLeft="@drawable/chat_add_member"
+        android:drawablePadding="21dp"
         android:gravity="center_vertical"
-        android:paddingLeft="14dp"
-        android:paddingRight="14dp"
-        android:text="@string/chat_add_group_member"
-        android:textColor="@color/color_00_00_00"
+        android:paddingLeft="25dp"
+        android:paddingRight="28dp"
+        android:text="@string/chat_add_members"
+        android:textColor="@color/text_color_6"
         android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/tvRemoveMember"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/color_ff_ff_ff"
+        android:drawableLeft="@drawable/chat_remove_member"
+        android:drawablePadding="21dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="28dp"
+        android:text="@string/chat_remove_member"
+        android:textColor="@color/text_color_8"
+        android:textSize="15dp" />
+
+    <LinearLayout
+        android:id="@+id/llDisband"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_ff_ff_ff"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/chat_disband" />
+
+        <TextView
+            android:id="@+id/tvDisband"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dp"
+            android:text="@string/chat_end_group"
+            android:textColor="@color/text_color_8"
+            android:textSize="15dp" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

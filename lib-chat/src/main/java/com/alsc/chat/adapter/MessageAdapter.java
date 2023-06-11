@@ -699,12 +699,12 @@ public class MessageAdapter extends BaseQuickAdapter<BasicMessage, BaseViewHolde
                     getOnItemChildClickListener().onItemChildClick(null, v, (int) v.getTag(R.id.chat_id));
                 }
             });
-            view.setOnLongClickListener(new View.OnLongClickListener() {
-                public boolean onLongClick(View v) {
-                    getOnItemChildLongClickListener().onItemChildLongClick(null, v, (int) v.getTag(R.id.chat_id));
-                    return false;
-                }
-            });
+//            view.setOnLongClickListener(new View.OnLongClickListener() {
+//                public boolean onLongClick(View v) {
+//                    getOnItemChildLongClickListener().onItemChildLongClick(null, v, (int) v.getTag(R.id.chat_id));
+//                    return false;
+//                }
+//            });
         } else {
             view.setOnClickListener(null);
             view.setOnLongClickListener(null);
@@ -832,15 +832,21 @@ public class MessageAdapter extends BaseQuickAdapter<BasicMessage, BaseViewHolde
                 }
             });
         } else {
-            int resId = mContext.getResources().getIdentifier("chat_default_avatar_" + mChatUser.getUserId() % 6,
-                    "drawable", mContext.getPackageName());
-            Utils.loadImage(mContext, resId, mChatUser.getAvatarUrl(), helper.getView(R.id.ivLeft));
+            if (mChatUser.getUserId() == -1) {
+                helper.setImageResource(R.id.ivLeft, R.drawable.chat_chat_gpt);
+            } else {
+                int resId = mContext.getResources().getIdentifier("chat_default_avatar_" + mChatUser.getUserId() % 6,
+                        "drawable", mContext.getPackageName());
+                Utils.loadImage(mContext, resId, mChatUser.getAvatarUrl(), helper.getView(R.id.ivLeft));
+            }
             helper.getView(R.id.ivLeft).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(Constants.BUNDLE_EXTRA, mChatUser);
-                    ((ChatBaseActivity) mContext).gotoPager(UserInfoFragment.class, bundle);
+                    if (mChatUser.getUserId() != -1) {
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable(Constants.BUNDLE_EXTRA, mChatUser);
+                        ((ChatBaseActivity) mContext).gotoPager(UserInfoFragment.class, bundle);
+                    }
                 }
             });
         }

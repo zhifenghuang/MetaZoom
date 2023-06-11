@@ -37,7 +37,7 @@ public class BlacklistFragment extends ChatBaseFragment {
 
     @Override
     protected void onViewCreated(View view) {
-        setTopStatusBarStyle(view);
+        setTopStatusBarStyle(R.id.topView);
         setText(R.id.tvTitle, R.string.chat_blacklist);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());

@@ -128,7 +128,7 @@ public class GroupInfoFragment extends ChatBaseFragment {
         int id = v.getId();
         if (id == R.id.tvAddMember) {
             Bundle bundle = new Bundle();
-            bundle.putSerializable(Constants.BUNDLE_EXTRA, SelectFriendFragment.FROM_GROUP_DETAIL);
+            bundle.putSerializable(Constants.BUNDLE_EXTRA, SelectFriendFragment.FROM_GROUP_DETAIL_ADD_MEMBER);
             //   bundle.putSerializable(Constants.BUNDLE_EXTRA_2, mGroupUsers);
             bundle.putSerializable(Constants.BUNDLE_EXTRA_3, mGroup);
             DataManager.getInstance().setObject(mGroupUsers.clone());

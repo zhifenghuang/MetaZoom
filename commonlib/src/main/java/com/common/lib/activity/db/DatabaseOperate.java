@@ -76,7 +76,7 @@ public class DatabaseOperate extends DBOperate {
     }
 
     public ArrayList<ChainBean> getChainList() {
-        String sql = "select * from chain";
+        String sql = "select * from chain order by fix desc";
         ArrayList<ChainBean> list = mDBManager.getList(sql, ChainBean.class);
         if (list == null) {
             list = new ArrayList<>();
@@ -111,12 +111,6 @@ public class DatabaseOperate extends DBOperate {
         return null;
     }
 
-    public boolean isHadWallet(String address, int chainId) {
-        String sql = "select * from wallet where address='" + address + "' and chainId=" + chainId;
-        ArrayList<WalletBean> list = mDBManager.getList(sql, WalletBean.class);
-        return list != null && !list.isEmpty();
-    }
-
     public boolean isHadToken(int chainId, String address, String walletAddress) {
         String sql = "select * from token where chainId=" + chainId + " and contractAddress='" + address +
                 "' and walletAddress='" + walletAddress + "'";
@@ -124,14 +118,13 @@ public class DatabaseOperate extends DBOperate {
         return list != null && !list.isEmpty();
     }
 
-    public boolean isHadChain(int chainId) {
+    public ChainBean getChain(int chainId) {
         String sql = "select * from chain where chainId=" + chainId;
         ArrayList<ChainBean> list = mDBManager.getList(sql, ChainBean.class);
-        LogUtil.LogE(sql + ", " + list);
-        if (list != null) {
-            LogUtil.LogE(list + "    " + list.size());
+        if (list != null && !list.isEmpty()) {
+            return list.get(0);
         }
-        return list != null && !list.isEmpty();
+        return null;
     }
 
     public boolean walletNameChecking(String walletName) {
@@ -281,7 +274,7 @@ public class DatabaseOperate extends DBOperate {
 
     public ArrayList<BasicMessage> getAllUnSendMsg(long myId) {
         ArrayList<BasicMessage> list = new ArrayList<>();
-        String sql = String.format("select * from message where owerId=%d and fromId=%d and sendStatus<1",
+        String sql = String.format("select * from message where owerId=%d and fromId=%d and sendStatus<1 and toId!=-1",
                 myId, myId);
         ArrayList<MessageBean> list1 = mDBManager.getList(sql, MessageBean.class);
         if (list1 != null) {
@@ -342,7 +335,7 @@ public class DatabaseOperate extends DBOperate {
     }
 
     public ArrayList<MessageBean> getUserChatList(long myId) {
-        String sql = String.format("select tag,messageId,fromId,toId ,msgType,content,createTime,extra,sendStatus,sum(case when isRead<1 and owerId=%d and fromId!=%d then 1 else 0 end) as unReadNum from message as a where a.owerId=%d and a.createTime=(select max(b.createTime) from message as b where a.tag=b.tag) group by a.tag", myId, myId, myId, myId);
+        String sql = String.format("select tag,messageId,fromId,toId ,msgType,content,createTime,extra,sendStatus from message as a where a.owerId=%d and a.createTime=(select max(b.createTime) from message as b where a.tag=b.tag) group by a.tag", myId, myId, myId, myId);
         ArrayList<MessageBean> list = mDBManager.getList(sql, MessageBean.class);
         if (list == null) {
             list = new ArrayList<>();
@@ -387,7 +380,7 @@ public class DatabaseOperate extends DBOperate {
     }
 
     public ArrayList<GroupMessageBean> getChatGroupList(long myId) {
-        String sql = String.format("select groupId,messageId,msgType,fromId,content,createTime,extra,sendStatus,sum(case when isRead<1 and owerId=%d and fromId!=%d then 1 else 0 end) as unReadNum from group_message as a where a.owerId=%d and a.createTime=(select max(b.createTime) from group_message as b where a.groupId=b.groupId) group by a.groupId", myId, myId, myId);
+        String sql = String.format("select groupId,messageId,msgType,fromId,content,createTime,extra,sendStatus from group_message as a where a.owerId=%d and a.createTime=(select max(b.createTime) from group_message as b where a.groupId=b.groupId) group by a.groupId", myId, myId, myId);
         ArrayList<GroupMessageBean> list = mDBManager.getList(sql, GroupMessageBean.class);
         if (list == null) {
             list = new ArrayList<>();

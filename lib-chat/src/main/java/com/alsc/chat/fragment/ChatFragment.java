@@ -136,12 +136,18 @@ public class ChatFragment extends ChatBaseFragment {
 
     @Override
     protected void onViewCreated(View view) {
+        setTopStatusBarStyle(view);
         mMyInfo = DataManager.getInstance().getUser();
         mChatUser = (UserBean) getArguments().getSerializable(Constants.BUNDLE_EXTRA);
         setText(R.id.tvName, mChatUser.getNickName());
-        int resId = getResources().getIdentifier("chat_default_avatar_" + mChatUser.getUserId() % 6,
-                "drawable", getActivity().getPackageName());
-        Utils.loadImage(getActivity(), resId, mChatUser.getAvatarUrl(), fv(R.id.ivAvatar));
+        if (mChatUser.getUserId() == -1) {
+            setImage(R.id.ivAvatar, R.drawable.chat_chat_gpt);
+            setViewGone(R.id.ivVoice, R.id.ivAdd, R.id.ivMore);
+        } else {
+            int resId = getResources().getIdentifier("chat_default_avatar_" + mChatUser.getUserId() % 6,
+                    "drawable", getActivity().getPackageName());
+            Utils.loadImage(getActivity(), resId, mChatUser.getAvatarUrl(), fv(R.id.ivAvatar));
+        }
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
@@ -154,28 +160,19 @@ public class ChatFragment extends ChatBaseFragment {
 
     void init(View view) {
         initListeners();
-        getAdapter().setOnItemChildLongClickListener(new OnItemChildLongClickListener() {
-            @Override
-            public boolean onItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
-                if (!getAdapter().isEditMode()) {
-                    showMsgMoreDialog(getAdapter().getItem(position), view);
-                }
-                return false;
-            }
-        });
+//        getAdapter().setOnItemChildLongClickListener(new OnItemChildLongClickListener() {
+//            @Override
+//            public boolean onItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
+//                if (!getAdapter().isEditMode()) {
+//                    showMsgMoreDialog(getAdapter().getItem(position), view);
+//                }
+//                return false;
+//            }
+//        });
         mSelectedMsg = (BasicMessage) getArguments().getSerializable(Constants.BUNDLE_EXTRA_2);
-        setTopStatusBarStyle(view);
-        //     setViewVisible(R.id.tvLeft, R.id.ivRight);
-        //     setImage(R.id.ivRight, R.drawable.icon_more_black);
         setViewsOnClickListener(R.id.ivSend, R.id.ivVoice, R.id.ivAdd,
-                R.id.llAlbum, R.id.llCamera,
-                R.id.llVideo, R.id.llLocation, R.id.llRedPackage,
-                R.id.llTransfer, R.id.llFile, R.id.llDeleteAfterRead, R.id.ivMsgDeleteType);
-
-//        final TextView btnRight = view.findViewById(R.id.btnRight);
-//        btnRight.setVisibility(View.GONE);
-//        setText(btnRight, getString(R.string.chat_delete));
-//        btnRight.setBackgroundResource(R.drawable.bg_chat_add_label);
+                R.id.llAlbum, R.id.llCamera, R.id.ivMore,
+                R.id.llVideo, R.id.llFile, R.id.llDeleteAfterRead, R.id.ivMsgDeleteType);
 
         initMsgs();
         initEvent();
@@ -277,7 +274,11 @@ public class ChatFragment extends ChatBaseFragment {
                             fileBean.setFile(file);
                             UPYFileUploadManger.getInstance().formUpload(msg, fileBean);
                         } else {
-                            WebSocketHandler.getDefault().send(msg.toJson());
+                            if (mChatUser != null && mChatUser.getUserId() == -1) {
+                                WebSocketHandler.getDefault().sendChatGPT(msg);
+                            } else {
+                                WebSocketHandler.getDefault().send(msg.toJson());
+                            }
                         }
                         DatabaseOperate.getInstance().insert(msg);
                         EventBus.getDefault().post(msg);
@@ -321,6 +322,9 @@ public class ChatFragment extends ChatBaseFragment {
         mIsTapAddBtn = false;
         mIsKeyBordShow = false;
         EditText etChat = getView().findViewById(R.id.etChat);
+        View ivSend = fv(R.id.ivSend);
+        ivSend.setAlpha(0.5f);
+        ivSend.setEnabled(false);
         etChat.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -333,9 +337,14 @@ public class ChatFragment extends ChatBaseFragment {
                     return;
                 }
                 String text = s.toString();
-                fv(R.id.ivSend).setVisibility(text.trim().length() > 0 ? View.VISIBLE : View.GONE);
+                if (text.trim().length() > 0) {
+                    ivSend.setAlpha(1f);
+                    ivSend.setEnabled(true);
+                } else {
+                    ivSend.setAlpha(0.5f);
+                    ivSend.setEnabled(false);
+                }
                 atGroupMember(text);
-
             }
 
             @Override
@@ -631,58 +640,6 @@ public class ChatFragment extends ChatBaseFragment {
                     getAdapter().resetEditMode();
                     setViewGone(R.id.ivRight);
                     setViewVisible(R.id.btnRight);
-                } else if (viewId == R.id.tvTranslate) {
-                    ((BaseActivity) getActivity()).showProgressDialog();
-                    String to = "zh";
-                    int language = DataManager.getInstance().getLanguage();
-                    switch (language) {
-                        case 1:
-                            to = "en";
-                            break;
-                    }
-                    OkHttpClientManager.getInstance().baiduTranslate(msg.getContent(), to, new Callback() {
-                        @Override
-                        public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ((BaseActivity) getActivity()).dismissProgressDialog();
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                            String translate = null;
-                            try {
-                                String str = response.body().string();
-                                if (!TextUtils.isEmpty(str)) {
-                                    JSONObject object = new JSONObject(str);
-                                    JSONArray array = object.optJSONArray("trans_result");
-                                    if (array != null && array.length() > 0) {
-                                        translate = array.getJSONObject(0).optString("dst");
-                                    }
-                                }
-
-                            } catch (Exception e) {
-
-                            }
-                            if (!TextUtils.isEmpty(translate)) {
-                                msg.updateTranslate(translate);
-                            }
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ((BaseActivity) getActivity()).dismissProgressDialog();
-                                    if (TextUtils.isEmpty(msg.getTranslate())) {
-                                        showToast(R.string.chat_translate_failed);
-                                        return;
-                                    }
-                                    getAdapter().notifyDataSetChanged();
-                                }
-                            });
-                        }
-                    });
                 } else if (viewId == R.id.tvDelete) {
                     if (msg.isMySendMsg(DataManager.getInstance().getUserId())) {
                         showDeleteMsgDialog(msg);
@@ -813,29 +770,33 @@ public class ChatFragment extends ChatBaseFragment {
                 return;
             }
             BasicMessage msg = getMsg();
-            if (isFilterLetter(text)) {
+//            if (isFilterLetter(text)) {
+//                msg.setMsgType(MessageType.TYPE_TEXT.ordinal());
+//                msg.setContent(getString(R.string.chat_include_illeage_letter));
+//            } else if (isFilterUrl(text)) {
+//                msg.setMsgType(MessageType.TYPE_TEXT.ordinal());
+//                msg.setContent(getString(R.string.chat_include_illeage_url));
+//            } else {
+            if (mAtGroupMembers == null || mAtGroupMembers.isEmpty()) {
                 msg.setMsgType(MessageType.TYPE_TEXT.ordinal());
-                msg.setContent(getString(R.string.chat_include_illeage_letter));
-            } else if (isFilterUrl(text)) {
-                msg.setMsgType(MessageType.TYPE_TEXT.ordinal());
-                msg.setContent(getString(R.string.chat_include_illeage_url));
             } else {
-                if (mAtGroupMembers == null || mAtGroupMembers.isEmpty()) {
-                    msg.setMsgType(MessageType.TYPE_TEXT.ordinal());
-                } else {
-                    msg.setMsgType(MessageType.TYPE_GROUP_AT_MEMBER_MSG.ordinal());
-                    //               msg.setExtra(getGson().toJson(mAtGroupMembers));
-                }
-                msg.setContent(text);
+                msg.setMsgType(MessageType.TYPE_GROUP_AT_MEMBER_MSG.ordinal());
+                //               msg.setExtra(getGson().toJson(mAtGroupMembers));
             }
+            msg.setContent(text);
+            //          }
             msg.setExpire(mReadDeleteType == 0 ? 0l : msg.getCreateTime() + getExpreTimeByType());
             if (WebSocketHandler.getDefault() != null) {
-                WebSocketHandler.getDefault().send(msg.toJson());
+                if (mChatUser != null && mChatUser.getUserId() == -1) {
+                    WebSocketHandler.getDefault().sendChatGPT(msg);
+                } else {
+                    WebSocketHandler.getDefault().send(msg.toJson());
+                }
             }
             setText(R.id.etChat, "");
             DatabaseOperate.getInstance().insert(msg);
             EventBus.getDefault().post(msg);
-        } else if (id == R.id.ivRight) {
+        } else if (id == R.id.ivMore) {
             goDetailClass();
         } else if (id == R.id.btnRight) {
             getAdapter().resetEditMode();
@@ -924,19 +885,6 @@ public class ChatFragment extends ChatBaseFragment {
                 bundle.putSerializable(Constants.BUNDLE_EXTRA, CameraFragment.FOR_CHAT_VIDEO);
                 gotoPager(CameraFragment.class, bundle);
             }
-        } else if (id == R.id.llLocation) {
-            if (!Utils.isGrantPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                    || !Utils.isGrantPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                ((BaseActivity) getActivity()).requestPermission(null, Manifest.permission.ACCESS_FINE_LOCATION);
-            } else {
-                gotoPager(LocationFragment.class, null);
-            }
-        } else if (id == R.id.llRedPackage) {
-            goSendRedPackage();
-        } else if (id == R.id.llTransfer) {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(Constants.BUNDLE_EXTRA, mChatUser);
-            gotoPager(TransferFragment.class, bundle);
         } else if (id == R.id.llFile) {
             showFileChooser();
         } else if (id == R.id.llDeleteAfterRead) {

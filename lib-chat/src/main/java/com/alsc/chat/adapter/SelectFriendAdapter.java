@@ -36,21 +36,16 @@ public class SelectFriendAdapter extends BaseQuickAdapter<UserBean, BaseViewHold
 
     @Override
     protected void convert(BaseViewHolder helper, UserBean item) {
-
-        int pos = getItemPosition(item);
-        if (pos == 0 || getItem(pos - 1).getPinyinName().charAt(0) != item.getPinyinName().charAt(0)) {
-            helper.setGone(R.id.tvLetter, false);
-            helper.setText(R.id.tvLetter, String.valueOf(item.getPinyinName().charAt(0)).toUpperCase());
-        } else {
-            helper.setGone(R.id.tvLetter, true);
-        }
         ImageView checkFriend = helper.getView(R.id.ivCheckFriend);
         if (mFromType == SelectFriendFragment.FROM_TRANSFER_GROUP
                 || mFromType == SelectFriendFragment.FROM_GROUP_CHAT_AT) {
             checkFriend.setVisibility(View.GONE);
         } else {
             checkFriend.setVisibility(View.VISIBLE);
-            checkFriend.setImageResource(item.isCheck() ? R.drawable.icon_box_selected : R.drawable.icon_box_unselected);
+            checkFriend.setImageResource(item.isCheck() ?
+                    (mFromType == SelectFriendFragment.DELETE_GROUP_USER ?
+                            R.drawable.icon_box_selected_red :
+                            R.drawable.icon_box_selected) : R.drawable.icon_box_unselected);
             View ll = helper.getView(R.id.ll);
             if (item.isFix()) {
                 checkFriend.setAlpha(0.5f);
@@ -65,7 +60,9 @@ public class SelectFriendAdapter extends BaseQuickAdapter<UserBean, BaseViewHold
                         item.setCheck(!item.isCheck());
                         if (item.isCheck()) {
                             ++mChectNum;
-                            ((ImageView) v.findViewById(R.id.ivCheckFriend)).setImageResource(R.drawable.icon_box_selected);
+                            ((ImageView) v.findViewById(R.id.ivCheckFriend)).setImageResource(mFromType == SelectFriendFragment.DELETE_GROUP_USER ?
+                                    R.drawable.icon_box_selected_red :
+                                    R.drawable.icon_box_selected);
                         } else {
                             --mChectNum;
                             ((ImageView) v.findViewById(R.id.ivCheckFriend)).setImageResource(R.drawable.icon_box_unselected);
@@ -78,7 +75,9 @@ public class SelectFriendAdapter extends BaseQuickAdapter<UserBean, BaseViewHold
             }
         }
         helper.setText(R.id.tvName, item.getNickName());
-        Utils.displayAvatar(mContext, R.drawable.chat_default_avatar, item.getAvatarUrl(), helper.getView(R.id.ivAvatar));
+        int resId = mContext.getResources().getIdentifier("chat_default_avatar_" + item.getUserId() % 6,
+                "drawable", mContext.getPackageName());
+        Utils.loadImage(mContext, resId, item.getAvatarUrl(), helper.getView(R.id.ivAvatar));
     }
 
     @Override

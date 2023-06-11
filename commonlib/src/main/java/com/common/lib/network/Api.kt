@@ -1,6 +1,7 @@
 package com.common.lib.network
 
 import com.common.lib.bean.BasicResponse
+import com.common.lib.bean.ChatGPTMessageBean
 import com.common.lib.bean.UserBean
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.Body
@@ -24,5 +25,10 @@ interface Api {
     fun login(
         @Body map: HashMap<String, Any>
     ): Observable<BasicResponse<UserBean>>
+
+    @POST("api/v1/chat/send")
+    fun chatGPT(
+        @Body map: HashMap<String, Any>
+    ): Observable<String>
 
 }

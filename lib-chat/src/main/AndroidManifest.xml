@@ -41,12 +41,7 @@
     <application>
 
         <activity android:name="com.alsc.chat.activity.ChatBaseActivity" />
-
-        <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="2ec1f617fa28b510ed4d6daba2a783c1" />
-
-        <service android:name="com.amap.api.location.APSService" />
+        
 
 
     </application>

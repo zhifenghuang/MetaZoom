@@ -1,7 +1,21 @@
 package com.zhangke.websocket;
 
+import android.content.ContentValues;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+
+import com.alsc.chat.http.OkHttpClientManager;
+import com.alsc.chat.manager.ChatManager;
+import com.alsc.chat.utils.Constants;
+import com.common.lib.activity.db.DatabaseOperate;
+import com.common.lib.bean.BasicMessage;
+import com.common.lib.bean.BasicResponse;
+import com.common.lib.bean.ChatGPTMessageBean;
+import com.common.lib.bean.MessageBean;
+import com.common.lib.bean.MessageType;
+import com.common.lib.manager.DataManager;
+import com.common.lib.network.HttpMethods;
 import com.zhangke.websocket.dispatcher.MainThreadResponseDelivery;
 import com.zhangke.websocket.dispatcher.ResponseDelivery;
 import com.zhangke.websocket.dispatcher.ResponseProcessEngine;
@@ -12,11 +26,21 @@ import com.zhangke.websocket.response.Response;
 import com.zhangke.websocket.response.ResponseFactory;
 import com.zhangke.websocket.util.LogUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.java_websocket.framing.Framedata;
 import org.java_websocket.framing.PingFrame;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Collection;
+import java.util.HashMap;
+
+import io.reactivex.rxjava3.core.Observer;
+import okhttp3.Call;
+import okhttp3.Callback;
 
 /**
  * WebSocket 管理类
@@ -160,6 +184,124 @@ public class WebSocketManager {
         Request<String> request = RequestFactory.createStringRequest();
         request.setRequestData(text);
         sendRequest(request);
+    }
+
+    HashMap<String, Object> mMap = new HashMap<>();
+
+    public void sendChatGPT(BasicMessage msg) {
+        if (msg == null || TextUtils.isEmpty(msg.getContent())) {
+            return;
+        }
+//        Observer observer = new Observer<String>() {
+//
+//            @Override
+//            public void onSubscribe(io.reactivex.rxjava3.disposables.@NonNull Disposable d) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(String response) {
+//                com.common.lib.utils.LogUtil.LogE("response: "+response);
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//
+//            }
+//        };
+//        HttpMethods.Companion.getInstance().chatGPT(
+//                "user", msg.getContent(),
+//                observer);
+
+        try {
+            JSONObject object = new JSONObject();
+            object.put("role", "user");
+            object.put("content", msg.getContent());
+            OkHttpClientManager.getInstance().post("http://im.metazoom.pro/api/v1/chat/send", object.toString(), new Callback() {
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                    com.common.lib.utils.LogUtil.LogE(e);
+                    msg.sendMsgFailed();
+                    mMap.clear();
+                    mMap.put(Constants.SEND_MSG_FAILED, msg.getMessageId());
+                    EventBus.getDefault().post(mMap);
+                }
+
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
+                    if (response.body() == null) {
+                        return;
+                    }
+                    String text = response.body().string();
+                    com.common.lib.utils.LogUtil.LogE(text);
+                    if (TextUtils.isEmpty(text)) {
+                        return;
+                    }
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put("messageId", msg.getMessageId());
+                    contentValues.put("sendStatus", 1);
+                    DatabaseOperate.getInstance().update(msg, contentValues);
+                    mMap.clear();
+                    mMap.put(Constants.SEND_MSG_SUCCESS, msg.getMessageId());
+                    EventBus.getDefault().post(mMap);
+                    text = text
+                            .replaceAll("data: \\[DONE\\]", "")
+                            .replaceAll("data: ", ",")
+                            .replaceAll("\n", "")
+                            .substring(1);
+                    com.common.lib.utils.LogUtil.LogE("response: " + text);
+                    try {
+                        String content = "";
+                        JSONArray array = new JSONArray("[" + text + "]");
+                        int length = array.length();
+                        for (int i = 0; i < length; ++i) {
+                            JSONObject ob = array.optJSONObject(i);
+                            if (ob == null) {
+                                continue;
+                            }
+                            JSONArray choices = ob.optJSONArray("choices");
+                            if (choices == null || choices.length() == 0) {
+                                continue;
+                            }
+                            int size = choices.length();
+                            for (int j = 0; j < size; ++j) {
+                                ob = choices.optJSONObject(j);
+                                if (ob == null) {
+                                    continue;
+                                }
+                                ob = ob.optJSONObject("delta");
+                                if (ob == null) {
+                                    continue;
+                                }
+                                String str = ob.optString("content");
+                                if (!TextUtils.isEmpty(str)) {
+                                    content += str;
+                                }
+                            }
+                        }
+                        MessageBean bean = new MessageBean();
+                        bean.setCmd(2000);
+                        bean.setFromId(-1);
+                        bean.setToId(msg.getFromId());
+                        bean.setExtra(msg.getExtra());
+                        bean.setMsgType(MessageType.TYPE_TEXT.ordinal());
+                        bean.setContent(content);
+                        bean.setReceiveStatus(2);
+                        DatabaseOperate.getInstance().insert(bean);
+                        EventBus.getDefault().post(bean);
+                    } catch (Exception e) {
+                    }
+                }
+            });
+        } catch (JSONException e) {
+        }
+
+
     }
 
     /**

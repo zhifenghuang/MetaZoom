@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 
 import com.common.lib.activity.BaseActivity;
 import com.common.lib.bean.WalletBean;
+import com.common.lib.constant.Constants;
 import com.common.lib.constant.EventBusEvent;
 import com.common.lib.manager.DataManager;
 import com.common.lib.mvp.contract.EmptyContract;
@@ -69,10 +70,14 @@ public class DappWebActivity extends BaseActivity<EmptyContract.Presenter> imple
 
     @Override
     protected void onCreated(@Nullable Bundle savedInstanceState) {
-        setText(R.id.tvTitle, "https://early.utgcrowd.fund");
+        String url = getIntent().getExtras().getString(Constants.BUNDLE_EXTRA);
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            url = "https://" + url;
+        }
+        setText(R.id.tvTitle, url);
         wallet = DataManager.getInstance().getCurrentWallet();
         mWeb3 = findViewById(R.id.web3view);
-        mDappWebViewAdapter = new DappWebViewAdapter(this, mWeb3, "https://early.utgcrowd.fund", this);
+        mDappWebViewAdapter = new DappWebViewAdapter(this, mWeb3, url, this);
         mDappWebViewAdapter.init();
         setupWeb3();
     }
@@ -220,7 +225,6 @@ public class DappWebActivity extends BaseActivity<EmptyContract.Presenter> imple
 
         }
     }
-
 
 
     public void onSignCancel(Web3Transaction transaction) {

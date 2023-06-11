@@ -17,6 +17,7 @@ import com.alsc.chat.http.SubscriberOnNextListener;
 import com.alsc.chat.utils.Constants;
 import com.common.lib.bean.*;
 import com.common.lib.manager.DataManager;
+import com.common.lib.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,15 +35,13 @@ public class AddGroupFragment extends ChatBaseFragment {
 
     @Override
     protected void onViewCreated(View view) {
-        setTopStatusBarStyle(view);
-        setText(R.id.tvTitle, R.string.chat_group_chat);
-        setViewVisible(R.id.tvLeft);
-        setText(R.id.tvLeft, R.string.chat_save);
-        setViewsOnClickListener(R.id.tvLeft);
+        setTopStatusBarStyle(R.id.topView);
+        setText(R.id.tvTitle, R.string.chat_new_group);
+        setViewsOnClickListener(R.id.ivNext);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 5);
-        gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
         getAdapter().onAttachedToRecyclerView(recyclerView);
         recyclerView.setAdapter(getAdapter());
         mGroupUsers = new ArrayList<>();
@@ -62,31 +61,31 @@ public class AddGroupFragment extends ChatBaseFragment {
         if (object instanceof ArrayList) {
             mGroupUsers.addAll((ArrayList<UserBean>) object);
         }
+        LogUtil.LogE("size: " + mGroupUsers.size());
         mShowGroupUsers.clear();
         mShowGroupUsers.addAll(mGroupUsers);
-        mShowGroupUsers.add(null);
-        mShowGroupUsers.add(null);
         getAdapter().setUsers(mGroupUsers);
-        getAdapter().setNewData(mShowGroupUsers);
+        getAdapter().setNewInstance(mShowGroupUsers);
         getAdapter().notifyDataSetChanged();
         DataManager.getInstance().setObject(null);
+        setText(R.id.tvNum, getString(R.string.chat_xxx_members, String.valueOf(getAdapter().getItemCount())));
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.tvLeft) {
+        if (id == R.id.ivNext) {
             String groupName = getTextById(R.id.etGroupName);
             if (TextUtils.isEmpty(groupName)) {
                 return;
             }
             final List<UserBean> list = getAdapter().getData();
-            if (list.size() == 2) {
+            if (list.isEmpty()) {
                 return;
             }
             ArrayList<Long> userIds = new ArrayList<>();
             for (UserBean bean : list) {
-                if (bean != null) {
+                if (bean != null && bean.getContactId() > 0L) {
                     userIds.add(bean.getContactId());
                 }
             }

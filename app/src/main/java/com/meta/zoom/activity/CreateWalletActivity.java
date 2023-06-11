@@ -1,6 +1,7 @@
 package com.meta.zoom.activity;
 
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -26,6 +27,8 @@ import io.reactivex.Observable;
 public class CreateWalletActivity extends BaseActivity<EmptyContract.Presenter> implements EmptyContract.View {
 
     private ChainBean mChain;
+    private boolean isShowPsw1;
+    private boolean isShowPsw2;
 
     @Override
     protected int getLayoutId() {
@@ -34,10 +37,12 @@ public class CreateWalletActivity extends BaseActivity<EmptyContract.Presenter> 
 
     @Override
     protected void onCreated(@Nullable Bundle savedInstanceState) {
-        setViewsOnClickListener(R.id.tvOk);
+        setViewsOnClickListener(R.id.tvOk, R.id.ivPasswordEye, R.id.ivSurePasswordEye);
         mChain = (ChainBean) getIntent().getExtras().getSerializable(Constants.BUNDLE_EXTRA);
-        setText(R.id.tvTitle, getString(R.string.app_create_xxx_wallet, mChain.getSymbol()));
+        setText(R.id.tvTitle, R.string.app_create_wallet);
         initInputListener();
+        isShowPsw1 = false;
+        isShowPsw2 = false;
     }
 
     @NonNull
@@ -49,6 +54,18 @@ public class CreateWalletActivity extends BaseActivity<EmptyContract.Presenter> 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.ivPasswordEye:
+                isShowPsw1 = !isShowPsw1;
+                setImage(R.id.ivPasswordEye, isShowPsw1 ? R.drawable.app_eye_open : R.drawable.app_eye_close);
+                ((EditText) findViewById(R.id.etPassword)).setInputType(
+                        isShowPsw1 ? InputType.TYPE_TEXT_VARIATION_PASSWORD : (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD));
+                break;
+            case R.id.ivSurePasswordEye:
+                isShowPsw2 = !isShowPsw2;
+                setImage(R.id.ivSurePasswordEye, isShowPsw2 ? R.drawable.app_eye_open : R.drawable.app_eye_close);
+                ((EditText) findViewById(R.id.etConfirmPassword)).setInputType(
+                        isShowPsw2 ? InputType.TYPE_TEXT_VARIATION_PASSWORD : (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD));
+                break;
             case R.id.tvOk:
                 String walletName = getTextById(R.id.etWalletName);
                 String psw = getTextById(R.id.etPassword);
@@ -65,26 +82,28 @@ public class CreateWalletActivity extends BaseActivity<EmptyContract.Presenter> 
 
     public void showError(Throwable errorInfo) {
         dismissProgressDialog();
-        LogUtil.LogE( errorInfo);
+        LogUtil.LogE(errorInfo);
         showToast(errorInfo.toString());
     }
 
-    private void jumpToWalletBackUp(WalletBean wallet){
+    private void jumpToWalletBackUp(WalletBean wallet) {
         dismissProgressDialog();
         wallet.setWalletType(mChain.getSymbol());
         wallet.setChainId(mChain.getChainId());
         wallet.setMoney("0");
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constants.BUNDLE_EXTRA, wallet);
+        bundle.putSerializable(Constants.BUNDLE_EXTRA_2, mChain);
         openActivity(BackUpMnemonicActivity.class, bundle);
     }
 
     private boolean verifyInfo(String walletName, String walletPwd, String confirmPwd) {
-        if (DatabaseOperate.getInstance().walletNameChecking(walletName)) {
-            showToast(R.string.create_wallet_name_repeat_tips);
-            // 同时不可重复
-            return false;
-        } else if (TextUtils.isEmpty(walletName)) {
+//        if (DatabaseOperate.getInstance().walletNameChecking(walletName)) {
+//            showToast(R.string.create_wallet_name_repeat_tips);
+//            // 同时不可重复
+//            return false;
+//        } else
+        if (TextUtils.isEmpty(walletName)) {
             showToast(R.string.create_wallet_name_input_tips);
             // 同时不可重复
             return false;

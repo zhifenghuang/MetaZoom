@@ -23,6 +23,7 @@ import com.common.lib.manager.DataManager;
 import com.alsc.chat.utils.Constants;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.common.lib.utils.LogUtil;
 import com.google.gson.Gson;
 import com.lzy.imagepicker.util.Utils;
 import com.zhangke.websocket.WebSocketHandler;
@@ -38,8 +39,7 @@ public class SelectFriendFragment extends ChatBaseFragment {
 
     public static final int FROM_GROUP = 0;
     public static final int FROM_LABEL = 1;
-    public static final int FROM_GROUP_DETAIL = 2;
-    public static final int FROM_ADD_LABEL_OR_GROUP_USER = 3;
+    public static final int FROM_GROUP_DETAIL_ADD_MEMBER = 2;
     public static final int FROM_TRANSFER_GROUP = 4;
 
     public static final int FROM_GROUP_ADD_BLOCK = 5;  //添加禁言
@@ -60,8 +60,9 @@ public class SelectFriendFragment extends ChatBaseFragment {
 
     @Override
     protected void onViewCreated(View view) {
+        setTopStatusBarStyle(R.id.topView);
         mFromType = getArguments().getInt(Constants.BUNDLE_EXTRA, FROM_GROUP);
-        if (mFromType == FROM_GROUP_DETAIL
+        if (mFromType == FROM_GROUP_DETAIL_ADD_MEMBER
                 || mFromType == FROM_TRANSFER_GROUP
                 || mFromType == FROM_GROUP_ADD_BLOCK
                 || mFromType == FROM_GROUP_REMOVE_BLOCK
@@ -75,17 +76,13 @@ public class SelectFriendFragment extends ChatBaseFragment {
             list = new ArrayList<>();
         }
         DataManager.getInstance().setObject(null);
-        setTopStatusBarStyle(view);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         getAdapter().onAttachedToRecyclerView(recyclerView);
         recyclerView.setAdapter(getAdapter());
-        if (mFromType == FROM_TRANSFER_GROUP || mFromType == FROM_GROUP_CHAT_AT
-                || mFromType == DELETE_GROUP_USER) {
-            setText(R.id.tvTitle, mFromType == FROM_TRANSFER_GROUP ? R.string.chat_select_transfer_group_user :
-                    (mFromType == FROM_GROUP_CHAT_AT ? R.string.chat_select_chat_at : R.string.chat_group_member));
+        if (mFromType == DELETE_GROUP_USER) {
             if (list != null && !list.isEmpty()) {
                 UserBean myInfo = DataManager.getInstance().getUser();
                 for (UserBean bean : list) {
@@ -95,61 +92,35 @@ public class SelectFriendFragment extends ChatBaseFragment {
                     }
                 }
             }
+            for (UserBean userBean : list) {
+                userBean.setCheck(false);
+                userBean.setFix(false);
+            }
             getAdapter().setNewData(list);
-            if (mFromType == FROM_TRANSFER_GROUP || mFromType == FROM_GROUP_CHAT_AT) {
-                setViewGone(R.id.llBottom);
-            } else {
-                int num = getAdapter().getCheckNum();
-                TextView btnOk = fv(R.id.btnOk);
-                btnOk.setAlpha(num == 0 ? 0.5f : 1.0f);
-                btnOk.setText(getString(R.string.chat_ok_1, String.valueOf(num)));
-                btnOk.setOnClickListener(this);
-            }
-        } else {
-            if (mFromType == FROM_GROUP_ADD_BLOCK) {
-                ArrayList<UserBean> forbidUsers=(ArrayList<UserBean>)getArguments().getSerializable(Constants.BUNDLE_EXTRA_2);
-                setText(R.id.tvTitle, R.string.chat_add_forbid_say);
-                if (list != null && !list.isEmpty()) {
-                    UserBean myInfo = DataManager.getInstance().getUser();
-                    for (UserBean bean : list) {
-                        if (bean.getUserId() == myInfo.getUserId()) {
-                            list.remove(bean);
-                            break;
-                        }
-                    }
-                }
-                getAdapter().setNewData(list);
-                getAdapter().resetSelectedUser(forbidUsers);
-            } else if (mFromType == FROM_GROUP_REMOVE_BLOCK) {
-                setText(R.id.tvTitle, R.string.chat_remove_forbid_say);
-                ArrayList<UserBean> forbidUsers=(ArrayList<UserBean>)getArguments().getSerializable(Constants.BUNDLE_EXTRA_2);
-                getAdapter().setNewData(forbidUsers);
-            } else {
-                if (mFromType == FROM_GROUP) {
-                    setText(R.id.tvTitle, R.string.chat_new_group);
-                } else {
-                    setText(R.id.tvTitle, R.string.chat_select_friend);
-                }
-                getAdapter().setNewData(DataManager.getInstance().getFriends());
-                getAdapter().resetSelectedUser(list);
-            }
+            setText(R.id.tvTitle, R.string.chat_remove_member);
+            setImage(R.id.ivNext, R.drawable.chat_complete_red);
+            view.findViewById(R.id.topView).setBackgroundColor(ContextCompat.getColor(getActivity(), com.common.lib.R.color.text_color_8));
             int num = getAdapter().getCheckNum();
-            TextView btnOk = fv(R.id.btnOk);
-            btnOk.setAlpha(num == 0 ? 0.5f : 1.0f);
-            btnOk.setText(getString(R.string.chat_ok_1, String.valueOf(num)));
-            btnOk.setOnClickListener(this);
+            View ivNext = fv(R.id.ivNext);
+            ivNext.setAlpha(num == 0 ? 0.25f : 1.0f);
+            setViewGone(R.id.tvDesc);
+            ivNext.setOnClickListener(this);
+        } else {
+            getAdapter().setNewData(DataManager.getInstance().getFriends());
+            getAdapter().resetSelectedUser(list);
+            int num = getAdapter().getCheckNum();
+            if (mFromType == FROM_GROUP) {
+                setText(R.id.tvTitle, R.string.chat_new_group);
+                setText(R.id.tvDesc, getDesc(num));
+            } else if (mFromType == FROM_GROUP_DETAIL_ADD_MEMBER) {
+                setText(R.id.tvTitle, R.string.chat_add_members);
+                setViewGone(R.id.tvDesc);
+                setImage(R.id.ivNext, R.drawable.chat_complete);
+            }
+            View ivNext = fv(R.id.ivNext);
+            ivNext.setAlpha(num == 0 ? 0.25f : 1.0f);
+            ivNext.setOnClickListener(this);
         }
-
-        int startLetter = 'A';
-        int count = 'Z' - 'A';
-        char ch;
-        ArrayList<String> letters = new ArrayList<>();
-        for (int i = 0; i <= count; ++i) {
-            ch = (char) (startLetter + i);
-            letters.add(String.valueOf(ch));
-        }
-        letters.add("#");
-        initLetters(letters);
     }
 
     private SelectFriendAdapter getAdapter() {
@@ -173,9 +144,9 @@ public class SelectFriendFragment extends ChatBaseFragment {
                 mAdapter.setOnItemCheckListener(new SelectFriendAdapter.OnItemCheckListener() {
                     @Override
                     public void checkNum(int num) {
-                        TextView btnOk = fv(R.id.btnOk);
-                        btnOk.setAlpha(num == 0 ? 0.5f : 1.0f);
-                        btnOk.setText(getString(R.string.chat_ok_1, String.valueOf(num)));
+                        View ivNext = fv(R.id.ivNext);
+                        ivNext.setAlpha(num == 0 ? 0.25f : 1.0f);
+                        setText(R.id.tvDesc, getDesc(num));
                     }
                 });
             }
@@ -183,15 +154,28 @@ public class SelectFriendFragment extends ChatBaseFragment {
         return mAdapter;
     }
 
+    private String getDesc(int num) {
+        if (num == 0) {
+            return getString(R.string.chat_up_to_200_members);
+        }
+        return getString(R.string.chat_xxx_200_selected, String.valueOf(num));
+    }
+
     @Override
     public void updateUIText() {
-
+        if (getAdapter().getItemCount() == 0) {
+            setViewGone(R.id.recyclerView);
+            setViewVisible(R.id.tvNoContacts, R.id.tvNoContactsDesc);
+        } else {
+            setViewVisible(R.id.recyclerView);
+            setViewGone(R.id.tvNoContacts, R.id.tvNoContactsDesc);
+        }
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.btnOk) {
+        if (id == R.id.ivNext) {
             ArrayList<UserBean> list = getAdapter().getSelectUsers();
             if (list.isEmpty()) {
                 return;
@@ -205,10 +189,7 @@ public class SelectFriendFragment extends ChatBaseFragment {
                 gotoPager(mFromType == FROM_GROUP ? AddGroupFragment.class :
                         EditLabelFragment.class, bundle);
                 finish();
-            } else if (mFromType == FROM_ADD_LABEL_OR_GROUP_USER) {
-                DataManager.getInstance().setObject(list);
-                finish();
-            } else if (mFromType == FROM_GROUP_DETAIL) {
+            } else if (mFromType == FROM_GROUP_DETAIL_ADD_MEMBER) {
                 inviteToGroup(list);
             } else if (mFromType == FROM_GROUP_REMOVE_BLOCK
                     || mFromType == FROM_GROUP_ADD_BLOCK) {
@@ -333,32 +314,5 @@ public class SelectFriendFragment extends ChatBaseFragment {
                         finish();
                     }
                 }, getActivity(), (ChatBaseActivity) getActivity()));
-    }
-
-    private void initLetters(ArrayList<String> letters) {
-        LinearLayout llLetters = fv(R.id.llLetters);
-        int count = letters.size();
-        TextView tvLetter;
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        int padding = (int) Utils.dp2px(getActivity(), 10);
-        for (int i = 0; i < count; ++i) {
-            tvLetter = new TextView(getActivity());
-            tvLetter.setTag(letters.get(i));
-            tvLetter.setText(letters.get(i));
-            tvLetter.setPadding(padding, 0, padding, 0);
-            tvLetter.setTextColor(ContextCompat.getColor(getActivity(), R.color.color_00_00_00));
-            tvLetter.setGravity(Gravity.CENTER_HORIZONTAL);
-            llLetters.addView(tvLetter, lp);
-            tvLetter.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String letter = (String) v.getTag();
-                    RecyclerView recyclerView = fv(R.id.recyclerView);
-                    int pos = mAdapter.getIndexByLetter(letter);
-                    LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                    linearLayoutManager.scrollToPositionWithOffset(pos, 0);
-                }
-            });
-        }
     }
 }

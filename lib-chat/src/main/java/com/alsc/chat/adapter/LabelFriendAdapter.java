@@ -24,9 +24,10 @@ public class LabelFriendAdapter extends BaseQuickAdapter<UserBean, BaseViewHolde
 
     @Override
     protected void convert(@NotNull BaseViewHolder helper, @Nullable UserBean item) {
-        helper.setText(R.id.tvName, item.getNickName())
-                .setGone(R.id.line, getItemPosition(item) == getItemCount() - 1);
-        Utils.displayAvatar(mContext, R.drawable.chat_default_avatar, item.getAvatarUrl(), helper.getView(R.id.ivAvatar));
+        helper.setText(R.id.tvName, item.getNickName());
+        int resId = mContext.getResources().getIdentifier("chat_default_avatar_" + item.getUserId() % 6,
+                "drawable", mContext.getPackageName());
+        Utils.displayAvatar(mContext, resId, item.getAvatarUrl(), helper.getView(R.id.ivAvatar));
 
     }
 }

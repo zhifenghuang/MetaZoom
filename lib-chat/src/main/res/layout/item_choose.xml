@@ -1,51 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="46dp"
+    android:layout_height="54dp"
+    android:layout_marginBottom="1dp"
     android:background="@color/color_ff_ff_ff"
-    android:orientation="vertical">
+    android:orientation="horizontal"
+    android:paddingLeft="25dp"
+    android:paddingRight="24dp">
 
-
-    <ImageView
-        android:id="@+id/ivIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:paddingLeft="14dp"
-        android:visibility="gone" />
-
-    <View
-        android:id="@+id/paddingView"
-        android:layout_width="10dp"
-        android:layout_height="1dp"
-        android:layout_toRightOf="@id/ivIcon" />
 
     <TextView
         android:id="@+id/tvType"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/paddingView"
-        android:paddingLeft="10dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
         android:text="@string/chat_delete_after_read_type_0"
-        android:textColor="@color/color_00_00_00"
+        android:textColor="@color/text_color_1"
         android:textSize="15dp" />
 
     <ImageView
         android:id="@+id/ivSwitch"
         android:layout_width="12dp"
         android:layout_height="12dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="14dp"
+        android:layout_gravity="center_vertical"
         android:scaleType="centerInside"
-        android:visibility="invisible"
-        android:src="@drawable/chat_item_selected" />
+        android:src="@drawable/icon_box_selected"
+        android:visibility="invisible" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/color_f8_f8_f8" />
 
-</RelativeLayout>
+</LinearLayout>

@@ -445,17 +445,19 @@ public class Utils {
      * @param iv
      */
     public static void loadImage(Context context, int defaultId, String path, ImageView iv) {
-        Glide.with(context.getApplicationContext())
-                .load(path)
-                .apply(new RequestOptions()
-                                .placeholder(defaultId)
-                                .error(defaultId)
-                                .centerCrop()//中心切圖, 會填滿
-                                .fitCenter()//中心fit, 以原本圖片的長寬為主
-                                .diskCacheStrategy(DiskCacheStrategy.DATA)
-                        //                      .dontAnimate()
-                )
-                .into(iv);
+        iv.setImageResource(defaultId);
+//        Glide.with(context.getApplicationContext())
+//                .load(path)
+//                .apply(new RequestOptions()
+//                                .placeholder(defaultId)
+//                                .error(defaultId)
+//                                .centerCrop()//中心切圖, 會填滿
+//                                .fitCenter()//中心fit, 以原本圖片的長寬為主
+//                                .diskCacheStrategy(DiskCacheStrategy.DATA)
+//                        //                      .dontAnimate()
+
+//                )
+//                .into(iv);
 
     }
 

@@ -28,7 +28,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "chainName text," +   //
                 "rpcUrl text," +
                 "symbol text," + //货币符号
-                "explore text" +  //区块浏览器 URL
+                "explore text," +  //区块浏览器 URL
+                "fix integer" +  //区块浏览器 URL
                 ")";
         db.execSQL(sql);
         sql = "create table wallet(" +   //钱包表
@@ -71,13 +72,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ")";
         db.execSQL(sql);
         initData(db);
-        LogUtil.LogE("databaseHelper: initData");
     }
 
     private void initData(SQLiteDatabase db) {
-        // insert(db, new ChainBean(188, "Glow Testnet", "https://rpc.glowtest.net", "UTG", ""));
-        //  insert(db, new ChainBean(188, "UltronGlow Mainnet", "https://rpc.ultronglow.io", "UTG", ""));
-        insert(db, new ChainBean(97, "Binance Smart Chain Testnet", "https://data-seed-prebsc-1-s1.binance.org:8545", "BNB", "https://api-testnet.bscscan.com"));
+        insert(db, new ChainBean(1, "Ethereum Mainnet", "https://mainnet.infura.io/v3", "ETH", "https://api.etherscan.io", 1));
+        insert(db, new ChainBean(56, "Binance Smart Chain", "https://bsc-dataseed1.binance.org", "BNB", "https://api.bscscan.com", 1));
+        insert(db, new ChainBean(188, "UltronGlow Mainnet", "https://rpc.ultronglow.io", "UTG", "", 1));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.meta.zoom.activity;
 
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -29,6 +30,8 @@ import io.reactivex.Observable;
 public class ImportPrivateKeyActivity extends BaseActivity<MainContract.Presenter> implements MainContract.View {
 
     private ChainBean mChain;
+    private boolean isShowPsw1;
+    private boolean isShowPsw2;
 
     @Override
     protected int getLayoutId() {
@@ -38,9 +41,11 @@ public class ImportPrivateKeyActivity extends BaseActivity<MainContract.Presente
     @Override
     protected void onCreated(@Nullable Bundle savedInstanceState) {
         setText(R.id.tvTitle, R.string.app_import_wallet);
-        setViewsOnClickListener(R.id.tvOk);
+        setViewsOnClickListener(R.id.tvOk, R.id.ivPasswordEye, R.id.ivSurePasswordEye);
         mChain = (ChainBean) getIntent().getExtras().getSerializable(Constants.BUNDLE_EXTRA);
         initInputListener();
+        isShowPsw1 = false;
+        isShowPsw2 = false;
     }
 
     @NonNull
@@ -52,6 +57,18 @@ public class ImportPrivateKeyActivity extends BaseActivity<MainContract.Presente
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.ivPasswordEye:
+                isShowPsw1 = !isShowPsw1;
+                setImage(R.id.ivPasswordEye, isShowPsw1 ? R.drawable.app_eye_open : R.drawable.app_eye_close);
+                ((EditText) findViewById(R.id.etPassword)).setInputType(
+                        isShowPsw1 ? InputType.TYPE_TEXT_VARIATION_PASSWORD : (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD));
+                break;
+            case R.id.ivSurePasswordEye:
+                isShowPsw2 = !isShowPsw2;
+                setImage(R.id.ivSurePasswordEye, isShowPsw2 ? R.drawable.app_eye_open : R.drawable.app_eye_close);
+                ((EditText) findViewById(R.id.etConfirmPassword)).setInputType(
+                        isShowPsw2 ? InputType.TYPE_TEXT_VARIATION_PASSWORD : (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD));
+                break;
             case R.id.tvOk:
                 String privateKey = getTextById(R.id.etPrivateKey);
                 if (privateKey.length() != 64) {
@@ -59,10 +76,10 @@ public class ImportPrivateKeyActivity extends BaseActivity<MainContract.Presente
                     return;
                 }
                 String walletName = getTextById(R.id.etWalletName);
-                if (DatabaseOperate.getInstance().walletNameChecking(walletName)) {
-                    showToast(R.string.create_wallet_name_repeat_tips);
-                    return;
-                }
+//                if (DatabaseOperate.getInstance().walletNameChecking(walletName)) {
+//                    showToast(R.string.create_wallet_name_repeat_tips);
+//                    return;
+//                }
                 if (walletName.length() > 12) {
                     showToast(R.string.app_1_12_characters);
                     return;
@@ -81,18 +98,19 @@ public class ImportPrivateKeyActivity extends BaseActivity<MainContract.Presente
 
     public void loadSuccess(WalletBean wallet) {
         dismissProgressDialog();
-        LogUtil.LogE(wallet.getAddress());
-        if (DatabaseOperate.getInstance().isHadWallet(wallet.getAddress(), mChain.getChainId())) {
-            showToast(R.string.app_wallet_is_exist);
+        WalletBean bean = DatabaseOperate.getInstance().getWallet(wallet.getAddress(), mChain.getChainId());
+        if (bean != null) {
+            DataManager.getInstance().saveCurrentWallet(bean);
         } else {
             wallet.setWalletType(mChain.getSymbol());
             wallet.setChainId(mChain.getChainId());
             wallet.setMoney("0");
             wallet.setId((int) DatabaseOperate.getInstance().insert(wallet));
             DataManager.getInstance().saveCurrentWallet(wallet);
-            getPresenter().login(wallet.getAddress());
         }
-
+        DataManager.getInstance().saveCurrentChain(mChain);
+        WalletManager.getInstance().resetNetwork(mChain);
+        getPresenter().login(wallet.getAddress());
     }
 
     private void onError(Throwable error) {

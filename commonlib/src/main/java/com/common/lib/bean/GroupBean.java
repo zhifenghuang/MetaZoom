@@ -2,6 +2,8 @@ package com.common.lib.bean;
 
 import android.text.TextUtils;
 
+import com.github.promeg.pinyinhelper.Pinyin;
+
 import java.io.Serializable;
 
 
@@ -190,13 +192,13 @@ public class GroupBean implements Serializable {
     }
 
     public String getPinyinName() {
-//        if (TextUtils.isEmpty(pinyinName)) {
-//            try {
-//                pinyinName = Pinyin.toPinyin(getName(), "").toLowerCase();
-//            } catch (Exception e) {
-//                pinyinName = name;
-//            }
-//        }
+        if (TextUtils.isEmpty(pinyinName)) {
+            try {
+                pinyinName = Pinyin.toPinyin(getName(), "").toLowerCase();
+            } catch (Exception e) {
+                pinyinName = name;
+            }
+        }
         return pinyinName;
     }
 

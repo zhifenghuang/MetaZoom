@@ -186,7 +186,7 @@ public class BitmapUtil {
         } finally {
             try {
                 mmr.release();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }

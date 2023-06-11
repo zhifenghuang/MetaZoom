@@ -40,32 +40,31 @@ public class ChatDetailFragment extends ChatBaseFragment {
     @Override
     protected void onViewCreated(View view) {
         mSettings = DataManager.getInstance().getChatSubSettings();
-        setTopStatusBarStyle(view);
+        setTopStatusBarStyle(R.id.topView);
         setText(R.id.tvTitle, R.string.chat_detail);
         mUserInfo = (UserBean) getArguments().getSerializable(Constants.BUNDLE_EXTRA);
         mChatSubBean = mSettings.get("user_" + mUserInfo.getContactId());
         if (mChatSubBean == null) {
             mChatSubBean = new ChatSubBean();
         }
-        setText(R.id.tvId, getString(R.string.chat_account_2, mUserInfo.getLoginAccount()));
-        setImage(R.id.ivMsgSwitch, mUserInfo.getIgnore() == 1 ? R.drawable.icon_switch_on : R.drawable.icon_switch_off);
-        setImage(R.id.ivTopChatSwitch, mUserInfo.getTop() == 1 ? R.drawable.icon_switch_on : R.drawable.icon_switch_off);
-        setViewsOnClickListener(R.id.llAddLabel, R.id.llAddMemo, R.id.llSetStarFriend,
-                R.id.llRecommendFriend, R.id.tvReadDelete, R.id.llAddToBlackList, R.id.tvDeleteFriend,
-                R.id.tvSearchMsg, R.id.llMsgSwitch, R.id.llTopChat, R.id.tvClearMsg);
+        setImage(R.id.ivMsgSwitch, mUserInfo.getIgnore() == 1 ? R.drawable.chat_switch_on : R.drawable.chat_switch_off);
+         setViewsOnClickListener(R.id.llAddMemo,
+                R.id.tvReadDelete, R.id.llAddToBlackList, R.id.tvDeleteFriend,
+                R.id.tvSearchMsg, R.id.llMsgSwitch,R.id.tvClearMsg);
         resetUI();
         refreshUserInfo();
     }
 
     private void resetUI() {
         setText(R.id.tvNick, mUserInfo.getNickName2());
-        setText(R.id.tvMemo, "(" + mUserInfo.getMemo() + ")");
         setText(R.id.tvMemo2, mUserInfo.getMemo());
-        setText(R.id.tvLocation, getString(mUserInfo.getGender() == 1 ? R.string.chat_male : R.string.chat_female) + "  " +
-                (TextUtils.isEmpty(mUserInfo.getDistrict()) ? getString(R.string.chat_default_area) : mUserInfo.getDistrict()));
-        Utils.displayAvatar(getActivity(), R.drawable.chat_default_avatar, mUserInfo.getAvatarUrl(), fv(R.id.ivAvatar));
-        setImage(R.id.ivSwitchStarFriend, mUserInfo.getStar() == 1 ? R.drawable.icon_switch_on : R.drawable.icon_switch_off);
-        setImage(R.id.ivBlackSwitch, mUserInfo.getBlock() == 1 ? R.drawable.icon_switch_on : R.drawable.icon_switch_off);
+        String account = mUserInfo.getLoginAccount();
+        setText(R.id.tvID, "ID: " + account.substring(0, 6) + "..." + account.substring(account.length() - 6));
+        int resId = getResources().getIdentifier("chat_default_avatar_" + mUserInfo.getUserId() % 6,
+                "drawable", getActivity().getPackageName());
+        Utils.loadImage(getActivity(), resId, mUserInfo.getAvatarUrl(), fv(R.id.ivAvatar));
+
+        setImage(R.id.ivBlackSwitch, mUserInfo.getBlock() == 1 ? R.drawable.chat_switch_on : R.drawable.chat_switch_off);
     }
 
     @Override
@@ -79,10 +78,7 @@ public class ChatDetailFragment extends ChatBaseFragment {
         if (id == R.id.llMsgSwitch) {
             int msgSwitch = mUserInfo.getIgnore() == 1 ? 0 : 1;
             operatorIgnore(msgSwitch);
-        } else if (id == R.id.llTopChat) {
-            int topSwitch = mUserInfo.getTop() == 1 ? 0 : 1;
-            operatorTop(topSwitch);
-        } else if (id == R.id.ivAvatar) {
+        }else if (id == R.id.ivAvatar) {
             Bundle bundle = new Bundle();
             bundle.putSerializable(Constants.BUNDLE_EXTRA, mUserInfo);
             gotoPager(UserInfoFragment.class, bundle);
@@ -91,15 +87,11 @@ public class ChatDetailFragment extends ChatBaseFragment {
             bundle.putInt(Constants.BUNDLE_EXTRA, SearchFragment.SEARCH_CHAT_RECORD);
             bundle.putSerializable(Constants.BUNDLE_EXTRA_2, mUserInfo);
             gotoPager(SearchFragment.class, bundle);
-        } else if (id == R.id.llAddLabel) {
-            gotoPager(LabelFragment.class);
-        } else if (id == R.id.llAddMemo) {
+        }else if (id == R.id.llAddMemo) {
             Bundle bundle = new Bundle();
             bundle.putSerializable(Constants.BUNDLE_EXTRA, mUserInfo);
             gotoPager(UpdateNickFragment.class, bundle);
-        } else if (id == R.id.llSetStarFriend) {
-            operatorStar(mUserInfo.getStar() == 0 ? 1 : 0);
-        } else if (id == R.id.tvDeleteFriend) {
+        }else if (id == R.id.tvDeleteFriend) {
             showDeleteContact(0);
         } else if (id == R.id.llAddToBlackList) {
             if (mUserInfo.getBlock() == 0) {
@@ -113,14 +105,7 @@ public class ChatDetailFragment extends ChatBaseFragment {
             bundle.putInt(Constants.BUNDLE_EXTRA, ChooseFragment.CHOOSE_DELETE_TYPE);
             bundle.putInt(Constants.BUNDLE_EXTRA_2, bean.getReadDeleteType());
             gotoPager(ChooseFragment.class, bundle);
-        } else if (id == R.id.llRecommendFriend) {
-            BasicMessage msg = new MessageBean();
-            msg.setMsgType(MessageType.TYPE_RECOMAND_USER.ordinal());
-            msg.setContent(new Gson().toJson(mUserInfo.toMap()));
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(Constants.BUNDLE_EXTRA, msg);
-            gotoPager(TransferMsgFragment.class, bundle);
-        } else if (id == R.id.tvClearMsg) {
+        }else if (id == R.id.tvClearMsg) {
             showDeleteChatRecord();
         }
     }
@@ -210,27 +195,12 @@ public class ChatDetailFragment extends ChatBaseFragment {
                 } else {
                     map.put(Constants.REMOVE_BLOCK, mUserInfo.getContactId());
                 }
-                setImage(R.id.ivBlackSwitch, mUserInfo.getBlock() == 1 ? R.drawable.icon_switch_on : R.drawable.icon_switch_off);
+                setImage(R.id.ivBlackSwitch, mUserInfo.getBlock() == 1 ? R.drawable.chat_switch_on : R.drawable.chat_switch_off);
                 EventBus.getDefault().post(map);
             }
         }, getActivity(), (ChatBaseActivity) getActivity()));
     }
 
-    private void operatorTop(final int top) {
-        ChatHttpMethods.getInstance().operateContact(mUserInfo.getContactId(), top, -1, new HttpObserver(new SubscriberOnNextListener() {
-            @Override
-            public void onNext(Object o, String msg) {
-                if (getView() == null) {
-                    return;
-                }
-                mUserInfo.setTop(top);
-                setImage(R.id.ivTopChatSwitch, mUserInfo.getTop() == 1 ? R.drawable.icon_switch_on : R.drawable.icon_switch_off);
-                HashMap<String, UserBean> map = new HashMap<>();
-                map.put(Constants.EDIT_FRIEND, mUserInfo);
-                EventBus.getDefault().post(map);
-            }
-        }, getActivity(), (ChatBaseActivity) getActivity()));
-    }
 
     private void operatorIgnore(final int ignore) {
         ChatHttpMethods.getInstance().operateContact(mUserInfo.getContactId(), -1, ignore, new HttpObserver(new SubscriberOnNextListener() {
@@ -240,7 +210,7 @@ public class ChatDetailFragment extends ChatBaseFragment {
                     return;
                 }
                 mUserInfo.setIgnore(ignore);
-                setImage(R.id.ivMsgSwitch, mUserInfo.getIgnore() == 1 ? R.drawable.icon_switch_on : R.drawable.icon_switch_off);
+                setImage(R.id.ivMsgSwitch, mUserInfo.getIgnore() == 1 ? R.drawable.chat_switch_on : R.drawable.chat_switch_off);
                 HashMap<String, UserBean> map = new HashMap<>();
                 map.put(Constants.EDIT_FRIEND, mUserInfo);
                 EventBus.getDefault().post(map);
@@ -248,21 +218,6 @@ public class ChatDetailFragment extends ChatBaseFragment {
         }, getActivity(), (ChatBaseActivity) getActivity()));
     }
 
-    private void operatorStar(final int star) {
-        ChatHttpMethods.getInstance().operateContact(mUserInfo.getContactId(), star, "", -1, new HttpObserver(new SubscriberOnNextListener() {
-            @Override
-            public void onNext(Object o, String msg) {
-                if (getView() == null) {
-                    return;
-                }
-                mUserInfo.setStar(star);
-                setImage(R.id.ivSwitchStarFriend, mUserInfo.getStar() == 1 ? R.drawable.icon_switch_on : R.drawable.icon_switch_off);
-                HashMap<String, UserBean> map = new HashMap<>();
-                map.put(Constants.EDIT_FRIEND, mUserInfo);
-                EventBus.getDefault().post(map);
-            }
-        }, getActivity(), (ChatBaseActivity) getActivity()));
-    }
 
     private void refreshUserInfo() {
         ChatHttpMethods.getInstance().getContactProfile(String.valueOf(mUserInfo.getContactId()), new HttpObserver(new SubscriberOnNextListener<UserBean>() {

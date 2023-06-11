@@ -13,8 +13,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.alsc.chat.manager.ChatManager;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -26,8 +24,8 @@ import com.common.lib.constant.Constants;
 import com.common.lib.constant.EventBusEvent;
 import com.common.lib.manager.DataManager;
 import com.common.lib.utils.BaseUtils;
-import com.common.lib.utils.LogUtil;
 import com.meta.zoom.R;
+import com.meta.zoom.activity.WalletListActivity;
 import com.meta.zoom.activity.StartWalletActivity;
 import com.meta.zoom.adapter.ChooseChainAdapter;
 import com.meta.zoom.adapter.WalletAdapter;
@@ -88,6 +86,7 @@ public class ChooseWalletDialog extends Dialog implements View.OnClickListener {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 mCurrentChain = adapter1.getItem(position);
+                ((TextView) findViewById(R.id.tvChainName)).setText(mCurrentChain.getChainName());
                 adapter1.setSelect(position);
                 adapter2.setNewInstance(DatabaseOperate.getInstance().getWalletList(mCurrentChain.getChainId()));
                 adapter2.notifyDataSetChanged();
@@ -133,9 +132,12 @@ public class ChooseWalletDialog extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvManageWallet:
+                ((BaseActivity) mContext).openActivity(WalletListActivity.class);
+                dismiss();
+                break;
             case R.id.tvAddWallet:
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(Constants.BUNDLE_EXTRA, DatabaseOperate.getInstance().getChainList().get(0));
+                bundle.putSerializable(Constants.BUNDLE_EXTRA, mCurrentChain);
                 ((BaseActivity) mContext).openActivity(StartWalletActivity.class, bundle);
                 dismiss();
                 break;

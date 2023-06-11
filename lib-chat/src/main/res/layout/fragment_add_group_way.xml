@@ -2,28 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_f3_f7_fa"
+    android:background="@color/color_f8_f8_f8"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_top_bar" />
+    <include layout="@layout/layout_top_bar_2" />
 
     <LinearLayout
         android:id="@+id/llOnlyOwer"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="15dp"
         android:background="@color/color_ff_ff_ff"
         android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:paddingLeft="25dp"
+        android:paddingRight="22dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="@string/chat_only_group_ower_can_invite_add_group"
-            android:textColor="@color/color_00_00_00"
+            android:text="@string/chat_owner"
+            android:textColor="@color/text_color_1"
             android:textSize="15dp" />
 
         <ImageView
@@ -31,15 +31,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/icon_switch_off" />
+            android:src="@drawable/chat_switch_off" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/llOnlyMember"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="0.5dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="1dp"
         android:background="@color/color_ff_ff_ff"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
@@ -50,8 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="@string/chat_only_group_member_can_invite_add_group"
-            android:textColor="@color/color_00_00_00"
+            android:text="@string/chat_anyone"
+            android:textColor="@color/text_color_1"
             android:textSize="15dp" />
 
         <ImageView
@@ -59,63 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/icon_switch_off" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/llAnyCan"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/color_ff_ff_ff"
-        android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="@string/chat_any_one_can_add_group"
-            android:textColor="@color/color_00_00_00"
-            android:textSize="15dp" />
-
-        <ImageView
-            android:id="@+id/ivAnyCan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/icon_switch_off" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/llNoCan"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="0.5dp"
-        android:background="@color/color_ff_ff_ff"
-        android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="@string/chat_no_one_can_add_group"
-            android:textColor="@color/color_00_00_00"
-            android:textSize="15dp" />
-
-        <ImageView
-            android:id="@+id/ivNoCan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/icon_switch_off" />
+            android:src="@drawable/chat_switch_off" />
 
     </LinearLayout>
 
@@ -123,16 +67,17 @@
     <TextView
         android:id="@+id/tvPayEnterGroup"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="11dp"
         android:background="@color/color_ff_ff_ff"
-        android:drawableRight="@drawable/icon_right_arrow"
+        android:drawableRight="@drawable/chat_right_arrow"
         android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="28dp"
         android:text="@string/chat_pay_enter_group"
-        android:textColor="@color/color_00_00_00"
-        android:textSize="15dp" />
+        android:textColor="@color/text_color_1"
+        android:textSize="15dp"
+        android:visibility="gone" />
 
 
 </LinearLayout>

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.text.TextUtils;
 
 import com.common.lib.activity.db.IDBItemOperation;
+import com.github.promeg.pinyinhelper.Pinyin;
 
 import java.util.HashMap;
 
@@ -235,23 +236,22 @@ public class UserBean extends IDBItemOperation {
     }
 
     public String getPinyinName() {
-//        if (TextUtils.isEmpty(pinyinName)) {
-//            String nick = getNickName();
-//            if (TextUtils.isEmpty(nick)) {
-//                return "#";
-//            }
-//            try {
-//                pinyinName = Pinyin.toPinyin(nick, "").toLowerCase();
-//                char c = pinyinName.charAt(0);
-//                if (c < 'a' || c > 'z') {
-//                    pinyinName = "#" + pinyinName;
-//                }
-//            } catch (Exception e) {
-//                pinyinName = "#" + nick.toLowerCase();
-//            }
-//        }
-//        return pinyinName;
-        return getNickName();
+        if (TextUtils.isEmpty(pinyinName)) {
+            String nick = getNickName();
+            if (TextUtils.isEmpty(nick)) {
+                return "#";
+            }
+            try {
+                pinyinName = Pinyin.toPinyin(nick, "").toLowerCase();
+                char c = pinyinName.charAt(0);
+                if (c < 'a' || c > 'z') {
+                    pinyinName = "#" + pinyinName;
+                }
+            } catch (Exception e) {
+                pinyinName = "#" + nick.toLowerCase();
+            }
+        }
+        return pinyinName;
     }
 
     public void setNickName(String nickName) {
@@ -452,5 +452,12 @@ public class UserBean extends IDBItemOperation {
             map.put("district", district);
         }
         return map;
+    }
+
+    public static UserBean createChatGPTUser() {
+        UserBean userBean = new UserBean();
+        userBean.setUserId(-1);
+        userBean.setNickName("ChatGPT");
+        return userBean;
     }
 }

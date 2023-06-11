@@ -42,21 +42,18 @@ public class ChooseImportMethodActivity extends BaseActivity<EmptyContract.Prese
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rlMnemonic:
-                ArrayList<ChainBean> chainList = DatabaseOperate.getInstance().getChainList();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(Constants.BUNDLE_EXTRA, chainList.get(0));
+                bundle.putSerializable(Constants.BUNDLE_EXTRA, mChain);
                 openActivity(ImportMnemonicActivity.class, bundle);
                 break;
             case R.id.rlPrivateKey:
-                chainList = DatabaseOperate.getInstance().getChainList();
                 bundle = new Bundle();
-                bundle.putSerializable(Constants.BUNDLE_EXTRA, chainList.get(0));
+                bundle.putSerializable(Constants.BUNDLE_EXTRA, mChain);
                 openActivity(ImportPrivateKeyActivity.class, bundle);
                 break;
             case R.id.rlKeystore:
-                chainList = DatabaseOperate.getInstance().getChainList();
                 bundle = new Bundle();
-                bundle.putSerializable(Constants.BUNDLE_EXTRA, chainList.get(0));
+                bundle.putSerializable(Constants.BUNDLE_EXTRA, mChain);
                 openActivity(ImportKeystoreActivity.class, bundle);
                 break;
         }

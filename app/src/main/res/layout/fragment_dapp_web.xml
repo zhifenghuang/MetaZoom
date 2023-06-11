@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_ff_ff_ff"
-    android:clipToPadding="true"
-    android:fitsSystemWindows="true">
+    android:background="@color/color_ff_ff_ff">
 
     <ImageView
         android:id="@+id/ivScan"
@@ -41,6 +39,7 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:hint="@string/app_search_dapp"
+            android:imeOptions="actionDone"
             android:paddingLeft="14dp"
             android:paddingRight="14dp"
             android:singleLine="true"
@@ -50,7 +49,6 @@
 
 
     </LinearLayout>
-
 
 
 </RelativeLayout>

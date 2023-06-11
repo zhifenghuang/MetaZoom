@@ -321,6 +321,9 @@ abstract class BaseActivity<P : IPresenter> : BaseDialogActivity(), View.OnClick
         return findViewById<TextView>(id).text.toString().trim()
     }
 
+    protected fun getTextBy(tv: TextView): String {
+        return tv.text.toString().trim()
+    }
 
     protected fun setViewVisible(vararg views: View) {
         for (view in views) {

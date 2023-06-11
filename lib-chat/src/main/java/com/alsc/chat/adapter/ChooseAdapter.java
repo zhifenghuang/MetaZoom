@@ -24,10 +24,5 @@ public class ChooseAdapter extends BaseQuickAdapter<ChooseFragment.ChooseType, B
     protected void convert(BaseViewHolder helper, ChooseFragment.ChooseType item) {
         helper.setText(R.id.tvType, item.typeName)
                 .setVisible(R.id.ivSwitch, item.isSelect);
-        if (item.drawableId != -1) {
-            helper.setGone(R.id.ivIcon, false)
-                    .setGone(R.id.paddingView, true)
-                    .setImageResource(R.id.ivIcon, item.drawableId);
-        }
     }
 }

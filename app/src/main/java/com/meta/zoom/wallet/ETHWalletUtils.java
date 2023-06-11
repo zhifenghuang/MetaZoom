@@ -59,8 +59,7 @@ public class ETHWalletUtils {
     public static WalletBean generateMnemonic(String walletName, String pwd) {
         String[] pathArray = ETH_JAXX_TYPE.split("/");
         String passphrase = "";
-        long creationTimeSeconds = System.currentTimeMillis() / 1000;
-
+        //  long creationTimeSeconds = System.currentTimeMillis() / 1000;
         DeterministicSeed ds = new DeterministicSeed(secureRandom, 128, passphrase);
         return generateWalletByMnemonic(walletName, ds, pathArray, pwd);
     }
@@ -73,7 +72,7 @@ public class ETHWalletUtils {
      * @param pwd  密码
      * @return
      */
-    public static WalletBean importMnemonic(String path, List<String> list, String pwd) {
+    public static WalletBean importMnemonic(String walletName, String path, List<String> list, String pwd) {
         if (!path.startsWith("m") && !path.startsWith("M")) {
             //参数非法
             return null;
@@ -86,7 +85,7 @@ public class ETHWalletUtils {
         String passphrase = "";
         long creationTimeSeconds = System.currentTimeMillis() / 1000;
         DeterministicSeed ds = new DeterministicSeed(list, null, passphrase, creationTimeSeconds);
-        return generateWalletByMnemonic(generateNewWalletName(), ds, pathArray, pwd);
+        return generateWalletByMnemonic(walletName, ds, pathArray, pwd);
     }
 
     @NonNull
@@ -116,14 +115,30 @@ public class ETHWalletUtils {
         //种子
         byte[] seedBytes = ds.getSeedBytes();
 //        System.out.println(Arrays.toString(seedBytes));
+        LogUtil.LogE("2");
         //助记词
         List<String> mnemonic = ds.getMnemonicCode();
-        LogUtil.LogE("mnemonic: " + mnemonic);
         if (seedBytes == null)
             return null;
+        LogUtil.LogE("3");
 
+
+//        SecureRandom secureRandom = new SecureRandom();
+//        byte[] entropy = new byte[DeterministicSeed.DEFAULT_SEED_ENTROPY_BITS / 8];
+//        secureRandom.nextBytes(entropy);
+//        //2. 通过安全随机数生成12位助记词
+//        List mnemonics = null;
+//        try {
+//            mnemonics = MnemonicCode.INSTANCE.toMnemonic(entropy);
+//        } catch (MnemonicException.MnemonicLengthException e) {
+//            LogUtil.LogE(e);
+//        }
+//        LogUtil.LogE("2");
+//        //3. 通过助记词生成钱包种子
+//        byte[] seed = MnemonicCode.toSeed(mnemonics, pwd);
+//        LogUtil.LogE("3");
         DeterministicKey dkKey = HDKeyDerivation.createMasterPrivateKey(seedBytes);
-
+        LogUtil.LogE("4");
         for (int i = 1; i < pathArray.length; i++) {
             ChildNumber childNumber;
             if (pathArray[i].endsWith("'")) {
