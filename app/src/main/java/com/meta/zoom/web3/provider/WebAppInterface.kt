@@ -159,7 +159,7 @@ class WebAppInterface(
                 val ch = DatabaseOperate.getInstance().getChain(chainId)
                 if (ch != null) {
                     (context as BaseActivity<*>).showTwoBtnDialog(
-                        context.getString(R.string.app_switch_network),
+                        context.getString(R.string.app_switch_network, ch.chainName),
                         context.getString(R.string.app_cancel),
                         context.getString(R.string.app_confirm),
                         object : OnClickCallback {

@@ -73,8 +73,9 @@ dependencies {
     implementation project(':commonlib')
     implementation project(':lib-chat')
 
-    api 'org.web3j:core:4.6.0-android'
+
     api 'org.bitcoinj:bitcoinj-core:0.15.2'
+    api 'org.web3j:core:4.6.0-android'
 
     api 'com.github.briandilley.jsonrpc4j:jsonrpc4j:1.5.3'
     api 'wf.bitcoin:JavaBitcoindRpcClient:1.0.0'

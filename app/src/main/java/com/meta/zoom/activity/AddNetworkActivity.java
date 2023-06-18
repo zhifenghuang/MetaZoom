@@ -19,6 +19,7 @@ import com.common.lib.constant.EventBusEvent;
 import com.common.lib.manager.DataManager;
 import com.common.lib.mvp.contract.EmptyContract;
 import com.common.lib.mvp.presenter.EmptyPresenter;
+import com.common.lib.utils.LogUtil;
 import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.meta.zoom.R;
 import com.meta.zoom.wallet.WalletManager;
@@ -26,9 +27,12 @@ import com.meta.zoom.wallet.bean.Address;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.BiConsumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class AddNetworkActivity extends BaseActivity<EmptyContract.Presenter> implements EmptyContract.View {
 
@@ -68,37 +72,58 @@ public class AddNetworkActivity extends BaseActivity<EmptyContract.Presenter> im
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvOk:
-                int chainID = 0;
-                try {
-                    chainID = Integer.valueOf(getTextById(R.id.etChainID));
-                } catch (NumberFormatException ex) {
-                    showToast(R.string.app_error_must_numeric);
-                    return;
-                }
-                ChainBean bean = DatabaseOperate.getInstance().getChain(chainID);
-                if (bean != null) {
-                    if (bean.getFix() == 1) {  //不可更改
-                        showToast(R.string.app_network_had_added);
-                        return;
-                    }
-                    bean.setChainName(getTextById(R.id.etNetworkName));
-                    bean.setRpcUrl(getTextById(R.id.etRPC));
-                    bean.setSymbol(getTextById(R.id.etDefaultToken));
-                    bean.setExplore(getTextById(R.id.etBrowser));
-                    DatabaseOperate.getInstance().update(bean);
-                    if (bean.getChainId() == DataManager.getInstance().getCurrentChain().getChainId()) {
-                        DataManager.getInstance().saveCurrentChain(bean);
-                        WalletManager.getInstance().resetNetwork(bean);
-                    }
-                } else {
-                    bean = new ChainBean(chainID, getTextById(R.id.etNetworkName), getTextById(R.id.etRPC)
-                            , getTextById(R.id.etDefaultToken), getTextById(R.id.etBrowser), 0);
-                    DatabaseOperate.getInstance().insert(bean);
-                }
-                HashMap<String, Object> map = new HashMap<>();
-                map.put(EventBusEvent.REFRESH_NETWORK, "");
-                EventBus.getDefault().post(map);
-                finish();
+//                int chainID = 0;
+//                try {
+//                    chainID = Integer.valueOf(getTextById(R.id.etChainID));
+//                } catch (NumberFormatException ex) {
+//                    showToast(R.string.app_error_must_numeric);
+//                    return;
+//                }
+                showProgressDialog();
+                WalletManager.getInstance().getChainId(getTextById(R.id.etRPC)).subscribeOn(Schedulers.io())
+                        .subscribe(new BiConsumer<BigInteger, Throwable>() {
+                                       @Override
+                                       public void accept(BigInteger bigInteger, Throwable throwable) throws Exception {
+                                           dismissProgressDialog();
+                                           if (throwable != null) {
+                                               showToast(R.string.app_input_error);
+                                               return;
+                                           }
+                                           if (!bigInteger.equals(new BigInteger(getTextById(R.id.etChainID)))) {
+                                               showToast(R.string.app_input_chainId_error);
+                                               return;
+                                           }
+                                           int chainID = bigInteger.intValue();
+                                           ChainBean bean = DatabaseOperate.getInstance().getChain(chainID);
+
+                                           if (bean != null) {
+                                               if (bean.getFix() == 1) {  //不可更改
+                                                   showToast(R.string.app_network_had_added);
+                                                   return;
+                                               }
+                                               bean.setChainName(getTextById(R.id.etNetworkName));
+                                               bean.setRpcUrl(getTextById(R.id.etRPC));
+                                               bean.setSymbol(getTextById(R.id.etDefaultToken));
+                                               bean.setExplore(getTextById(R.id.etBrowser));
+                                               DatabaseOperate.getInstance().update(bean);
+                                               if (bean.getChainId() == DataManager.getInstance().getCurrentChain().getChainId()) {
+                                                   DataManager.getInstance().saveCurrentChain(bean);
+                                                   WalletManager.getInstance().resetNetwork(bean);
+                                               }
+                                           } else {
+                                               bean = new ChainBean(chainID, getTextById(R.id.etNetworkName), getTextById(R.id.etRPC)
+                                                       , getTextById(R.id.etDefaultToken), getTextById(R.id.etBrowser), 0);
+                                               DatabaseOperate.getInstance().insert(bean);
+                                           }
+                                           HashMap<String, Object> map = new HashMap<>();
+                                           map.put(EventBusEvent.REFRESH_NETWORK, "");
+                                           EventBus.getDefault().post(map);
+                                           finish();
+                                       }
+                                   }
+                        );
+
+
                 break;
         }
     }

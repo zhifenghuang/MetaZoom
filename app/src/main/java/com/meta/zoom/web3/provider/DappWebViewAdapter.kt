@@ -9,11 +9,8 @@ import android.webkit.WebViewClient
 import com.common.lib.manager.DataManager
 import com.common.lib.utils.LogUtil
 import com.meta.zoom.R
-import com.meta.zoom.fragment.DappWebFragment
 import com.meta.zoom.web3.OnSignTransactionListener
 import org.jetbrains.annotations.NotNull
-import org.web3j.crypto.Credentials
-import org.web3j.crypto.WalletUtils
 import java.util.*
 
 
@@ -34,13 +31,12 @@ class DappWebViewAdapter(
 
         val provderJs = loadProviderJs()
         val initJs = loadInitJs(
+            DataManager.getInstance().currentWallet.address,
             DataManager.getInstance().currentChain.chainId,//56//
             DataManager.getInstance().currentChain.rpcUrl //"https://bsc-dataseed1.binance.org"//
         )
 
-        val address =
-            DataManager.getInstance().currentWallet.address.lowercase(Locale.ROOT)
-
+        LogUtil.LogE(initJs)
         WebAppInterface(
             context,
             webView,
@@ -55,8 +51,8 @@ class DappWebViewAdapter(
                     webView.evaluateJavascript(provderJs, null)
                     //设置js初始化语句
                     webView.evaluateJavascript(initJs, null)
-                    val setAddress = "window.ethereum.setAddress(\"$address\");"
-                    webView.evaluateJavascript(setAddress, null)
+//                    val setAddress = "window.ethereum.setAddress(\"$address\");"
+//                    webView.evaluateJavascript(setAddress, null)
                 }
 
 
@@ -80,10 +76,13 @@ class DappWebViewAdapter(
     }
 
 
-    private fun loadInitJs(chainId: Int, rpcUrl: String): String {
+    private fun loadInitJs(address: String, chainId: Int, rpcUrl: String): String {
+//        val initSrc =
+//            context.resources.openRawResource(R.raw.init).bufferedReader().use { it.readText() }
+//        return String.format(initSrc, address, rpcUrl, chainId)
         val source = """
         (function() {
-            var config = {                
+            var config = {
                 ethereum: {
                     chainId: $chainId,
                     rpcUrl: "$rpcUrl"
@@ -99,7 +98,9 @@ class DappWebViewAdapter(
                 window._tw_.postMessage(JSON.stringify(json));
             }
             window.ethereum = trustwallet.ethereum;
+            window.ethereum.setAddress("$address");
         })();
+
         """
         return source
     }

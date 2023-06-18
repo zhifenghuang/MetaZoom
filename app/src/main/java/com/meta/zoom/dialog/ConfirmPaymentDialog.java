@@ -4,12 +4,14 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.alsc.chat.dialog.InputPasswordDialog;
 import com.common.lib.activity.BaseActivity;
 import com.common.lib.manager.DataManager;
 import com.common.lib.utils.LogUtil;
@@ -21,6 +23,7 @@ import com.meta.zoom.web3.entity.Web3Transaction;
 
 import org.web3j.utils.Convert;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import io.reactivex.schedulers.Schedulers;
@@ -61,12 +64,16 @@ public class ConfirmPaymentDialog extends Dialog implements View.OnClickListener
         } catch (Exception e) {
 
         }
-        mGasLimit = new BigInteger("21000");
         mTransaction = transaction;
-        ((TextView) findViewById(R.id.tvGas)).setText("0 " + DataManager.getInstance().getCurrentChain().getSymbol());
-        WalletManager.getInstance().estimateGasLimit(transaction.from.toString(), transaction.recipient.toString(),
-                        transaction.payload).subscribeOn(Schedulers.io())
-                .subscribe(this::getGasLimit, this::onError);
+        if (transaction.gasLimit == null || transaction.gasLimit.equals(BigInteger.ZERO)) {
+            ((TextView) findViewById(R.id.tvGas)).setText("0 " + DataManager.getInstance().getCurrentChain().getSymbol());
+            WalletManager.getInstance().estimateGasLimit(transaction.from.toString(), transaction.recipient.toString(),
+                            transaction.payload).subscribeOn(Schedulers.io())
+                    .subscribe(this::getGasLimit, this::onError);
+        } else {
+            mGasLimit = transaction.gasLimit;
+            resetFee();
+        }
 
     }
 
@@ -77,7 +84,13 @@ public class ConfirmPaymentDialog extends Dialog implements View.OnClickListener
     }
 
     private void onError(Throwable throwable) {
-        resetFee();
+        LogUtil.LogE("onError: " + throwable.getMessage());
+        ((BaseActivity) mContext).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ((BaseActivity) mContext).showToast(throwable.getMessage());
+            }
+        });
     }
 
     private void resetFee() {
@@ -95,16 +108,9 @@ public class ConfirmPaymentDialog extends Dialog implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvOk:
-                WalletManager.getInstance().createTransaction(
-                                DataManager.getInstance().getCurrentWallet(),
-                                mTransaction.recipient.toString(),
-                                mTransaction.value,
-                                mTransaction.gasPrice, mGasLimit,
-                                mTransaction.payload,
-                                "h123456")
-                        .subscribeOn(Schedulers.io())
-                        .subscribe(this::onCreateTransaction, this::onError);
-             //   dismiss();
+                if (mListener != null) {
+                    mListener.onClick(mTransaction, mGasLimit);
+                }
                 break;
             case R.id.ivClose:
                 dismiss();
@@ -112,12 +118,8 @@ public class ConfirmPaymentDialog extends Dialog implements View.OnClickListener
         }
     }
 
-    private void onCreateTransaction(String transaction) {
-        LogUtil.LogE("onCreateTransaction: "+transaction);
-    }
-
     public interface OnConfirmListener {
-        public void onClick();
+        public void onClick(Web3Transaction transaction, BigInteger gasLimit);
     }
 
 }

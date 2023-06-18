@@ -27,7 +27,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
-    api 'com.upyun:upyun-android-sdk:2.1.2'
+    api 'com.upyun:upyun-android-sdk:2.1.4'
     api 'org.java-websocket:Java-WebSocket:1.4.0'
     api 'com.github.xiaoyanger0825:NiceVieoPlayer:v2.2'
     api project(':lib-filepick')

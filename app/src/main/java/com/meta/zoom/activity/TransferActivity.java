@@ -104,7 +104,7 @@ public class TransferActivity extends BaseActivity<EmptyContract.Presenter> impl
                     @Override
                     public void checkInput(String password) {
                         if (TextUtils.isEmpty(mToken.getContractAddress())) {
-                            WalletManager.getInstance().createEthTransaction(
+                            WalletManager.getInstance().createEthTransfer(
                                             DataManager.getInstance().getCurrentWallet(),
                                             getTextById(R.id.etAddress),
                                             Convert.toWei(getTextById(R.id.etAmount), Convert.Unit.ETHER).toBigInteger(),

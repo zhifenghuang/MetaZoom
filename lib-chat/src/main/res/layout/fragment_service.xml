@@ -288,7 +288,6 @@
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/bg_chat_send"
                 android:scaleType="centerInside"
-                android:src="@drawable/icon_send"
                 android:visibility="gone" />
 
         </LinearLayout>

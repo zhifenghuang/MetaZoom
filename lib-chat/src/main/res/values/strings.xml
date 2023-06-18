@@ -240,8 +240,8 @@
     <string name="chat_select_application"> Select program</string>
     <string name="chat_add_new_member_red_package"> Add new member red package</string>
     <string name="chat_one_quantity"> Quantity for single red package</string>
-    <string name="chat_include_illeage_letter">（Including illegal words which have been filtered）</string>
-    <string name="chat_include_illeage_url">（Including URL, which has been filtered</string>
+    <string name="chat_include_illeage_letter">(Including illegal words which have been filtered)</string>
+    <string name="chat_include_illeage_url">(Including URL, which has been filtered)</string>
     <string name="chat_group_forbid_add_friend"> This chat group forbids adding friends with each other</string>
     <string name="chat_group_forbid_say"> This chat group has been forbidden to chat</string>
     <string name="chat_group_you_forbid_say"> You have been forbidden to chat</string>
@@ -319,7 +319,7 @@
     <string name="chat_update_nick"> Change nickname </string>
     <string name="chat_save_success_and_look_in_album"> Save successfully, please view in the album!  </string>
     <string name="chat_downloading">Downloading, please wait!</string>
-    <string name="chat_upload_avatar_failed"> Upload image failure 败</string>
+    <string name="chat_upload_avatar_failed"> Upload image failure</string>
     <string name="chat_account">ID: %1$s</string>
     <string name="chat_account_2"> Username: %1$s</string>
 

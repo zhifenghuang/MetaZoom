@@ -22,6 +22,7 @@ import com.common.lib.utils.LogUtil;
 import com.google.gson.Gson;
 import com.meta.zoom.R;
 import com.meta.zoom.dialog.ConfirmPaymentDialog;
+import com.meta.zoom.dialog.InputDialog;
 import com.meta.zoom.dialog.SignMessageDialog;
 import com.meta.zoom.fragment.WalletFragment;
 import com.meta.zoom.wallet.BalanceUtils;
@@ -62,6 +63,10 @@ public class DappWebActivity extends BaseActivity<EmptyContract.Presenter> imple
     private SignMessageDialog dialog;
 
     private WalletBean wallet;
+
+    private ConfirmPaymentDialog mPayDialog;
+
+    private Web3Transaction mTransaction;
 
     @Override
     protected int getLayoutId() {
@@ -205,42 +210,68 @@ public class DappWebActivity extends BaseActivity<EmptyContract.Presenter> imple
 
     @Override
     public void onSignTransaction(Web3Transaction transaction, String url) {
-        LogUtil.LogE("onSignTransaction " + transaction);
-
         if (transaction.payload == null || transaction.payload.length() < 1) {
             //display transaction error
             onInvalidTransaction();
-            onSignCancel(transaction);
         } else {
-            // 打开确认窗口， 输入密码
-            //viewModel.openConfirmation(getContext(), transaction, url);
-            ConfirmPaymentDialog dialog = new ConfirmPaymentDialog(this, transaction, new ConfirmPaymentDialog.OnConfirmListener() {
+            mPayDialog = new ConfirmPaymentDialog(this, transaction, new ConfirmPaymentDialog.OnConfirmListener() {
                 @Override
-                public void onClick() {
-
+                public void onClick(Web3Transaction transaction, BigInteger gasLimit) {
+                    new InputDialog(DappWebActivity.this, new InputDialog.OnInputListener() {
+                        @Override
+                        public void checkInput(String password) {
+                            LogUtil.LogE(DataManager.getInstance().getCurrentWallet().getPassword());
+                            if (!password.equals(DataManager.getInstance().getCurrentWallet().getPassword())) {
+                                showToast(R.string.app_invalid_password_provided);
+                                return;
+                            }
+                            mTransaction = transaction;
+                            showProgressDialog();
+                            WalletManager.getInstance().createTransaction(
+                                            DataManager.getInstance().getCurrentWallet(),
+                                            transaction.recipient.toString(),
+                                            transaction.value,
+                                            transaction.gasPrice, gasLimit,
+                                            transaction.payload,
+                                            password)
+                                    .subscribeOn(Schedulers.io())
+                                    .subscribe(DappWebActivity.this::onCreateTransaction,
+                                            DappWebActivity.this::onError);
+                        }
+                    });
                 }
             });
-            dialog.show();
-
-
+            mPayDialog.show();
         }
     }
 
-
-    public void onSignCancel(Web3Transaction transaction) {
-        long callbackId = transaction.leafPosition;
-        callbackToJS(callbackId, JS_PROTOCOL_ON_FAILURE, JS_PROTOCOL_CANCELLED);
+    private void onError(Throwable throwable) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                dismissProgressDialog();
+                LogUtil.LogE("onError: " + throwable.getMessage());
+                showToast(throwable.getMessage());
+            }
+        });
     }
 
-    public void onSignCancel(Message message) {
-        long callbackId = message.leafPosition;
-        callbackToJS(callbackId, JS_PROTOCOL_ON_FAILURE, JS_PROTOCOL_CANCELLED);
+    private void onCreateTransaction(String hash) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                dismissProgressDialog();
+                String callback = String.format("window.ethereum.sendResponse(%s, [\"%s\"])", mTransaction.leafPosition, hash);
+                LogUtil.LogE(callback);
+                mWeb3.evaluateJavascript(callback, value -> Log.d("WEB_VIEW", value));
+                LogUtil.LogE("onCreateTransaction: " + hash);
+                if (mPayDialog != null) {
+                    mPayDialog.dismiss();
+                }
+            }
+        });
     }
 
-    private void callbackToJS(long callbackId, String function, String param) {
-        String callback = String.format(function, callbackId, param);
-        mWeb3.post(() -> mWeb3.evaluateJavascript(callback, value -> Log.d("WEB_VIEW", value)));
-    }
 
     public static String hexToUtf8(String hex) {
         hex = Numeric.cleanHexPrefix(hex);
@@ -258,14 +289,6 @@ public class DappWebActivity extends BaseActivity<EmptyContract.Presenter> imple
         showToast("DApp transaction contains no data");
     }
 
-    private boolean loadUrl(String urlText) {
-
-        mWeb3.loadUrl(urlText);
-        mWeb3.requestFocus();
-
-
-        return true;
-    }
 
     public void testRecoverAddressFromSignature(String message, String sig) {
         String prefix = PERSONAL_MESSAGE_PREFIX + message.length();

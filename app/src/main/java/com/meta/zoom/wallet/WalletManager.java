@@ -23,7 +23,9 @@ import org.web3j.abi.datatypes.Address;
 import org.web3j.abi.datatypes.Bool;
 import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
+import org.web3j.abi.datatypes.Utf8String;
 import org.web3j.abi.datatypes.generated.Uint256;
+import org.web3j.abi.datatypes.generated.Uint8;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
@@ -34,6 +36,8 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.Response;
 import org.web3j.protocol.core.methods.request.Transaction;
+import org.web3j.protocol.core.methods.response.EthCall;
+import org.web3j.protocol.core.methods.response.EthChainId;
 import org.web3j.protocol.core.methods.response.EthEstimateGas;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
@@ -55,6 +59,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -104,6 +109,17 @@ public class WalletManager {
             }
         }
         return mWalletManager;
+    }
+
+    public Single<BigInteger> getChainId(String rpcUrl) {
+        return Single.fromCallable(() -> {
+                    Web3j web3j = Web3j.build(new HttpService(rpcUrl, mHttpClient, false));
+                    EthChainId ethChainId = web3j.ethChainId().sendAsync().get();
+                    BigInteger chainId = ethChainId.getChainId();
+                    LogUtil.LogE("chainId: " + chainId);
+                    return chainId;
+                }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Single<WalletBean> create(final String name, final String pwd, String confirmPwd, String pwdReminder) {
@@ -187,7 +203,6 @@ public class WalletManager {
     }
 
     private Observable<BigInteger> getEstimateGasLimit(String from, String to, String data) {
-
         return Observable.create(e -> {
             BigInteger gasPrice = mWeb3j.ethGasPrice().send().getGasPrice();
             EthGetTransactionCount ethGetTransactionCount = mWeb3j.ethGetTransactionCount(from, DefaultBlockParameterName.PENDING).send();
@@ -197,7 +212,7 @@ public class WalletManager {
             if (null == gas.getError()) {
                 e.onNext(new BigInteger(gas.getResult().substring(2), 16));
             } else {
-                throw new Exception(gas.getError().getMessage());
+                e.onError(new Throwable(gas.getError().getMessage()));
             }
         });
     }
@@ -295,64 +310,30 @@ public class WalletManager {
     }
 
 
-//    public String sendRawTransaction(String privateKey, String from, String toAddress, BigDecimal amount) {
-//        try {
-//            if (toAddress.toLowerCase().startsWith("ux") || toAddress.toLowerCase().startsWith("0x")) {
-//                toAddress = toAddress.substring(2);
-//            }
-//
-//            Credentials credentials = Credentials.create(privateKey);
-//
-//            //支付的矿工费
-//            BigInteger gasPrice = new BigInteger("176190476190");
-//            BigInteger gasLimit = new BigInteger("21000");
-//            //获取交易笔数
-//            BigInteger nonce;
-//            EthGetTransactionCount ethGetTransactionCount = client.ethGetTransactionCount(from, DefaultBlockParameterName.PENDING).send();
-//            if (ethGetTransactionCount != null) {
-//                nonce = ethGetTransactionCount.getTransactionCount();
-//            } else {
-//                nonce = BigInteger.valueOf(0);
-//            }
-//
-//            BigDecimal coinNum = Convert.toWei(amount, Convert.Unit.ETHER);
-//
-//            //参数不加0x 和加上0x
-//            RawTransaction rawTransaction = RawTransaction.createEtherTransaction(nonce, gasPrice, gasLimit, toAddress, coinNum.toBigInteger());
-//            //进行签名操作
-//            byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, 188, credentials);
-//            String hexValue = Numeric.toHexString(signMessage);
-//
-//            EthSendTransaction ethSendTransaction = client.ethSendRawTransaction(hexValue).sendAsync().get();
-//            String hash = ethSendTransaction.getTransactionHash();
-//            if (hash == null) {
-//                Response.Error error = ethSendTransaction.getError();
-//                throw new DriverException("发送交易失败：" + error.getCode() + "_" + error.getMessage());
-//            }
-//            return hash;
-//
-//        } catch (Exception ex) {
-//            //报错应进行错误处理
-//            ex.printStackTrace();
-//            throw new DriverException("发送交易失败：" + ex.getMessage());
-//        }
-//    }
-
     public Single<String> createTransaction(WalletBean from, String to, BigInteger amount, BigInteger gasPrice, BigInteger gasLimit, String data, String password) {
         return getLastTransactionNonce(mWeb3j, from.getAddress())
                 .flatMap(nonce -> Single.fromCallable(() -> {
                             Credentials credentials = WalletUtils.loadCredentials(password, from.getKeystorePath());
-                            RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit, to,
-                                    amount == null ? new BigInteger("0") : amount, data);
+                            RawTransaction rawTransaction;
+                            BigInteger addr = Numeric.toBigInt(to);
+                            LogUtil.LogE(addr);
+                            if (addr.equals(BigInteger.ZERO)) {
+                                rawTransaction = RawTransaction.createContractTransaction(nonce, gasPrice, gasLimit,
+                                        amount == null ? new BigInteger("0") : amount, data);
+                            } else {
+                                rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit, to,
+                                        amount == null ? new BigInteger("0") : amount, data);
+                            }
                             byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, mCurrentNetworkInfo.chainId, credentials);
                             String hexValue = Numeric.toHexString(signedMessage);
                             EthSendTransaction ethSendTransaction = mWeb3j.ethSendRawTransaction(hexValue).send();
+                            LogUtil.LogE(ethSendTransaction.getTransactionHash());
                             return ethSendTransaction.getTransactionHash();
                         }).subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread()));
     }
 
-    public Single<String> createEthTransaction(WalletBean from, String to, BigInteger amount, BigInteger gasPrice, BigInteger gasLimit, String password) {
+    public Single<String> createEthTransfer(WalletBean from, String to, BigInteger amount, BigInteger gasPrice, BigInteger gasLimit, String password) {
         return getLastTransactionNonce(mWeb3j, from.getAddress())
                 .flatMap(nonce -> Single.fromCallable(() -> {
                             LogUtil.LogE("createEthTransaction");
@@ -367,18 +348,16 @@ public class WalletManager {
                         .observeOn(AndroidSchedulers.mainThread()));
     }
 
+
     public Single<String> createERC20Transfer(WalletBean from, String to, String contractAddress, BigInteger amount, BigInteger gasPrice, BigInteger gasLimit, String password) {
 
         String callFuncData = createTokenTransferData(to, amount);
-
-
         return getLastTransactionNonce(mWeb3j, from.getAddress())
                 .flatMap(nonce -> Single.fromCallable(() -> {
 
                             Credentials credentials = WalletUtils.loadCredentials(password, from.getKeystorePath());
                             RawTransaction rawTransaction = RawTransaction.createTransaction(
                                     nonce, gasPrice, gasLimit, contractAddress, callFuncData);
-
                             byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, mCurrentNetworkInfo.chainId, credentials);
                             String hexValue = Numeric.toHexString(signedMessage);
                             EthSendTransaction ethSendTransaction = mWeb3j.ethSendRawTransaction(hexValue).send();
@@ -407,6 +386,44 @@ public class WalletManager {
         Function function = new Function("transfer", params, returnTypes);
         return FunctionEncoder.encode(function);
     }
+
+    public Single<TokenBean> getTokenByAddress(String contractAddress) {
+
+        return Single.fromCallable(() -> {
+                    String methodName = "symbol";
+                    String symbol = null;
+                    List<Type> inputParameters = new ArrayList<>();
+                    List<TypeReference<?>> outputParameters = new ArrayList<>();
+                    TypeReference<Utf8String> typeReferences = new TypeReference<Utf8String>() {
+                    };
+                    outputParameters.add(typeReferences);
+                    Function function = new Function(methodName, inputParameters, outputParameters);
+                    String data = FunctionEncoder.encode(function);
+                    Transaction transaction = Transaction.createEthCallTransaction(Address.DEFAULT.toString(), contractAddress, data);
+                    EthCall ethCall = mWeb3j.ethCall(transaction, DefaultBlockParameterName.LATEST).sendAsync().get();
+                    List<Type> results = FunctionReturnDecoder.decode(ethCall.getValue(), function.getOutputParameters());
+                    symbol = results.get(0).getValue().toString();
+
+                    methodName = "decimals";
+                    int decimal = 0;
+                    TypeReference<Uint8> typeReference = new TypeReference<Uint8>() {
+                    };
+                    outputParameters.clear();
+                    outputParameters.add(typeReference);
+                    function = new Function(methodName, inputParameters, outputParameters);
+                    data = FunctionEncoder.encode(function);
+                    transaction = Transaction.createEthCallTransaction(Address.DEFAULT.toString(), contractAddress, data);
+                    ethCall = mWeb3j.ethCall(transaction, DefaultBlockParameterName.LATEST).sendAsync().get();
+                    results = FunctionReturnDecoder.decode(ethCall.getValue(), function.getOutputParameters());
+                    decimal = Integer.parseInt(results.get(0).getValue().toString());
+                    TokenBean bean = new TokenBean();
+                    bean.setSymbol(symbol);
+                    bean.setTokenPrecision(decimal);
+                    return bean;
+                }).subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
 
     public static boolean isValid(String mnemonic) {
         return mnemonic.split(" ").length >= 12;
